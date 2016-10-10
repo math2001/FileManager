@@ -1,0 +1,14 @@
+[
+	{
+		"caption": "File: Rename",
+		"command": "fm_rename_file"
+	}
+	, {
+		"caption": "File: Delete",
+		"command": "fm_delete_file"
+	}
+	, {
+		"caption": "File: New File",
+		"command": "fm_create_file"
+	}
+]

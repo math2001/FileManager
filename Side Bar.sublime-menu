@@ -1,0 +1,20 @@
+[
+	{
+		"caption": "New File",
+		"command": "fm_create_file",
+		"args": {
+			"paths": []
+		}
+	},
+	{
+		"caption": "Rename",
+		"command": "fm_rename_file",
+		"args": {
+			"paths": []
+		}
+	},
+	{
+		"caption": "Delete",
+		"command": "fm_delete_file",
+	}
+]
