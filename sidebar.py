@@ -1,8 +1,8 @@
 import sublime, sublime_plugin
 import os
-from Edit import Edit as Edit
+from .send2trash import send2trash
 
-def md(*t, **kwargs): sublime.message_dialog(kwargs.get('sep', ' ').join([str(el) for el in t]))
+def md(*t, **kwargs): sublime.message_dialog(kwargs.get('sep', '\n').join([str(el) for el in t]))
 
 def sm(*t, **kwargs): sublime.status_message(kwargs.get('sep', ' ').join([str(el) for el in t]))
 
@@ -91,3 +91,24 @@ class FmRenameFileCommand(sublime_plugin.TextCommand):
 
 
 
+class FmDeleteFileCommand(sublime_plugin.TextCommand):
+
+	def delete_file(self, index):
+		if index == 0:
+			for path in self.paths:
+				view = self.window.find_open_file(path)
+				if view is not None:
+					view.close()
+				try:
+					send2trash(path)
+				except OSError as e:
+					return em('Unable to send to trash: ', e.msg)
+
+
+	def run(self, edit, paths=None, *args, **kwargs):
+		self.window = self.view.window()
+		self.paths = paths or [self.view.file_name()]
+		self.window.show_quick_panel([
+			['Send item{} to trash'.format(('s' if len(self.paths) > 1 else ''))] + self.paths,
+			'Cancel'
+		], self.delete_file)

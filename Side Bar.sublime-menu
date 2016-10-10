@@ -16,5 +16,8 @@
 	{
 		"caption": "Delete",
 		"command": "fm_delete_file",
+		"args": {
+			"paths": []
+		}
 	}
 ]
