@@ -8,30 +8,86 @@ def sm(*t, **kwargs): sublime.status_message(kwargs.get('sep', ' ').join([str(el
 
 def em(*t, **kwargs): sublime.error_message(kwargs.get('sep', ' ').join([str(el) for el in t]))
 
-def log_path_in_status_bar(self, path):
-	msg = path
+def log_path_in_status_bar(path):
 	if os.path.isdir(os.path.dirname(path)):
 		path += ' ✓'
 	else:
 		path += ' ✗'
+	sm(path)
+
+def quote(s):
+	return '"{}"'.format(s)
 
 class FmCreateFileCommand(sublime_plugin.TextCommand):
 	
 	def log_path_in_status_bar(self, name):
-		log_path_in_status_bar(os.path.join(self.path, name))
+		log_path_in_status_bar(os.path.join(self.path, name.replace('/', os.path.sep)))
 
 	def create_file(self, name):
+		name = name.replace('/', os.path.sep)
 		path = os.path.join(self.path, name)
-		
+		if os.path.isfile(path):
+			return self.window.open_file(path)
+		if not os.path.isdir(os.path.dirname(path)):
+			os.makedirs(os.path.dirname(path))
+		open(path, 'w').close()
+		self.window.open_file(path)
+
 
 	def run(self, edit, paths=[None], *args, **kwargs):
 		self.window = self.view.window()
 		self.selection = sublime.Selection(self.view.id())
 		self.settings = self.view.settings()
 
-		self.paths = paths[0]
+		self.path = paths[0]
 
-		self.window.show_input_panel('New file name: ', '', self.create_file, self.log_path_in_status_bar)
+		self.window.show_input_panel('New file name: ', '', self.create_file, self.log_path_in_status_bar, None)
 
-		
+
+
+class FmRenameFileCommand(sublime_plugin.TextCommand):
+	
+	def log_path_in_status_bar(self, name):
+		log_path_in_status_bar(os.path.join(self.dirname, name.replace('/', os.path.sep)))
+
+	def rename_file(self, filename):
+		path = os.path.join(self.dirname, filename)
+		if os.path.isfile(path):
+			return em('This file {} alredy exists.'.format(path))
+
+		dirname = os.path.dirname(path)
+		if not os.path.isdir(dirname):
+			os.makedirs(dirname)
+		os.rename(self.path, path)
+
+		if self.reopen:
+			self.view.close()
+			self.window.open_file(path)
+
+
+	def run(self, edit, paths=[None], *args, **kwargs):
+		self.window = self.view.window()
+		self.selection = sublime.Selection(self.view.id())
+		self.settings = self.view.settings()
+
+		self.reopen = True
+		self.path = paths[0]
+
+		if os.path.isdir(self.path):
+			self.reopen = False
+
+		if self.path is not None:
+			basename = os.path.basename(self.path)
+			self.dirname = os.path.dirname(self.path)
+		else:
+			self.path = self.view.file_name()
+			self.dirname = os.path.dirname(self.path)
+			self.reopen = True
+
+			
+		view = self.window.show_input_panel('New name: ', basename, self.rename_file, self.log_path_in_status_bar, None)
+		view.sel().clear()
+		view.sel().add(sublime.Region(0, len(os.path.splitext(basename)[0])))
+
+
 
