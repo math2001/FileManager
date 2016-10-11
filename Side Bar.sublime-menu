@@ -5,38 +5,38 @@
 		"args": {
 			"paths": []
 		}
-	},
-	{
+	}
+	, {
 		"caption": "Rename",
 		"command": "fm_rename",
 		"args": {
 			"paths": []
 		}
-	},
-	{
-		"caption": "Delete",
-		"command": "fm_delete",
-		"args": {
-			"paths": []
-		}
-	},
-	{
+	}
+	, {
 		"caption": "Move",
 		"command": "fm_move",
 		"args": {
 			"paths": []
 		}
-	},
-	{
-		"caption": "Reveal",
-		"command": "fm_reveal",
+	}
+	, {
+		"caption": "Duplicate",
+		"command": "fm_duplicate",
 		"args": {
 			"paths": []
 		}
-	},
-	{
-		"caption": "Duplicate",
-		"command": "fm_duplicate",
+	}
+	, {
+		"caption": "Delete",
+		"command": "fm_delete",
+		"args": {
+			"paths": []
+		}
+	}
+	, {
+		"caption": "Reveal",
+		"command": "fm_reveal",
 		"args": {
 			"paths": []
 		}

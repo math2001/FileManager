@@ -1,18 +1,26 @@
 [
 	{
-		"caption": "File: Rename",
-		"command": "fm_rename_file"
-	}
-	, {
-		"caption": "File: Delete",
-		"command": "fm_delete_file"
-	}
-	, {
 		"caption": "File: New File",
-		"command": "fm_create_file"
+		"command": "fm_create"
+	}
+	, {
+		"caption": "File: Rename",
+		"command": "fm_rename"
 	}
 	, {
 		"caption": "File: Move",
 		"command": "fm_move"
+	}
+	, {
+		"caption": "File: Duplicate",
+		"command": "fm_duplicate"
+	}
+	, {
+		"caption": "File: Delete",
+		"command": "fm_delete"
+	}
+	, {
+		"caption": "File: Reveal",
+		"command": "fm_reveal"
 	}
 ]
