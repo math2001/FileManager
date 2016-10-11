@@ -1,21 +1,42 @@
 [
 	{
-		"caption": "New File",
-		"command": "fm_create_file",
+		"caption": "New...",
+		"command": "fm_create",
 		"args": {
 			"paths": []
 		}
 	},
 	{
 		"caption": "Rename",
-		"command": "fm_rename_file",
+		"command": "fm_rename",
 		"args": {
 			"paths": []
 		}
 	},
 	{
 		"caption": "Delete",
-		"command": "fm_delete_file",
+		"command": "fm_delete",
+		"args": {
+			"paths": []
+		}
+	},
+	{
+		"caption": "Move",
+		"command": "fm_move",
+		"args": {
+			"paths": []
+		}
+	},
+	{
+		"caption": "Reveal",
+		"command": "fm_reveal",
+		"args": {
+			"paths": []
+		}
+	},
+	{
+		"caption": "Duplicate",
+		"command": "fm_duplicate",
 		"args": {
 			"paths": []
 		}

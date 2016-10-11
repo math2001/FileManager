@@ -11,4 +11,8 @@
 		"caption": "File: New File",
 		"command": "fm_create_file"
 	}
+	, {
+		"caption": "File: Move",
+		"command": "fm_move"
+	}
 ]
