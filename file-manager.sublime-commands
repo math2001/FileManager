@@ -23,4 +23,8 @@
 		"caption": "File: Reveal",
 		"command": "fm_reveal"
 	}
+	, {
+		"caption": "File: Open in browser",
+		"command": "fm_open_in_browser"
+	}
 ]

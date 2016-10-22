@@ -1,4 +1,5 @@
 import sublime, sublime_plugin
+import webbrowser
 import os
 from .send2trash import send2trash
 
@@ -9,7 +10,9 @@ def sm(*t, **kwargs): sublime.status_message(kwargs.get('sep', ' ').join([str(el
 def em(*t, **kwargs): sublime.error_message(kwargs.get('sep', ' ').join([str(el) for el in t]))
 
 def log_path_in_status_bar(path):
-	if os.path.isdir(os.path.dirname(path)):
+	path = path.replace('/', os.path.sep)
+	print(os.path.dirname(path) if path[-1] != os.path.sep else path)
+	if os.path.isdir(os.path.dirname(path) if path[-1] != os.path.sep else path):
 		path += ' ✓'
 	else:
 		path += ' ✗'
@@ -19,11 +22,18 @@ def quote(s):
 	return '"{}"'.format(s)
 
 def valid(*args):
-	return os.path.normpath(os.path.join(*args)).replace('/', os.path.sep)
+	return os.path.normpath(os.path.join(*args)).replace('/', os.path.sep) + \
+	(os.path.sep if args[-1][-1] in [os.path.sep, '/'] else '')
 
 os.path.valid = valid
 
-class FmCreateCommand(sublime_plugin.TextCommand):
+def get_window():
+	return sublime.active_window()
+
+def get_view():
+	return get_window().active_view()
+
+class FmCreateCommand(sublime_plugin.ApplicationCommand):
 	
 	def log_path_in_status_bar(self, name):
 		log_path_in_status_bar(self.__get_path(name))
@@ -60,14 +70,13 @@ class FmCreateCommand(sublime_plugin.TextCommand):
 			# return md(base, path); os.path.valid(base, path)
 
 
-	def run(self, edit, paths=[None], *args, **kwargs):
-		self.window = self.view.window()
-		self.selection = sublime.Selection(self.view.id())
-		self.settings = self.view.settings()
+	def run(self, paths=[None], *args, **kwargs):
 
+		# paths[0] is not None when it's called from the sidebar
 		self.path = paths[0]
-
 		self.from_project = False
+
+		self.window = get_window()
 
 		if self.path is None:
 			self.project_data = self.window.project_data()
@@ -84,11 +93,10 @@ class FmCreateCommand(sublime_plugin.TextCommand):
 
 		self.window.show_input_panel('New: ', '', self.create_file, self.log_path_in_status_bar, None)
 
-	def is_enabled(self, paths):
-		return len(paths) == 1
+	def is_enabled(self, paths=None):
+		return paths is None or len(paths) == 1
 
-
-class FmRenameCommand(sublime_plugin.TextCommand):
+class FmRenameCommand(sublime_plugin.ApplicationCommand):
 	
 	def log_path_in_status_bar(self, name):
 		log_path_in_status_bar(os.path.join(self.dirname, name.replace('/', os.path.sep)))
@@ -108,10 +116,9 @@ class FmRenameCommand(sublime_plugin.TextCommand):
 			self.window.open_file(path)
 
 
-	def run(self, edit, paths=[None], *args, **kwargs):
-		self.window = self.view.window()
-		self.selection = sublime.Selection(self.view.id())
-		self.settings = self.view.settings()
+	def run(self, paths=[None], *args, **kwargs):
+		self.window = get_window()
+		self.view = get_view()
 
 		self.reopen = True
 		self.path = paths[0] or self.view.file_name()
@@ -132,11 +139,10 @@ class FmRenameCommand(sublime_plugin.TextCommand):
 		view.sel().clear()
 		view.sel().add(sublime.Region(0, len(os.path.splitext(basename)[0])))
 
-	def is_enabled(self, paths):
-		return len(paths) == 1
-
-   
-class FmMoveCommand(sublime_plugin.TextCommand):
+	def is_enabled(self, paths=None):
+		return paths is None or len(paths) == 1
+ 
+class FmMoveCommand(sublime_plugin.ApplicationCommand):
 	
 	def log_path_in_status_bar(self, path):
 		log_path_in_status_bar(path.replace('/', os.path.sep))
@@ -153,22 +159,22 @@ class FmMoveCommand(sublime_plugin.TextCommand):
 			self.window.open_file(path)
 
 
-	def run(self, edit, paths=[None], *args, **kwargs):
-		self.window = self.view.window()
-		self.selection = sublime.Selection(self.view.id())
-		self.settings = self.view.settings()
+	def run(self, paths=[None], *args, **kwargs):
+		self.window = get_window()
+		self.view = get_view()
 
 		self.path = paths[0] or self.view.file_name()
 
 		view = self.window.show_input_panel('New location: ', self.path, self.move_file, 
 			self.log_path_in_status_bar, None)
 		view.sel().clear()
+		# view.sel().add(sublime.Region(0, 5))
 		view.sel().add(sublime.Region( len(os.path.dirname(self.path)) + 1, len(self.path) - len(os.path.splitext(self.path)[1]) ))
 
-	def is_enabled(self, paths):
-		return len(paths) == 1
+	def is_enabled(self, paths=None):
+		return paths is None or len(paths) == 1
 
-class FmDuplicateCommand(sublime_plugin.TextCommand):
+class FmDuplicateCommand(sublime_plugin.ApplicationCommand):
 	
 	def log_path_in_status_bar(self, path):
 		log_path_in_status_bar(path.replace('/', os.path.sep))
@@ -188,10 +194,9 @@ class FmDuplicateCommand(sublime_plugin.TextCommand):
 		self.window.open_file(path)
 
 
-	def run(self, edit, paths=[None], *args, **kwargs):
-		self.window = self.view.window()
-		self.selection = sublime.Selection(self.view.id())
-		self.settings = self.view.settings()
+	def run(self, paths=[None], *args, **kwargs):
+		self.window = get_window()
+		self.view = get_view()
 
 		self.path = paths[0] or self.view.file_name()
 
@@ -200,16 +205,14 @@ class FmDuplicateCommand(sublime_plugin.TextCommand):
 		view.sel().clear()
 		view.sel().add(sublime.Region( len(os.path.dirname(self.path)) + 1, len(self.path) - len(os.path.splitext(self.path)[1]) ))
 
-	def is_enabled(self, paths):
-		return len(paths) == 1
+	def is_enabled(self, paths=None):
+		return paths is None or len(paths) == 1
 
-
-class FmRevealCommand(sublime_plugin.TextCommand):
+class FmRevealCommand(sublime_plugin.ApplicationCommand):
 	
-	def run(self, edit, paths=None, *args, **kwargs):
-		self.window = self.view.window()
-		self.selection = sublime.Selection(self.view.id())
-		self.settings = self.view.settings()
+	def run(self, paths=None, *args, **kwargs):
+		self.window = get_window()
+		self.view = get_view()
 
 		if paths is None:
 			paths = [self.view.file_name()]
@@ -217,10 +220,7 @@ class FmRevealCommand(sublime_plugin.TextCommand):
 		for path in paths:
 			self.window.run_command("open_dir", { "dir": os.path.dirname(path), "file": os.path.basename(path) })
 
-
-
-
-class FmDeleteCommand(sublime_plugin.TextCommand):
+class FmDeleteCommand(sublime_plugin.ApplicationCommand):
 
 	def delete_file(self, index):
 		if index == 0:
@@ -234,10 +234,30 @@ class FmDeleteCommand(sublime_plugin.TextCommand):
 					return em('Unable to send to trash: ', e.msg)
 
 
-	def run(self, edit, paths=None, *args, **kwargs):
-		self.window = self.view.window()
+	def run(self, paths=None, *args, **kwargs):
+		self.window = get_window()
+		self.view = get_view()
+
 		self.paths = paths or [self.view.file_name()]
 		self.window.show_quick_panel([
 			['Send item{} to trash'.format(('s' if len(self.paths) > 1 else ''))] + self.paths,
 			'Cancel'
 		], self.delete_file)
+
+class FmOpenInBrowserCommand(sublime_plugin.ApplicationCommand):
+
+	def run(self, paths=None, *args, **kwargs):
+		self.window = get_window()
+		self.view = get_view()
+
+		paths = paths or [self.view.file_name()]
+		for path in paths:
+			path = path.replace(os.path.sep, '/')
+			if 'C:/wamp/www' in path:
+				path = 'http://' + path.replace('C:/wamp/www', self.view.settings().get('localhost', 'localhost'))
+			else:
+				path = 'file:///' + path
+			
+			webbrowser.open_new(path)
+
+

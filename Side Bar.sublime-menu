@@ -41,4 +41,11 @@
 			"paths": []
 		}
 	}
+	, {
+		"caption": "Open in browser",
+		"command": "fm_open_in_browser",
+		"args": {
+			"paths": []
+		}
+	}
 ]
