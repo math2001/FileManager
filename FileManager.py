@@ -231,7 +231,9 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
 
         self.project_data = self.window.project_data()
 
-        self.called_from_sidebar = paths is not None
+        self.view = get_view()
+
+        self.know_where_to_create_from = paths is not None
 
         if paths is not None:
             # creating from the sidebar
@@ -243,6 +245,9 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
              # it is going to be interactive, so it'll be
              # understood from the input itself
             create_from = None
+        elif self.view.file_name() is not None:
+            create_from = os.path.dirname(self.view.file_name())
+            self.know_where_to_create_from = True
         else:
             # from home
             create_from = '~'
@@ -267,13 +272,11 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
             return os.makedirs(abspath, exist_ok=True)
         return self.window.open_file(abspath)
 
-
-
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
         if path_to_create_choosed_from_browsing:
-            # The use has browsed, we let InputForPath select the path
+            # The user has browsed, we let InputForPath select the path
             return
-        if self.called_from_sidebar:
+        if self.know_where_to_create_from:
             return
         elif self.project_data:
             mess = input_path.split(self.index_folder_separator, 1)
