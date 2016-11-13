@@ -1,51 +1,86 @@
 [
-	{
-		"caption": "New...",
-		"command": "fm_create",
-		"args": {
-			"paths": []
-		}
-	}
-	, {
-		"caption": "Rename",
-		"command": "fm_rename",
-		"args": {
-			"paths": []
-		}
-	}
-	, {
-		"caption": "Move",
-		"command": "fm_move",
-		"args": {
-			"paths": []
-		}
-	}
-	, {
-		"caption": "Duplicate",
-		"command": "fm_duplicate",
-		"args": {
-			"paths": []
-		}
-	}
-	, {
-		"caption": "Delete",
-		"command": "fm_delete",
-		"args": {
-			"paths": []
-		}
-	}
-	, {
-		"caption": "Reveal",
-		"command": "fm_reveal",
-		"args": {
-			"paths": []
-		}
-	}
-	, {
-		"caption": "Open in browser",
-		"command": "fm_open_in_browser",
-		"args": {
-			"paths": []
-		}
-	}
+    {
+        "caption": "New...",
+        "command": "fm_create",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "Rename...",
+        "command": "fm_rename",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "Move...",
+        "command": "fm_move",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "Duplicate...",
+        "command": "fm_duplicate",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "Delete",
+        "command": "fm_delete",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "-"
+    },
+    {
+        "caption": "Reveal",
+        "command": "fm_reveal",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "Open in browser",
+        "command": "fm_open_in_browser",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "-"
+    },
+    {
+        "caption": "Copy",
+        "children": [
+            {
+                "caption": "Name",
+                "command": "fm_copy",
+                "args": {
+                    "type": "name",
+                    "paths": []
+                }
+            },
+            {
+                "caption": "Absolute Path",
+                "command": "fm_copy",
+                "args": {
+                    "type": "absolute-path",
+                    "paths": []
+                }
+            },
+            {
+                "caption": "Relative Path",
+                "command": "fm_copy",
+                "args": {
+                    "type": "relative-path",
+                    "paths": []
+                }
+            }
+        ]
+    }
 ]

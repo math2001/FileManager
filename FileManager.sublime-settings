@@ -1,0 +1,27 @@
+{
+    // auto complete with files
+    "complete_with_files_too": true,
+
+    // only relevant if complete_with_files_too is True
+    // choose folder over file if folder and file are available for
+    // completion
+    // valid values: "files", "folders", null
+    "pick_first": "folders",
+
+    // define if the auto completion case sensitive
+    "case_sensitive": false,
+
+    // recommended to be a char that cannot be in a filename
+    "index_folder_separator": ">",
+
+    // which folder to pick for reference
+    // (create folder from it)
+    "default_index_folder": 0,
+
+    // valid value
+    // false: disable the log
+    // "user": display a user friendly path. eg: ~/Desktop/   (working on window)
+    // "computer": display a computer friendly path: C:\User\<user>\Desktop\
+    "log_in_status_bar": "computer"
+
+}
