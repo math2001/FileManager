@@ -260,13 +260,13 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
 
     def on_done(self, abspath, input_path):
         input_path = ph.user_friendly(input_path)
-        if os.path.isfile(abspath):
-            return self.window.open_file(abspath)
-        if input_path[-1] == '/':
-            os.makedirs(abspath, exist_ok=True)
-        else:
+        if not os.path.isfile(abspath):
             os.makedirs(os.path.dirname(abspath), exist_ok=True)
             open(abspath, 'w').close()
+        if input_path[-1] == '/':
+            return os.makedirs(abspath, exist_ok=True)
+        return self.window.open_file(abspath)
+
 
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
