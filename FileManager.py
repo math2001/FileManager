@@ -131,95 +131,6 @@ class FmEditReplace(sublime_plugin.TextCommand):
     def run(self, edit, **kwargs):
         kwargs.get('view', self.view).replace(edit, sublime.Region(*kwargs['region']), kwargs['text'])
 
-class FmCreateWithoutApiCommand(sublime_plugin.ApplicationCommand):
-
-    def run(self, paths=None):
-
-        """Create an input panel to get the position to create a file/folder
-            There is three posibilities to set the path relative to:
-
-            - None (then it will be ~)
-            - sidebar folder (from right click -> New)
-            - project folder (ctrl+n)
-        """
-
-        # md(get_autocomplete_path(computer_friendly_path('~/desktop/delete-'), withfiles=True))
-        # return
-
-        self.window = get_window()
-        self.settings = sublime.load_settings('FileManager.sublime-settings')
-
-        self.nb_folder_separator = self.settings.get('nb_folder_separator')
-        self.complete_with_files_too = self.settings.get('complete_with_files_too')
-        self.pick_first = self.settings.get('pick_first')
-
-        self.project_data = self.window.project_data()
-
-        if paths is not None:
-            # creating from the sidebar
-            self.path_to_create_from = paths[0]
-            # you can right-click on a file, and run `New...`
-            if os.path.isfile(self.path_to_create_from):
-                self.path_to_create_from = os.path.dirname(self.path_to_create_from)
-        elif self.project_data:
-             # it is going to be interactive
-            self.path_to_create_from = None
-        else:
-            # from home
-            self.path_to_create_from = '~'
-        self.input = StdClass()
-        self.input.view = self.window.show_input_panel('New: ', '', self.create, self.complete_and_status_bar, None)
-        self.input.settings = self.input.view.settings()
-        self.input.settings.set('auto_completion', False)
-
-    def __get_path(self, input_path):
-        path_to_create_from = None
-        if self.path_to_create_from is None:
-            # getting nb_folder_to_create_from
-            input_path = input_path.split(self.nb_folder_separator, 1)
-            nb_path = int(input_path[0]) if isdigit(input_path[0]) else 0
-            input_path = input_path[-1]
-            path_to_create_from = self.project_data['folders'][nb_path]['path']
-
-        return user_friendly_path(os.path.valid(self.path_to_create_from or path_to_create_from, input_path))
-
-    def create(self, input_path):
-        """
-            Create/open file, and dirs to file, or just dirs.
-        """
-        if input_path == '': return
-        input_path = user_friendly_path(input_path)
-        path = computer_friendly_path(self.__get_path(input_path))
-
-        if input_path[-1] == '/':
-            if os.path.isdir(path):
-                md("This will show a panel: \n- [cmd] Create from here \n- .. \n- folders \n- files")
-
-            os.makedirs(computer_friendly_path(self.__get_path(input_path)))
-        else:
-            if not os.path.isfile(path):
-                os.makedirs(os.path.dirname(path), exist_ok=True)
-                open(path, 'w').close()
-            self.window.open_file(path)
-
-    def complete_and_status_bar(self, input_path=None):
-        if input_path is None:
-            input_path = self.input.view.substr(sublime.Region(0, self.input.view.size()))
-        path = self.__get_path(input_path)
-        before, after = get_place_to_complete(computer_friendly_path(path))
-        if before is not None:
-            completion = get_autocomplete_path(before, withfiles=self.complete_with_files_too, pick_first=self.pick_first)
-            if not completion:
-                return em('no completions available for {}'.format(repr()))
-            self.input.view.run_command('left_delete')
-            self.input.view.run_command('insert', { "characters": completion })
-        else:
-            sm('path:', computer_friendly_path(path))
-
-    def is_enabled(self, paths=None):
-        return paths is None or len(paths) == 1
-
-
 class FmCreateCommand(sublime_plugin.ApplicationCommand):
 
 
@@ -287,7 +198,6 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
                 index = int(mess[0])
             return self.project_data['folders'][index]['path'], mess[-1]
         return '~', input_path
-
 
 
 class FmRenameCommand(sublime_plugin.ApplicationCommand):
