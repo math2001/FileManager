@@ -4,6 +4,8 @@ import os
 from .send2trash import send2trash
 from .input_for_path import InputForPath
 
+from . import pathhelper as ph
+
 def md(*t, **kwargs): sublime.message_dialog(kwargs.get('sep', '\n').join([str(el) for el in t]))
 
 def sm(*t, **kwargs): sublime.status_message(kwargs.get('sep', ' ').join([str(el) for el in t]))
@@ -257,9 +259,15 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
                                   log_in_status_bar=self.settings.get('log_in_status_bar'))
 
     def on_done(self, abspath, input_path):
+        input_path = ph.user_friendly(input_path)
         if os.path.isfile(abspath):
             return self.window.open_file(abspath)
-        md('create at', abspath, input_path)
+        if input_path[-1] == '/':
+            os.makedirs(abspath, exist_ok=True)
+        else:
+            os.makedirs(os.path.dirname(abspath), exist_ok=True)
+            open(abspath, 'w').close()
+
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
         if path_to_create_choosed_from_browsing:
