@@ -16,6 +16,8 @@ class StdClass: pass
 
 class InputForPath(object):
 
+    STATUS_KEY = 'input_for_path'
+
     def __init__(self, caption, initial_text, on_done, on_change, on_cancel, create_from,
                  with_files, pick_first, case_sensitive, log_in_status_bar):
 
@@ -43,6 +45,7 @@ class InputForPath(object):
         self.path_to_create_choosed_from_browsing = False
 
         self.window = sublime.active_window()
+        self.view = self.window.active_view()
 
         self.log_in_status_bar = log_in_status_bar
 
@@ -53,12 +56,11 @@ class InputForPath(object):
         self.input = StdClass()
         self.input.view = self.window.show_input_panel(self.caption, self.initial_text,
                                                        self.input_on_done, self.input_on_change,
-                                                       self.user_on_cancel)
+                                                       self.input_on_cancel)
         self.input.settings = self.input.view.settings()
         self.input.settings.set('tab_completion', False)
 
     def __get_completion_for(self, abspath:str, with_files:bool, pick_first:str, case_sensitive:bool):
-        print("input_for_path.py:57", abspath, with_files, pick_first, case_sensitive)
         abspath = ph.computer_friendly(abspath)
         if abspath.endswith(os.path.sep):
             return '', ''
@@ -126,9 +128,11 @@ class InputForPath(object):
                 path += os.path.sep
             if self.log_in_status_bar == 'user':
                 path = ph.user_friendly(path)
-            sm(path)
+            self.view.set_status(self.STATUS_KEY, 'Creating at: {}'.format(path))
 
     def input_on_done(self, input_path):
+        if self.log_in_status_bar:
+            self.view.set_status(self.STATUS_KEY, '')
         computer_path = ph.computer_friendly(os.path.join(self.create_from, input_path))
         # open browser
         if os.path.isdir(computer_path):
@@ -136,6 +140,12 @@ class InputForPath(object):
             return self.browsing_on_done()
         else:
             self.user_on_done(computer_path, input_path)
+
+
+    def input_on_cancel(self):
+        self.view.set_status(self.STATUS_KEY, '')
+        if self.user_on_cancel:
+            self.user_on_cancel()
 
     def browsing_on_done(self, index=None):
         if index == -1:
@@ -161,7 +171,7 @@ class InputForPath(object):
                 item += '/'
             self.browser.items.append(item)
 
-        sm('Browsing at: {}'.format(ph.user_friendly(self.browser.path)))
+        self.view.set_status(self.STATUS_KEY, 'Browsing at: {}'.format(ph.user_friendly(self.browser.path)))
 
         self.window.show_quick_panel(self.browser.items, self.browsing_on_done, selected_index=2)
 

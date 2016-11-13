@@ -222,6 +222,7 @@ class FmCreateWithoutApiCommand(sublime_plugin.ApplicationCommand):
 
 class FmCreateCommand(sublime_plugin.ApplicationCommand):
 
+
     def run(self, paths=None):
 
         self.window = sublime.active_window()
