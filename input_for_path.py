@@ -51,6 +51,8 @@ class InputForPath(object):
 
         self.create_input()
 
+
+
     def create_input(self):
 
         self.input = StdClass()
@@ -80,7 +82,7 @@ class InputForPath(object):
                         return prefix, completion
                     else:
                         backup = completion + '/'
-                elif pick_first == 'folder':
+                elif pick_first == 'folders':
                     if isdir:
                         return prefix, completion + '/'
                     else:
@@ -141,7 +143,6 @@ class InputForPath(object):
         else:
             self.user_on_done(computer_path, input_path)
 
-
     def input_on_cancel(self):
         self.view.set_status(self.STATUS_KEY, '')
         if self.user_on_cancel:
@@ -193,4 +194,5 @@ class FmTestCommand(sublime_plugin.ApplicationCommand):
                                            create_from='~',
                                            with_files=True,
                                            pick_first=None,
-                                           case_sensitive=False)
+                                           case_sensitive=False,
+                                           log_in_status_bar=False)

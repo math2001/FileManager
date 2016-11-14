@@ -40,89 +40,23 @@ def get_view():
 def copy(el):
     return sublime.set_clipboard(el)
 
-def valid_path(path):
-    path = path.split(os.path.sep)
-    for i, bit in enumerate(path):
-        if not bit:
-            continue
-        path[i] = bit + (os.path.sep if bit[-1] == ':' else '')
-    return os.path.join(*path)
+def file_get_content(path):
+    with open(path, 'r') as fp:
+        return fp.read()
 
-def user_friendly_path(path):
-    path = computer_friendly_path(path)
-    return valid_path(path).replace(os.path.expanduser('~'), '~').replace(os.path.sep, '/')
-
-def computer_friendly_path(path):
-    path = path.replace('~', os.path.expanduser('~'))
-    path = path.replace('/', os.path.sep)
-    path = valid_path(path)
-    return path
-
-def get_place_to_complete(text):
-    for i, char in enumerate(text):
-        if char == '\t':
-            return text[:i], text[i+1:]
-    return None, None
-
-def get_autocomplete_path(abspath:str, withfiles:bool, pick_first:str) -> str:
-    """ Takes a computer friendly path """
-    abspath = computer_friendly_path(abspath)
-    if abspath.endswith(os.path.sep):
-        return ''
-    prefix = abspath.split(os.path.sep)[-1]
-    abspath = os.path.dirname(abspath)
-    items = os.listdir(abspath)
-    posibilities = []
-    for item in items:
-        if item.startswith(prefix):
-            posibilities.append([item[len(prefix):], os.path.isdir(os.path.join(abspath, item))])
-    backup = ''
-    for completion, isdir in posibilities:
-        if withfiles:
-            if pick_first == 'files':
-                if not isdir: # is file
-                    return completion
-                else:
-                    backup = completion + '/'
-            elif pick_first == 'folder':
-                if isdir:
-                    return completion + '/'
-                else:
-                    backup = completion
-            else:
-                return completion + ('/' if isdir else '')
-        else:
-            if isdir:
-                return completion + '/'
-
-
-    return backup
-
-def multisplit(string:str, separators:iter) -> list:
-    def remove_deep_lists(list_of_list):
-        list_of_elements = []
-        for elements in list_of_list:
-            for element in elements:
-                list_of_elements.append(element)
-
-        return list_of_elements
-
-    pieces = string.split(separators[0])
-    for separator in separators[1:]:
-        for i, piece in enumerate(pieces):
-            pieces[i] = piece.split(separator)
-        pieces = remove_deep_lists(pieces)
-    return pieces
+def get_template(path, TEMPLATE_FILES, TEMPLATE_FOLDER):
+    for item in TEMPLATE_FILES:
+        if os.path.splitext(item)[0] == 'template' and os.path.splitext(item)[1] == os.path.splitext(path)[1]:
+            return file_get_content(os.path.join(TEMPLATE_FOLDER, item))
+    return ''
 
 def isdigit(string):
-    try: int(string);
-    except ValueError: return False;
-    else: return True
-
-def struntil(string, looked_for_char):
-    for i, char in enumerate(string):
-        if char == looked_for_char:
-            return i
+    try:
+        int(string)
+    except ValueError:
+        return False
+    else:
+        return True
 
 class StdClass: pass
 
@@ -133,13 +67,23 @@ class FmEditReplace(sublime_plugin.TextCommand):
 
 class FmCreateCommand(sublime_plugin.ApplicationCommand):
 
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
 
     def run(self, paths=None):
+
 
         self.window = sublime.active_window()
         self.settings = sublime.load_settings('FileManager.sublime-settings')
         self.index_folder_separator = self.settings.get('index_folder_separator')
         self.default_index_folder = self.settings.get('default_index_folder')
+
+        self.TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), 'User', '.FileManager')
+
+        if not os.path.exists(self.TEMPLATE_FOLDER):
+            os.makedirs(self.TEMPLATE_FOLDER)
+
+        self.TEMPLATE_FILES = os.listdir(self.TEMPLATE_FOLDER)
 
         self.project_data = self.window.project_data()
 
@@ -179,10 +123,11 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
         input_path = ph.user_friendly(input_path)
         if not os.path.isfile(abspath):
             os.makedirs(os.path.dirname(abspath), exist_ok=True)
-            open(abspath, 'w').close()
+            with open(abspath, 'w') as fp:
+                fp.write(get_template(abspath, self.TEMPLATE_FILES, self.TEMPLATE_FOLDER))
         if input_path[-1] == '/':
             return os.makedirs(abspath, exist_ok=True)
-        return self.window.open_file(abspath)
+        view = self.window.open_file(abspath)
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
         if path_to_create_choosed_from_browsing:
@@ -198,7 +143,6 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
                 index = int(mess[0])
             return self.project_data['folders'][index]['path'], mess[-1]
         return '~', input_path
-
 
 class FmRenameCommand(sublime_plugin.ApplicationCommand):
 
