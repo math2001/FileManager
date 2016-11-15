@@ -117,7 +117,7 @@ class InputForPath(object):
                                              with_files=self.with_files,
                                              pick_first=self.pick_first,
                                              case_sensitive=self.case_sensitive,
-                                             can_add_slash=after != '' and after[0] != '/')
+                                             can_add_slash=after == '' or after[0] != '/')
             if mess is None:
                 return
             prefix, completion = mess
