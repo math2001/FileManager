@@ -19,17 +19,20 @@ class InputForPath(object):
     STATUS_KEY = 'input_for_path'
 
     def __init__(self, caption, initial_text, on_done, on_change, on_cancel, create_from,
-                 with_files, pick_first, case_sensitive, log_in_status_bar):
+                 with_files, pick_first, case_sensitive, log_in_status_bar, log_template,
+                 enable_browser):
 
         self.user_on_done = on_done
         self.user_on_change = on_change
         self.user_on_cancel = on_cancel
         self.caption = caption
         self.initial_text = initial_text
+        self.log_template = log_template
+        self.enable_browser = enable_browser
 
 
         self.create_from = create_from
-        if self.create_from is not None:
+        if self.create_from:
             self.create_from = ph.computer_friendly(self.create_from)
             if not os.path.isdir(self.create_from):
                 em('The path `create_from` should exists. {!r} does not.'.format(self.create_from))
@@ -62,7 +65,7 @@ class InputForPath(object):
         self.input.settings = self.input.view.settings()
         self.input.settings.set('tab_completion', False)
 
-    def __get_completion_for(self, abspath:str, with_files:bool, pick_first:str, case_sensitive:bool):
+    def __get_completion_for(self, abspath:str, with_files:bool, pick_first:str, case_sensitive:bool, can_add_slash:bool):
         abspath = ph.computer_friendly(abspath)
         if abspath.endswith(os.path.sep):
             return '', ''
@@ -75,23 +78,24 @@ class InputForPath(object):
                  (not case_sensitive and item.lower().startswith(prefix.lower()))):
                 posibilities.append([item, os.path.isdir(os.path.join(abspath, item))])
         backup = None
+        slash = '/' if can_add_slash else ''
         for completion, isdir in posibilities:
             if with_files:
                 if pick_first == 'files':
                     if not isdir: # is file
                         return prefix, completion
                     else:
-                        backup = completion + '/'
+                        backup = completion + slash
                 elif pick_first == 'folders':
                     if isdir:
-                        return prefix, completion + '/'
+                        return prefix, completion + slash
                     else:
                         backup = completion
                 else:
-                    return prefix, completion + ('/' if isdir else '')
+                    return prefix, completion + (slash if isdir else '')
             else:
                 if isdir:
-                    return prefix, completion + '/'
+                    return prefix, completion + slash
 
         if backup is None: return
         return prefix, backup
@@ -112,7 +116,8 @@ class InputForPath(object):
             mess = self.__get_completion_for(abspath=ph.computer_friendly(os.path.join(self.create_from, before)),
                                              with_files=self.with_files,
                                              pick_first=self.pick_first,
-                                             case_sensitive=self.case_sensitive)
+                                             case_sensitive=self.case_sensitive,
+                                             can_add_slash=after != '' and after[0] != '/')
             if mess is None:
                 return
             prefix, completion = mess
@@ -122,7 +127,7 @@ class InputForPath(object):
             self.input.view.run_command('insert', {'characters': completion})
 
         else:
-            if self.log_in_status_bar is False:
+            if not self.log_in_status_bar:
                 return
 
             path = os.path.normpath(os.path.join(self.create_from, ph.computer_friendly(input_path)))
@@ -130,14 +135,14 @@ class InputForPath(object):
                 path += os.path.sep
             if self.log_in_status_bar == 'user':
                 path = ph.user_friendly(path)
-            self.view.set_status(self.STATUS_KEY, 'Creating at: {}'.format(path))
+            self.view.set_status(self.STATUS_KEY, self.log_template.format(path))
 
     def input_on_done(self, input_path):
         if self.log_in_status_bar:
             self.view.set_status(self.STATUS_KEY, '')
         computer_path = ph.computer_friendly(os.path.join(self.create_from, input_path))
         # open browser
-        if os.path.isdir(computer_path):
+        if self.enable_browser and os.path.isdir(computer_path):
             self.browser.path = computer_path
             return self.browsing_on_done()
         else:
