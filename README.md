@@ -27,6 +27,9 @@ If there is no project open, it's going to create from the file that is currentl
     1. Create from here: open a new input panel to create from were you were in the quick panel
     2. Go up (`..`)
 - Logs in the status bar where it's creating the file
+- It uses templates! You can create a template for each different extension. In the folder `${packages}/User/.FileManager`, create a file `template.<ext>`, and now, every file that you will create using File Manager with the extension `<ext>` will have as a default content the file you've just created's content.
+
+
 
 ## Installation
 

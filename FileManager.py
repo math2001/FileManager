@@ -67,9 +67,6 @@ class FmEditReplace(sublime_plugin.TextCommand):
 
 class FmCreateCommand(sublime_plugin.ApplicationCommand):
 
-    def __init__(self, *args, **kwargs):
-        super(self.__class__, self).__init__(*args, **kwargs)
-
     def run(self, paths=None):
 
 
@@ -117,7 +114,9 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
                                   with_files=self.settings.get('complete_with_files_too'),
                                   pick_first=self.settings.get('pick_first'),
                                   case_sensitive=self.settings.get('case_sensitive'),
-                                  log_in_status_bar=self.settings.get('log_in_status_bar'))
+                                  log_in_status_bar=self.settings.get('log_in_status_bar'),
+                                  log_template='Creating at {}',
+                                  enable_browser=True)
 
     def on_done(self, abspath, input_path):
         input_path = ph.user_friendly(input_path)
@@ -189,10 +188,7 @@ class FmRenameCommand(sublime_plugin.ApplicationCommand):
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
-class FmMoveCommand(sublime_plugin.ApplicationCommand):
-
-    def log_path_in_status_bar(self, path):
-        log_path_in_status_bar(path.replace('/', os.path.sep))
+class FmMoveWithOutAPICommand(sublime_plugin.ApplicationCommand):
 
     def move_file(self, path):
         try:
@@ -220,6 +216,51 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
+class FmMoveCommand(sublime_plugin.ApplicationCommand):
+
+    def run(self, paths=None):
+        self.settings = sublime.load_settings('FileManager.sublime-settings')
+        self.view = get_view()
+
+        if paths is not None:
+            self.origins = paths
+        else:
+            self.origins = [self.view.file_name()]
+
+        if len(self.origins) > 1:
+            initial_text = ph.commonpath(self.origins)
+        else:
+            initial_text = os.path.dirname(self.origins[0])
+        initial_text = ph.user_friendly(initial_text) + '/'
+
+        ipt = InputForPath(caption='Move to',
+                           initial_text=initial_text,
+                           on_done=self.move,
+                           on_change=None,
+                           on_cancel=None,
+                           create_from='',
+                           with_files=self.settings.get('complete_with_files_too'),
+                           pick_first=self.settings.get('pick_first'),
+                           case_sensitive=self.settings.get('case_sensitive'),
+                           log_in_status_bar=self.settings.get('log_in_status_bar'),
+                           log_template='Moving at {}',
+                           enable_browser=False)
+
+    def move(self, path, input_path):
+        os.makedirs(path, exist_ok=True)
+        for origin in self.origins:
+            try:
+                os.rename(origin, os.path.join(path, os.path.basename(origin)))
+            except Exception as e:
+                em(e)
+
+    def is_visible(self):
+        return self.is_enabled()
+
+    def is_enabled(self, paths=True):
+        return True
+
+
 class FmDuplicateCommand(sublime_plugin.ApplicationCommand):
 
     def log_path_in_status_bar(self, path):
@@ -238,7 +279,6 @@ class FmDuplicateCommand(sublime_plugin.ApplicationCommand):
             fp.write(content)
 
         self.window.open_file(path)
-
 
     def run(self, paths=[None], *args, **kwargs):
         self.window = get_window()
@@ -281,7 +321,6 @@ class FmDeleteCommand(sublime_plugin.ApplicationCommand):
                     send2trash(path)
                 except OSError as e:
                     return em('Unable to send to trash: ', e.msg)
-
 
     def run(self, paths=None, *args, **kwargs):
         self.window = get_window()
