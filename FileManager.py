@@ -220,7 +220,8 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
 
     def run(self, paths=None):
         self.settings = sublime.load_settings('FileManager.sublime-settings')
-        self.view = get_view()
+        self.window = get_window()
+        self.view = self.window.active_view()
 
         if paths is not None:
             self.origins = paths
@@ -249,10 +250,16 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
     def move(self, path, input_path):
         os.makedirs(path, exist_ok=True)
         for origin in self.origins:
+            view = self.window.find_open_file(origin)
+            new_name = os.path.join(path, os.path.basename(origin))
+            if view:
+                view.close()
             try:
-                os.rename(origin, os.path.join(path, os.path.basename(origin)))
+                os.rename(origin, new_name)
             except Exception as e:
                 em(e)
+            if view:
+                self.window.open_file(new_name)
 
     def is_visible(self):
         return self.is_enabled()
