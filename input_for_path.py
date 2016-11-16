@@ -165,7 +165,7 @@ class InputForPath(object):
 
     def browsing_on_done(self, index=None):
         if index == -1:
-            return
+            return set_status(self.view, self.STATUS_KEY, '')
 
         if index == 0:
             # create from the position in the browser
@@ -189,7 +189,11 @@ class InputForPath(object):
 
         set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(ph.user_friendly(self.browser.path)))
 
-        self.window.show_quick_panel(self.browser.items, self.browsing_on_done, selected_index=2)
+        if isST3():
+            self.window.show_quick_panel(self.browser.items, self.browsing_on_done, selected_index=2)
+        else:
+            self.window.show_quick_panel(self.browser.items, self.browsing_on_done)
+
 
 class FmTestCommand(sublime_plugin.ApplicationCommand):
 
