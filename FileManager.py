@@ -262,39 +262,6 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
             if view:
                 self.window.open_file(new_name)
 
-class FmDuplicateWithoutTheAPICommand(sublime_plugin.ApplicationCommand):
-
-    def log_path_in_status_bar(self, path):
-        log_path_in_status_bar(path.replace('/', os.path.sep))
-
-    def duplicate(self, path):
-        if os.path.isfile(path):
-            return em('This file alredy exists!')
-        try:
-            makedirs(os.path.dirname(path))
-        except OSError:
-            pass
-        with open(self.path, 'r') as fp:
-            content = fp.read()
-        with open(path, 'w') as fp:
-            fp.write(content)
-
-        self.window.open_file(path)
-
-    def run(self, paths=[None], *args, **kwargs):
-        self.window = get_window()
-        self.view = get_view()
-
-        self.path = paths[0] or self.view.file_name()
-
-        view = self.window.show_input_panel('Duplicate to: ', self.path, self.duplicate,
-            self.log_path_in_status_bar, None)
-        view.sel().clear()
-        view.sel().add(sublime.Region( len(os.path.dirname(self.path)) + 1, len(self.path) - len(os.path.splitext(self.path)[1]) ))
-
-    def is_enabled(self, paths=None):
-        return paths is None or len(paths) == 1
-
 class FmDuplicate(sublime_plugin.ApplicationCommand):
 
     def run(self, paths=None):
@@ -302,7 +269,7 @@ class FmDuplicate(sublime_plugin.ApplicationCommand):
         self.window = get_window()
 
         if paths is None:
-            self.origin = self.window.file_name()
+            self.origin = self.window.active_view().file_name()
         else:
             self.origin = paths[0]
 
@@ -332,7 +299,16 @@ class FmDuplicate(sublime_plugin.ApplicationCommand):
     def duplicate(self, path, input_path):
         path = ph.computer_friendly(path)
         if os.path.exists(path):
-            return em('This file alredy exists. Delete it first if you really want to overite it.')
+            ans = sublime.yes_no_cancel_dialog('This file already exists. Do you want to overwrite it?', 'Yes, overwrite it', 'No, just open it')
+            if ans == sublime.DIALOG_YES:
+                try:
+                    send2trash(path)
+                except OSError as e:
+                    em('Unable to send to trash: ', e)
+            elif ans == sublime.DIALOG_NO:
+                return self.window.open_file(path)
+            else:
+                return
         with open(path, 'w') as fp, open(self.origin, 'r') as fpread:
             fp.write(fpread.read())
         self.window.open_file(path)
@@ -371,7 +347,7 @@ class FmDeleteCommand(sublime_plugin.ApplicationCommand):
                 try:
                     send2trash(path)
                 except OSError as e:
-                    return em('Unable to send to trash: ', e.msg)
+                    return em('Unable to send to trash: ', e)
 
     def run(self, paths=None, *args, **kwargs):
         self.window = get_window()
