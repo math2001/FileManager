@@ -31,7 +31,7 @@ If there is no project open, it's going to create from the file that is currentl
 
 
 
-## Installation
+## Installation (for sublime text 3 only)
 
 #### Using package control
 

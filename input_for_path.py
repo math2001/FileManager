@@ -1,8 +1,12 @@
 import sublime
 import sublime_plugin
 import os
-from . import pathhelper as ph
-from .sublimefunctions import *
+try:
+    from . import pathhelper as ph
+    from .sublimefunctions import *
+except (ImportError, ValueError):
+    import pathhelper as ph
+    from sublimefunctions import *
 
 def isdigit(string):
     try:
@@ -13,6 +17,12 @@ def isdigit(string):
         return True
 
 class StdClass: pass
+
+def set_status(view, key, value):
+    if view:
+        view.set_status(key, value)
+    else:
+        sm(value)
 
 class InputForPath(object):
 
@@ -35,7 +45,7 @@ class InputForPath(object):
         if self.create_from:
             self.create_from = ph.computer_friendly(self.create_from)
             if not os.path.isdir(self.create_from):
-                em('The path `create_from` should exists. {!r} does not.'.format(self.create_from))
+                em('The path `create_from` should exists. {0!r} does not.'.format(self.create_from))
 
         self.browser = StdClass()
         self.browser.path = self.create_from
@@ -65,7 +75,7 @@ class InputForPath(object):
         self.input.settings = self.input.view.settings()
         self.input.settings.set('tab_completion', False)
 
-    def __get_completion_for(self, abspath:str, with_files:bool, pick_first:str, case_sensitive:bool, can_add_slash:bool):
+    def __get_completion_for(self, abspath, with_files, pick_first, case_sensitive, can_add_slash):
         abspath = ph.computer_friendly(abspath)
         if abspath.endswith(os.path.sep):
             return '', ''
@@ -135,11 +145,11 @@ class InputForPath(object):
                 path += os.path.sep
             if self.log_in_status_bar == 'user':
                 path = ph.user_friendly(path)
-            self.view.set_status(self.STATUS_KEY, self.log_template.format(path))
+            set_status(self.view, self.STATUS_KEY, self.log_template.format(path))
 
     def input_on_done(self, input_path):
         if self.log_in_status_bar:
-            self.view.set_status(self.STATUS_KEY, '')
+            set_status(self.view, self.STATUS_KEY, '')
         computer_path = ph.computer_friendly(os.path.join(self.create_from, input_path))
         # open browser
         if self.enable_browser and os.path.isdir(computer_path):
@@ -149,7 +159,7 @@ class InputForPath(object):
             self.user_on_done(computer_path, input_path)
 
     def input_on_cancel(self):
-        self.view.set_status(self.STATUS_KEY, '')
+        set_status(self.view, self.STATUS_KEY, '')
         if self.user_on_cancel:
             self.user_on_cancel()
 
@@ -177,7 +187,7 @@ class InputForPath(object):
                 item += '/'
             self.browser.items.append(item)
 
-        self.view.set_status(self.STATUS_KEY, 'Browsing at: {}'.format(ph.user_friendly(self.browser.path)))
+        set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(ph.user_friendly(self.browser.path)))
 
         self.window.show_quick_panel(self.browser.items, self.browsing_on_done, selected_index=2)
 

@@ -45,7 +45,7 @@
         "caption": "File: Copy Relative Path",
         "command": "fm_copy",
         "args": {
-            "type": "relative-path",
+            "type": "relative-path"
         }
     },
     {

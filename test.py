@@ -2,11 +2,11 @@ text = 'hel\t/hi'
 
 def get_place_to_complete(text):
     for i, char in enumerate(text):
-        if char == '\t': 
+        if char == '\t':
             return text[:i], text[i+1:]
     return None
 
-def multisplit(string:str, separators:iter, maxsplit:int=-1, deep:bool=True) -> list:
+def multisplit(string, separators, maxsplit=-1, deep=True):
     def remove_deep_lists(list_of_list):
         list_of_elements = []
         for elements in list_of_list:
@@ -26,8 +26,8 @@ def multisplit(string:str, separators:iter, maxsplit:int=-1, deep:bool=True) -> 
 
 
 def isdigit(string):
-    try: int(string); 
-    except ValueError: return False; 
+    try: int(string);
+    except ValueError: return False;
     else: return True
 
 isdigit('-1')

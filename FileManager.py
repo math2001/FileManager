@@ -1,16 +1,32 @@
+# -*- encoding: utf-8 -*-
 import sublime, sublime_plugin
 import webbrowser
 import os
-from .send2trash import send2trash
-from .input_for_path import InputForPath
+try:
+    from .send2trash import send2trash
+    from .input_for_path import InputForPath
+    from . import pathhelper as ph
+except (ImportError, ValueError):
+    from send2trash import send2trash
+    from input_for_path import InputForPath
+    import pathhelper as ph
 
-from . import pathhelper as ph
 
 def md(*t, **kwargs): sublime.message_dialog(kwargs.get('sep', '\n').join([str(el) for el in t]))
 
 def sm(*t, **kwargs): sublime.status_message(kwargs.get('sep', ' ').join([str(el) for el in t]))
 
 def em(*t, **kwargs): sublime.error_message(kwargs.get('sep', ' ').join([str(el) for el in t]))
+
+
+def makedirs(path, exist_ok=False):
+    if exist_ok is False:
+        os.makedirs(path)
+    else:
+        try:
+            os.makedirs(path)
+        except OSError:
+            pass
 
 def log_path_in_status_bar(path):
     path = path.replace('/', os.path.sep)
@@ -21,7 +37,7 @@ def log_path_in_status_bar(path):
     sm(path)
 
 def quote(s):
-    return '"{}"'.format(s)
+    return '"{0}"'.format(s)
 
 def valid(*args):
     args = [arg for arg in args if arg != ''] or []
@@ -35,7 +51,9 @@ def get_window():
     return sublime.active_window()
 
 def get_view():
-    return get_window().active_view()
+    window = get_window()
+    if not window: return
+    return window.active_view()
 
 def copy(el):
     return sublime.set_clipboard(el)
@@ -60,6 +78,17 @@ def isdigit(string):
 
 class StdClass: pass
 
+
+if not hasattr(get_view(), 'close'):
+    def close_file_poyfill(view):
+        window = get_window()
+        window.focus_view(view)
+        window.run_command('close')
+
+    # get_view().__class__.close = lambda x: sublime.error_message('Sublime text 2 does\' not support closing from API. Please switch to Sublime Text 3')
+    sublime.View.close = close_file_poyfill
+
+
 class FmEditReplace(sublime_plugin.TextCommand):
 
     def run(self, edit, **kwargs):
@@ -78,11 +107,11 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
         self.TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), 'User', '.FileManager')
 
         if not os.path.exists(self.TEMPLATE_FOLDER):
-            os.makedirs(self.TEMPLATE_FOLDER)
+            makedirs(self.TEMPLATE_FOLDER)
 
         self.TEMPLATE_FILES = os.listdir(self.TEMPLATE_FOLDER)
 
-        self.project_data = self.window.project_data()
+        self.folders = self.window.folders()
 
         self.view = get_view()
 
@@ -94,7 +123,7 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
             # you can right-click on a file, and run `New...`
             if os.path.isfile(create_from):
                 create_from = os.path.dirname(create_from)
-        elif self.project_data:
+        elif self.folders:
              # it is going to be interactive, so it'll be
              # understood from the input itself
             create_from = None
@@ -115,17 +144,17 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
                                   pick_first=self.settings.get('pick_first'),
                                   case_sensitive=self.settings.get('case_sensitive'),
                                   log_in_status_bar=self.settings.get('log_in_status_bar'),
-                                  log_template='Creating at {}',
+                                  log_template='Creating at {0}',
                                   enable_browser=True)
 
     def on_done(self, abspath, input_path):
         input_path = ph.user_friendly(input_path)
         if not os.path.isfile(abspath):
-            os.makedirs(os.path.dirname(abspath), exist_ok=True)
+            makedirs(os.path.dirname(abspath), exist_ok=True)
             with open(abspath, 'w') as fp:
                 fp.write(get_template(abspath, self.TEMPLATE_FILES, self.TEMPLATE_FOLDER))
         if input_path[-1] == '/':
-            return os.makedirs(abspath, exist_ok=True)
+            return makedirs(abspath, exist_ok=True)
         view = self.window.open_file(abspath)
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
@@ -134,13 +163,13 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
             return
         if self.know_where_to_create_from:
             return
-        elif self.project_data:
+        elif self.folders:
             mess = input_path.split(self.index_folder_separator, 1)
             if len(mess) == 1:
                 index = self.default_index_folder
             elif isdigit(mess[0]):
                 index = int(mess[0])
-            return self.project_data['folders'][index]['path'], mess[-1]
+            return self.folders[index], mess[-1]
         return '~', input_path
 
 class FmRenameCommand(sublime_plugin.ApplicationCommand):
@@ -151,11 +180,11 @@ class FmRenameCommand(sublime_plugin.ApplicationCommand):
     def rename_file(self, filename):
         path = os.path.join(self.dirname, filename)
         if os.path.isfile(path):
-            return em('This file {} alredy exists.'.format(path))
+            return em('This file {0} alredy exists.'.format(path))
 
         dirname = os.path.dirname(path)
         if not os.path.isdir(dirname):
-            os.makedirs(dirname)
+            makedirs(dirname)
         os.rename(self.path, path)
 
         if self.reopen:
@@ -192,7 +221,7 @@ class FmMoveWithOutAPICommand(sublime_plugin.ApplicationCommand):
 
     def move_file(self, path):
         try:
-            os.makedirs(os.path.dirname(path))
+            makedirs(os.path.dirname(path))
         except OSError:
             pass
         os.rename(self.path, path)
@@ -244,11 +273,11 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
                            pick_first=self.settings.get('pick_first'),
                            case_sensitive=self.settings.get('case_sensitive'),
                            log_in_status_bar=self.settings.get('log_in_status_bar'),
-                           log_template='Moving at {}',
+                           log_template='Moving at {0}',
                            enable_browser=False)
 
     def move(self, path, input_path):
-        os.makedirs(path, exist_ok=True)
+        makedirs(path, exist_ok=True)
         for origin in self.origins:
             view = self.window.find_open_file(origin)
             new_name = os.path.join(path, os.path.basename(origin))
@@ -277,7 +306,7 @@ class FmDuplicateCommand(sublime_plugin.ApplicationCommand):
         if os.path.isfile(path):
             return em('This file alredy exists!')
         try:
-            os.makedirs(os.path.dirname(path))
+            makedirs(os.path.dirname(path))
         except OSError:
             pass
         with open(self.path, 'r') as fp:
@@ -335,7 +364,7 @@ class FmDeleteCommand(sublime_plugin.ApplicationCommand):
 
         self.paths = paths or [self.view.file_name()]
         self.window.show_quick_panel([
-            ['Send item{} to trash'.format(('s' if len(self.paths) > 1 else ''))] + self.paths,
+            ['Send item {0} to trash'.format(('s' if len(self.paths) > 1 else ''))] + self.paths,
             'Cancel'
         ], self.delete_file)
 
@@ -358,6 +387,8 @@ class FmOpenInBrowserCommand(sublime_plugin.ApplicationCommand):
 class FmCopyCommand(sublime_plugin.ApplicationCommand):
 
     def run(self, paths=[None], *args, **kwargs):
+
+        return em('this command is shit for now')
 
         self.view = get_view()
         self.window = get_window()
