@@ -6,18 +6,12 @@ try:
     from .send2trash import send2trash
     from .input_for_path import InputForPath
     from . import pathhelper as ph
+    from .sublimefunctions import *
 except (ImportError, ValueError):
     from send2trash import send2trash
     from input_for_path import InputForPath
     import pathhelper as ph
-
-
-def md(*t, **kwargs): sublime.message_dialog(kwargs.get('sep', '\n').join([str(el) for el in t]))
-
-def sm(*t, **kwargs): sublime.status_message(kwargs.get('sep', ' ').join([str(el) for el in t]))
-
-def em(*t, **kwargs): sublime.error_message(kwargs.get('sep', ' ').join([str(el) for el in t]))
-
+    from sublimefunctions import *
 
 def makedirs(path, exist_ok=False):
     if exist_ok is False:
@@ -124,8 +118,6 @@ class FmEditReplace(sublime_plugin.TextCommand):
 class FmCreateCommand(sublime_plugin.ApplicationCommand):
 
     def run(self, paths=None):
-
-
         self.window = sublime.active_window()
         self.settings = sublime.load_settings('FileManager.sublime-settings')
         self.index_folder_separator = self.settings.get('index_folder_separator')
