@@ -8,6 +8,7 @@ So, why would you take File Manager? Here's a few thing:
 
 - Use auto completion in the input to create a file
 - Is available from the side bar
+- Working on both Sublime Text 2 **and** 3!
 - Compared to SideBarEnhancement, it comes only with feature that are *useful* (thinking about the `edit` open)
 - When you select `File: New File`, and you have different folder in the current project, you can pick which folder take as a reference by typing it's position (from 0).
 
@@ -31,7 +32,7 @@ If there is no project open, it's going to create from the file that is currentl
 
 
 
-## Installation (for sublime text 3 only)
+## Installation
 
 #### Using package control
 
