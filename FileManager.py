@@ -217,34 +217,6 @@ class FmRenameCommand(sublime_plugin.ApplicationCommand):
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
-class FmMoveWithOutAPICommand(sublime_plugin.ApplicationCommand):
-
-    def move_file(self, path):
-        try:
-            makedirs(os.path.dirname(path))
-        except OSError:
-            pass
-        os.rename(self.path, path)
-
-        if self.view.file_name() == self.path:
-            self.view.close()
-            self.window.open_file(path)
-
-    def run(self, paths=[None], *args, **kwargs):
-        self.window = get_window()
-        self.view = get_view()
-
-        self.path = paths[0] or self.view.file_name()
-
-        view = self.window.show_input_panel('New location: ', self.path.replace(os.path.sep, '/'), self.move_file,
-            self.log_path_in_status_bar, None)
-        view.sel().clear()
-        # view.sel().add(sublime.Region(0, 5))
-        view.sel().add(sublime.Region( len(os.path.dirname(self.path)) + 1, len(self.path) - len(os.path.splitext(self.path)[1]) ))
-
-    def is_enabled(self, paths=None):
-        return paths is None or len(paths) == 1
-
 class FmMoveCommand(sublime_plugin.ApplicationCommand):
 
     def run(self, paths=None):
@@ -290,14 +262,7 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
             if view:
                 self.window.open_file(new_name)
 
-    def is_visible(self):
-        return self.is_enabled()
-
-    def is_enabled(self, paths=True):
-        return True
-
-
-class FmDuplicateCommand(sublime_plugin.ApplicationCommand):
+class FmDuplicateWithoutTheAPICommand(sublime_plugin.ApplicationCommand):
 
     def log_path_in_status_bar(self, path):
         log_path_in_status_bar(path.replace('/', os.path.sep))
@@ -329,6 +294,56 @@ class FmDuplicateCommand(sublime_plugin.ApplicationCommand):
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
+
+class FmDuplicate(sublime_plugin.ApplicationCommand):
+
+    def run(self, paths=None):
+        self.settings = sublime.load_settings('FileManager.sublime-settings')
+        self.window = get_window()
+
+        if paths is None:
+            self.origin = self.window.file_name()
+        else:
+            self.origin = paths[0]
+
+        if os.path.isdir(self.origin):
+            return em('Duplicating folders is not implemented yet.')
+
+        initial_path = ph.user_friendly(self.origin)
+
+        self.input = InputForPath(caption='Duplicate to: ',
+                                  initial_text=initial_path,
+                                  on_done=self.duplicate,
+                                  on_change=None,
+                                  on_cancel=None,
+                                  create_from='',
+                                  with_files=self.settings.get('complete_with_files_too'),
+                                  pick_first=self.settings.get('pick_first'),
+                                  case_sensitive=self.settings.get('case_sensitive'),
+                                  log_in_status_bar=self.settings.get('log_in_status_bar'),
+                                  log_template='Duplicating at {0}',
+                                  enable_browser=True)
+
+        head = len(os.path.dirname(initial_path)) + 1
+        filename = len(os.path.splitext(os.path.basename(initial_path))[0])
+        self.input.input.view.selection.clear()
+        self.input.input.view.selection.add(sublime.Region(head, head + filename))
+
+    def duplicate(self, path, input_path):
+        path = ph.computer_friendly(path)
+        if os.path.exists(path):
+            return em('This file alredy exists. Delete it first if you really want to overite it.')
+        with open(path, 'w') as fp, open(self.origin, 'r') as fpread:
+            fp.write(fpread.read())
+        self.window.open_file(path)
+
+    def is_enabled(self, paths=None):
+
+        return paths is None or len(paths) == 1
+
+    def is_visible(self, *args, **kwargs):
+        return self.is_enabled(*args, **kwargs)
+
 
 class FmRevealCommand(sublime_plugin.ApplicationCommand):
 
