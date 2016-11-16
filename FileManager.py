@@ -76,8 +76,36 @@ def isdigit(string):
     else:
         return True
 
-class StdClass: pass
+def yes_no_cancel_panel(message, yes, no, cancel, yes_text='Yes', no_text='No', cancel_text='Cancel', **kwargs):
+    loc = locals()
+    if isinstance(message, list):
+        message.append('Do not select this item')
+    else:
+        message = [message, 'Do not select this item']
+    items = [message, yes_text, no_text, cancel_text]
 
+    def get_max(item):
+        return len(item)
+
+    maxi = len(max(items, key=get_max))
+    for i, item in enumerate(items):
+        while len(items[i]) < maxi:
+            items[i].append('')
+
+
+    def on_done(index):
+        if index in [-1, 3]:
+            return cancel(*kwargs.get('args', []), **kwargs.get('kwargs', {}))
+        elif index == 1:
+            return yes(*kwargs.get('args', []), **kwargs.get('kwargs', {}))
+        elif index == 2:
+            return no(*kwargs.get('args', []), **kwargs.get('kwargs', {}))
+        elif index == 0:
+            return yes_no_cancel_panel(**loc)
+    window = get_window()
+    window.show_quick_panel(items, on_done)
+
+class StdClass: pass
 
 if not hasattr(get_view(), 'close'):
     def close_file_poyfill(view):
@@ -87,7 +115,6 @@ if not hasattr(get_view(), 'close'):
 
     # get_view().__class__.close = lambda x: sublime.error_message('Sublime text 2 does\' not support closing from API. Please switch to Sublime Text 3')
     sublime.View.close = close_file_poyfill
-
 
 class FmEditReplace(sublime_plugin.TextCommand):
 
@@ -180,7 +207,7 @@ class FmRenameCommand(sublime_plugin.ApplicationCommand):
     def rename_file(self, filename):
         path = os.path.join(self.dirname, filename)
         if os.path.isfile(path):
-            return em('This file {0} alredy exists.'.format(path))
+            return em('This file {0} already exists.'.format(path))
 
         dirname = os.path.dirname(path)
         if not os.path.isdir(dirname):
@@ -265,6 +292,7 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
 class FmDuplicate(sublime_plugin.ApplicationCommand):
 
     def run(self, paths=None):
+
         self.settings = sublime.load_settings('FileManager.sublime-settings')
         self.window = get_window()
 
@@ -293,24 +321,42 @@ class FmDuplicate(sublime_plugin.ApplicationCommand):
 
         head = len(os.path.dirname(initial_path)) + 1
         filename = len(os.path.splitext(os.path.basename(initial_path))[0])
+        self.input.input.view.selection = self.input.input.view.sel()
         self.input.input.view.selection.clear()
         self.input.input.view.selection.add(sublime.Region(head, head + filename))
 
     def duplicate(self, path, input_path):
-        path = ph.computer_friendly(path)
+        user_friendly_path = ph.user_friendly(path)
         if os.path.exists(path):
-            ans = sublime.yes_no_cancel_dialog('This file already exists. Do you want to overwrite it?', 'Yes, overwrite it', 'No, just open it')
-            if ans == sublime.DIALOG_YES:
+            def overwrite():
                 try:
                     send2trash(path)
                 except OSError as e:
                     em('Unable to send to trash: ', e)
-            elif ans == sublime.DIALOG_NO:
+
+                with open(path, 'w') as fp:
+                    with open(self.origin, 'r') as fpread:
+                        fp.write(fpread.read())
+                self.window.open_file(path)
+
+            def open_file():
                 return self.window.open_file(path)
-            else:
-                return
-        with open(path, 'w') as fp, open(self.origin, 'r') as fpread:
-            fp.write(fpread.read())
+
+            def cancel():
+                pass
+
+            yes_no_cancel_panel(message=['This file already exists. Overwrite?', user_friendly_path],
+                                yes=overwrite,
+                                no=open_file,
+                                cancel=cancel,
+                                yes_text=['Yes. Overwrite', user_friendly_path, 'will be sent to the trash, and then written'],
+                                no_text=['Just open the target file', user_friendly_path],
+                                cancel_text=["No, don't do anything"])
+            return
+
+        with open(path, 'w') as fp:
+            with open(self.origin, 'r') as fpread:
+                fp.write(fpread.read())
         self.window.open_file(path)
 
     def is_enabled(self, paths=None):
@@ -319,7 +365,6 @@ class FmDuplicate(sublime_plugin.ApplicationCommand):
 
     def is_visible(self, *args, **kwargs):
         return self.is_enabled(*args, **kwargs)
-
 
 class FmRevealCommand(sublime_plugin.ApplicationCommand):
 
@@ -338,7 +383,7 @@ class FmRevealCommand(sublime_plugin.ApplicationCommand):
 
 class FmDeleteCommand(sublime_plugin.ApplicationCommand):
 
-    def delete_file(self, index):
+    def delete(self, index):
         if index == 0:
             for path in self.paths:
                 view = self.window.find_open_file(path)
@@ -357,7 +402,7 @@ class FmDeleteCommand(sublime_plugin.ApplicationCommand):
         self.window.show_quick_panel([
             ['Send item {0} to trash'.format(('s' if len(self.paths) > 1 else ''))] + self.paths,
             'Cancel'
-        ], self.delete_file)
+        ], self.delete)
 
 class FmOpenInBrowserCommand(sublime_plugin.ApplicationCommand):
 
