@@ -191,10 +191,7 @@ class InputForPath(object):
 
         set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(ph.user_friendly(self.browser.path)))
 
-        if isST3():
-            self.window.show_quick_panel(self.browser.items, self.browsing_on_done, selected_index=2)
-        else:
-            self.window.show_quick_panel(self.browser.items, self.browsing_on_done)
+        self.window.show_quick_panel(self.browser.items, self.browsing_on_done, 0, 2)
 
 
 class FmTestCommand(sublime_plugin.ApplicationCommand):

@@ -97,7 +97,7 @@ def yes_no_cancel_panel(message, yes, no, cancel, yes_text='Yes', no_text='No', 
         elif index == 0:
             return yes_no_cancel_panel(**loc)
     window = get_window()
-    window.show_quick_panel(items, on_done)
+    window.show_quick_panel(items, on_done, 0, 1)
 
 class StdClass: pass
 

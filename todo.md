@@ -6,5 +6,4 @@
 - use api renameCommand
 - terminals
 - `is_visible() == is_enable()`? settings
-- selected item on quick possible is possible on ST2!
-- duplicate folders
+- duplicate folders (only files for now)
