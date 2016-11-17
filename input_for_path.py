@@ -74,6 +74,8 @@ class InputForPath(object):
                                                        self.input_on_cancel)
         self.input.settings = self.input.view.settings()
         self.input.settings.set('tab_completion', False)
+        if not isST3():
+            self.input.view.selection = self.input.view.sel()
 
     def __get_completion_for(self, abspath, with_files, pick_first, case_sensitive, can_add_slash):
         abspath = ph.computer_friendly(abspath)
@@ -138,7 +140,7 @@ class InputForPath(object):
 
         else:
             if not self.log_in_status_bar:
-                return
+                return em('no log', self.log_in_status_bar)
 
             path = os.path.normpath(os.path.join(self.create_from, ph.computer_friendly(input_path)))
             if input_path != '' and input_path[-1] == '/':

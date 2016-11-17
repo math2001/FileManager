@@ -3,4 +3,8 @@
 - settings per command (move complete with files)
 - check if file exists before renaming
     - ask to overrite
-- selected items not working on ST2
+- use api renameCommand
+- terminals
+- `is_visible() == is_enable()`? settings
+- selected item on quick possible is possible on ST2!
+- duplicate folders

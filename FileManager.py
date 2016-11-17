@@ -88,11 +88,11 @@ def yes_no_cancel_panel(message, yes, no, cancel, yes_text='Yes', no_text='No', 
 
 
     def on_done(index):
-        if index in [-1, 3]:
+        if index in [-1, 3] and cancel:
             return cancel(*kwargs.get('args', []), **kwargs.get('kwargs', {}))
-        elif index == 1:
+        elif index == 1 and yes:
             return yes(*kwargs.get('args', []), **kwargs.get('kwargs', {}))
-        elif index == 2:
+        elif index == 2 and no:
             return no(*kwargs.get('args', []), **kwargs.get('kwargs', {}))
         elif index == 0:
             return yes_no_cancel_panel(**loc)
@@ -107,7 +107,6 @@ if not hasattr(get_view(), 'close'):
         window.focus_view(view)
         window.run_command('close')
 
-    # get_view().__class__.close = lambda x: sublime.error_message('Sublime text 2 does\' not support closing from API. Please switch to Sublime Text 3')
     sublime.View.close = close_file_poyfill
 
 class FmEditReplace(sublime_plugin.TextCommand):
@@ -118,8 +117,8 @@ class FmEditReplace(sublime_plugin.TextCommand):
 class FmCreateCommand(sublime_plugin.ApplicationCommand):
 
     def run(self, paths=None):
-        self.window = sublime.active_window()
         self.settings = sublime.load_settings('FileManager.sublime-settings')
+        self.window = sublime.active_window()
         self.index_folder_separator = self.settings.get('index_folder_separator')
         self.default_index_folder = self.settings.get('default_index_folder')
 
@@ -191,49 +190,73 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
             return self.folders[index], mess[-1]
         return '~', input_path
 
-class FmRenameCommand(sublime_plugin.ApplicationCommand):
+class FmRename(sublime_plugin.ApplicationCommand):
 
-    def log_path_in_status_bar(self, name):
-        log_path_in_status_bar(os.path.join(self.dirname, name.replace('/', os.path.sep)))
+    def rename(self, dst, input_dst):
 
-    def rename_file(self, filename):
-        path = os.path.join(self.dirname, filename)
-        if os.path.isfile(path):
-            return em('This file {0} already exists.'.format(path))
+        def rename():
+            os.rename(self.origin, dst)
+            view = self.window.find_open_file(self.origin)
+            if view:
+                view.close()
+            self.window.open_file(dst)
 
-        dirname = os.path.dirname(path)
-        if not os.path.isdir(dirname):
-            makedirs(dirname)
-        os.rename(self.path, path)
 
-        if self.reopen:
-            self.view.close()
-            self.window.open_file(path)
+        if os.path.exists(dst):
 
-    def run(self, paths=[None], *args, **kwargs):
+            def open_file(self):
+                return self.window.open_file(dst)
+
+            def overwrite():
+                try:
+                    send2trash(dst)
+                except OSError as e:
+                    return em('Unable to send to trash: ', e)
+
+                rename()
+            user_friendly_path = ph.user_friendly(dst)
+            return yes_no_cancel_panel(message=['This file already exists. Overwrite?',
+                                                 user_friendly_path],
+                                       yes=overwrite,
+                                       no=open_file,
+                                       cancel=None,
+                                       yes_text=['Yes. Overwrite', user_friendly_path, 'will be sent to the trash, and then written'],
+                                       no_text=['Just open the target file', user_friendly_path],
+                                       cancel_text=["No, don't do anything"])
+
+        return rename()
+
+    def run(self, paths=None):
+        self.settings = sublime.load_settings('FileManager.sublime-settings')
         self.window = get_window()
-        self.view = get_view()
+        self.view = self.window.active_view()
 
-        self.reopen = True
-        self.path = paths[0] or self.view.file_name()
-
-        if os.path.isdir(self.path):
-            self.reopen = False
-
-        if self.path is not None:
-            basename = os.path.basename(self.path)
-            self.dirname = os.path.dirname(self.path)
+        if paths is None:
+            self.origin = self.view.file_name()
         else:
-            self.path = self.view.file_name()
-            self.dirname = os.path.dirname(self.path)
-            self.reopen = True
+            self.origin = paths[0]
 
+        filename, ext = os.path.splitext(os.path.basename(self.origin))
 
-        view = self.window.show_input_panel('New name: ', basename, self.rename_file, self.log_path_in_status_bar, None)
-        view.sel().clear()
-        view.sel().add(sublime.Region(0, len(os.path.splitext(basename)[0])))
+        self.input = InputForPath(caption='Rename to: ',
+                                       initial_text='{0}{1}'.format(filename, ext),
+                                       on_done=self.rename,
+                                       on_change=None,
+                                       on_cancel=None,
+                                       create_from=os.path.dirname(self.origin),
+                                       with_files=self.settings.get('complete_with_files_too'),
+                                       pick_first=self.settings.get('pick_first'),
+                                       case_sensitive=self.settings.get('case_sensitive'),
+                                       log_in_status_bar=self.settings.get('log_in_status_bar'),
+                                       log_template='Renaming to {0}',
+                                       enable_browser=True)
+        self.input.input.view.selection.clear()
+        self.input.input.view.selection.add(sublime.Region(0, len(filename)))
 
-    def is_enabled(self, paths=None):
+    def is_visible(self, *args, **kwargs):
+        return self.is_enabled(*args, **kwargs)
+
+    def is_enabled(self, paths):
         return paths is None or len(paths) == 1
 
 class FmMoveCommand(sublime_plugin.ApplicationCommand):
@@ -284,8 +307,8 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
 class FmDuplicate(sublime_plugin.ApplicationCommand):
 
     def run(self, paths=None):
-
         self.settings = sublime.load_settings('FileManager.sublime-settings')
+
         self.window = get_window()
 
         if paths is None:
@@ -313,7 +336,6 @@ class FmDuplicate(sublime_plugin.ApplicationCommand):
 
         head = len(os.path.dirname(initial_path)) + 1
         filename = len(os.path.splitext(os.path.basename(initial_path))[0])
-        self.input.input.view.selection = self.input.input.view.sel()
         self.input.input.view.selection.clear()
         self.input.input.view.selection.add(sublime.Region(head, head + filename))
 
@@ -324,7 +346,7 @@ class FmDuplicate(sublime_plugin.ApplicationCommand):
                 try:
                     send2trash(path)
                 except OSError as e:
-                    em('Unable to send to trash: ', e)
+                    return em('Unable to send to trash: ', e)
 
                 with open(path, 'w') as fp:
                     with open(self.origin, 'r') as fpread:
@@ -334,13 +356,10 @@ class FmDuplicate(sublime_plugin.ApplicationCommand):
             def open_file():
                 return self.window.open_file(path)
 
-            def cancel():
-                pass
-
             yes_no_cancel_panel(message=['This file already exists. Overwrite?', user_friendly_path],
                                 yes=overwrite,
                                 no=open_file,
-                                cancel=cancel,
+                                cancel=None,
                                 yes_text=['Yes. Overwrite', user_friendly_path, 'will be sent to the trash, and then written'],
                                 no_text=['Just open the target file', user_friendly_path],
                                 cancel_text=["No, don't do anything"])
