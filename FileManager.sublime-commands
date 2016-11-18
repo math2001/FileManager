@@ -28,6 +28,10 @@
         "command": "fm_open_in_browser"
     },
     {
+        "caption": "Terminal: Open Terminal",
+        "command": "fm_open_terminal"
+    },
+    {
         "caption": "File: Copy Name",
         "command": "fm_copy",
         "args": {

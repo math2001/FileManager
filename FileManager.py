@@ -474,11 +474,9 @@ class FmOpenTerminalCommand(sublime_plugin.ApplicationCommand):
         if os.path.isfile(cwd):
             cwd = os.path.dirname(cwd)
 
-        variables = self.window.extract_variables()
-
         for j, bit in enumerate(cmd):
             cmd[j] = bit.replace('$cwd', cwd)
-        print(cmd, cwd)
+        sm('Opening terminal at', ph.user_friendly(cwd))
         return subprocess.Popen(cmd, cwd=cwd)
 
     def run(self, paths=None):
@@ -502,23 +500,6 @@ class FmOpenTerminalCommand(sublime_plugin.ApplicationCommand):
             self.open_terminal(self.terminals[0]['cmd'], cwd)
         else:
             self.window.show_quick_panel([terminal_options['name'] for terminal_options in self.terminals], open_terminal)
-
-        return
-
-        if paths is None:
-            filenames = [self.view.file_name()]
-        else:
-            filenames = paths
-
-        variables = self.window.extract_variables()
-
-        for i, filename in enumerate(filenames):
-            if os.path.isfile(filename):
-                filename = os.path.dirname(filename)
-            for j, bit in enumerate(cmd):
-                cmd[j] = (sublime.expand_variables(bit, variables))
-
-            subprocess.Popen(cmd, cwd=filename)
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
