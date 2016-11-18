@@ -2,6 +2,8 @@
 import sublime, sublime_plugin
 import webbrowser
 import os
+import subprocess
+
 try:
     from .send2trash import send2trash
     from .input_for_path import InputForPath
@@ -256,7 +258,7 @@ class FmRename(sublime_plugin.ApplicationCommand):
     def is_visible(self, *args, **kwargs):
         return self.is_enabled(*args, **kwargs)
 
-    def is_enabled(self, paths):
+    def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
 class FmMoveCommand(sublime_plugin.ApplicationCommand):
@@ -465,3 +467,61 @@ class FmCopyCommand(sublime_plugin.ApplicationCommand):
             if paths[0] is None:
                 return em('Needs to be called from the sidebar')
             copy(os.path.relpath(paths[0], self.view.file_name()))
+
+class FmOpenTerminalCommand(sublime_plugin.ApplicationCommand):
+
+    def open_terminal(self, cmd, cwd):
+        if os.path.isfile(cwd):
+            cwd = os.path.dirname(cwd)
+
+        variables = self.window.extract_variables()
+
+        for j, bit in enumerate(cmd):
+            cmd[j] = bit.replace('$cwd', cwd)
+        print(cmd, cwd)
+        return subprocess.Popen(cmd, cwd=cwd)
+
+    def run(self, paths=None):
+
+        self.settings = sublime.load_settings('FileManager.sublime-settings')
+        self.window = get_window()
+        self.view = self.window.active_view()
+        self.terminals = self.settings.get('terminals')
+
+        if paths is not None:
+            cwd = paths[0]
+        else:
+            cwd = self.view.file_name()
+
+        def open_terminal(index):
+            if index == -1:
+                return
+            self.open_terminal(self.terminals[index]['cmd'], cwd)
+
+        if len(self.terminals) == 1:
+            self.open_terminal(self.terminals[0]['cmd'], cwd)
+        else:
+            self.window.show_quick_panel([terminal_options['name'] for terminal_options in self.terminals], open_terminal)
+
+        return
+
+        if paths is None:
+            filenames = [self.view.file_name()]
+        else:
+            filenames = paths
+
+        variables = self.window.extract_variables()
+
+        for i, filename in enumerate(filenames):
+            if os.path.isfile(filename):
+                filename = os.path.dirname(filename)
+            for j, bit in enumerate(cmd):
+                cmd[j] = (sublime.expand_variables(bit, variables))
+
+            subprocess.Popen(cmd, cwd=filename)
+
+    def is_enabled(self, paths=None):
+        return paths is None or len(paths) == 1
+
+    def is_visible(self, *args, **kwargs):
+        return self.is_enabled(*args, **kwargs)

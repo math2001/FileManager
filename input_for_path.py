@@ -113,15 +113,15 @@ class InputForPath(object):
         return prefix, backup
 
     def input_on_change(self, input_path):
-        input_path = ph.user_friendly(input_path)
+        self.input_path = ph.user_friendly(input_path)
         if self.user_on_change:
-            mess = self.user_on_change(input_path, self.path_to_create_choosed_from_browsing)
+            mess = self.user_on_change(self.input_path, self.path_to_create_choosed_from_browsing)
             if mess is not None:
-                create_from, input_path = mess
+                create_from, self.input_path = mess
                 self.create_from = ph.computer_friendly(create_from)
 
         # complete and log in status bar
-        mess = input_path.split('\t', 1)
+        mess = self.input_path.split('\t', 1)
         if len(mess) == 2:
             # complete
             before, after = mess
@@ -142,8 +142,8 @@ class InputForPath(object):
             if not self.log_in_status_bar:
                 return em('no log', self.log_in_status_bar)
 
-            path = os.path.normpath(os.path.join(self.create_from, ph.computer_friendly(input_path)))
-            if input_path != '' and input_path[-1] == '/':
+            path = os.path.normpath(os.path.join(self.create_from, ph.computer_friendly(self.input_path)))
+            if self.input_path != '' and self.input_path[-1] == '/':
                 path += os.path.sep
             if self.log_in_status_bar == 'user':
                 path = ph.user_friendly(path)
@@ -152,6 +152,8 @@ class InputForPath(object):
     def input_on_done(self, input_path):
         if self.log_in_status_bar:
             set_status(self.view, self.STATUS_KEY, '')
+        # use the one returned by the on change function
+        input_path = self.input_path
         computer_path = ph.computer_friendly(os.path.join(self.create_from, input_path))
         # open browser
         if self.enable_browser and os.path.isdir(computer_path):
