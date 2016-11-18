@@ -69,7 +69,7 @@
                 "caption": "Name",
                 "command": "fm_copy",
                 "args": {
-                    "type": "name",
+                    "which": "name",
                     "paths": []
                 }
             },
@@ -77,7 +77,7 @@
                 "caption": "Absolute Path",
                 "command": "fm_copy",
                 "args": {
-                    "type": "absolute-path",
+                    "which": "absolute path",
                     "paths": []
                 }
             },
@@ -85,7 +85,7 @@
                 "caption": "Relative Path",
                 "command": "fm_copy",
                 "args": {
-                    "type": "relative-path",
+                    "which": "relative path",
                     "paths": []
                 }
             }

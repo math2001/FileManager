@@ -435,38 +435,29 @@ class FmOpenInBrowserCommand(sublime_plugin.ApplicationCommand):
 
 class FmCopyCommand(sublime_plugin.ApplicationCommand):
 
-    def run(self, paths=[None], *args, **kwargs):
-
-        return em('this command is shit for now')
-
+    def run(self, which, paths=None):
         self.view = get_view()
         self.window = get_window()
 
-        path = paths[0] or self.view.file_name()
+        if paths is None:
+            paths = [self.view.file_name()]
 
-        _type = kwargs.get('type', False)
-        if not _type:
-            return em('No type: cannot copy.')
+        text = []
 
-        if _type == 'name':
-            copy(os.path.basename(path))
-        elif _type == 'absolute-path':
-            copy(path if not ' ' in path else '"' + path + '"')
-        elif _type == 'relative-path':
-            project_data = self.window.project_data()
-            if project_data is None:
-                return em('No (explicit) project is open. Impossible to copy the relative path from it.')
-            raise_error = True
-            for group in project_data['folders']:
-                if group['path'] in path:
-                    copy(path.replace(group['path'], '').replace(os.path.sep, '/'))
-                    raise_error = False
-            if raise_error:
-                return em('This file is not in your project. Impossible to copy the relative path from it.')
-        elif _type == 'relative-from-current-view':
-            if paths[0] is None:
-                return em('Needs to be called from the sidebar')
-            copy(os.path.relpath(paths[0], self.view.file_name()))
+        for path in paths:
+            if which == 'name':
+                text.append(os.path.basename(path))
+            elif which == 'absolute path':
+                text.append(path)
+            elif which == 'relative path':
+                folders = self.window.folders()
+                for folder in folders:
+                    if folder not in path:
+                        continue
+                    text.append(path.replace(folder, ''))
+                    break
+
+        copy('\n'.join(bit.replace(os.path.sep, '/') for bit in text))
 
 class FmOpenTerminalCommand(sublime_plugin.ApplicationCommand):
 
