@@ -184,12 +184,14 @@ class InputForPath(object):
         if os.path.isfile(self.browser.path):
             self.window.open_file(self.browser.path)
 
-        self.browser.items = ['[cmd] Create from here', '[cmd] ..']
-        # self.browser.items += os.listdir(self.browser.path)
+        folders, files = [], []
         for item in os.listdir(self.browser.path):
             if os.path.isdir(os.path.join(self.browser.path, item)):
-                item += '/'
-            self.browser.items.append(item)
+                folders.append(item + '/')
+            else:
+                files.append(item)
+
+        self.browser.items = ['[cmd] Create from here', '[cmd] ..'] + folders + files
 
         set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(ph.user_friendly(self.browser.path)))
 
