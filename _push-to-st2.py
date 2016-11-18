@@ -20,5 +20,6 @@ def copy_and_overwrite(from_path, to_path):
     shutil.copytree(from_path, to_path, ignore=ignore)
 
 if __name__ == '__main__':
+    print('Pushing to {}'.format(dst))
     copy_and_overwrite('.', dst)
     print('Finish copying!')
