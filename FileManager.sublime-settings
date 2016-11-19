@@ -11,7 +11,7 @@
     // define if the auto completion case sensitive
     "case_sensitive": false,
 
-    // recommended to be a char that cannot be in a filename
+    // recommended to be a char that cannot be in a file name
     "index_folder_separator": ">",
 
     // which folder to pick for reference
@@ -24,11 +24,25 @@
     // "computer": display a computer friendly path: C:\User\<user>\Desktop\
     "log_in_status_bar": "computer",
 
+    // terminals
+    // if there is only one, it will directly open it
+    // otherwise, it will open a quick panel with all
+    // the name listed
+    // example for cmder:
+
+    // { "name": "Cmder", "cmd": ["C:/cmder/cmder.exe", "/SINGLE", "$cwd"] }
+
+    // $cwd will be replaced by what the Current Working Directory
+
     "terminals": [
         {
             "name": "CMD",
             "cmd": ["cmd"]
         }
-    ]
+    ],
+
+    // If set to true, all the command that are disabled (in grey)
+    // will be hidden
+    "menu_without_dirstraction": false
 
 }

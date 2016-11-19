@@ -103,6 +103,11 @@ def yes_no_cancel_panel(message, yes, no, cancel, yes_text='Yes', no_text='No', 
 
 class StdClass: pass
 
+class AppCommand(sublime_plugin.ApplicationCommand):
+
+    def is_visible(self, *args, **kwargs):
+        return self.is_enabled(*args, **kwargs) or not sublime.load_settings('FileManager.sublime-settings').get('menu_without_dirstraction')
+
 if not hasattr(get_view(), 'close'):
     def close_file_poyfill(view):
         window = get_window()
@@ -116,7 +121,7 @@ class FmEditReplace(sublime_plugin.TextCommand):
     def run(self, edit, **kwargs):
         kwargs.get('view', self.view).replace(edit, sublime.Region(*kwargs['region']), kwargs['text'])
 
-class FmCreateCommand(sublime_plugin.ApplicationCommand):
+class FmCreateCommand(AppCommand):
 
     def run(self, paths=None):
         self.settings = sublime.load_settings('FileManager.sublime-settings')
@@ -192,7 +197,10 @@ class FmCreateCommand(sublime_plugin.ApplicationCommand):
             return self.folders[index], mess[-1]
         return '~', input_path
 
-class FmRename(sublime_plugin.ApplicationCommand):
+    def is_enabled(self, paths=None):
+        return paths is None or len(paths) == 1
+
+class FmRename(AppCommand):
 
     def rename(self, dst, input_dst):
 
@@ -255,13 +263,10 @@ class FmRename(sublime_plugin.ApplicationCommand):
         self.input.input.view.selection.clear()
         self.input.input.view.selection.add(sublime.Region(0, len(filename)))
 
-    def is_visible(self, *args, **kwargs):
-        return self.is_enabled(*args, **kwargs)
-
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
-class FmMoveCommand(sublime_plugin.ApplicationCommand):
+class FmMoveCommand(AppCommand):
 
     def run(self, paths=None):
         self.settings = sublime.load_settings('FileManager.sublime-settings')
@@ -306,7 +311,7 @@ class FmMoveCommand(sublime_plugin.ApplicationCommand):
             if view:
                 self.window.open_file(new_name)
 
-class FmDuplicate(sublime_plugin.ApplicationCommand):
+class FmDuplicate(AppCommand):
 
     def run(self, paths=None):
         self.settings = sublime.load_settings('FileManager.sublime-settings')
@@ -376,10 +381,7 @@ class FmDuplicate(sublime_plugin.ApplicationCommand):
 
         return paths is None or len(paths) == 1
 
-    def is_visible(self, *args, **kwargs):
-        return self.is_enabled(*args, **kwargs)
-
-class FmRevealCommand(sublime_plugin.ApplicationCommand):
+class FmRevealCommand(AppCommand):
 
     def run(self, paths=None, *args, **kwargs):
         self.window = get_window()
@@ -394,7 +396,7 @@ class FmRevealCommand(sublime_plugin.ApplicationCommand):
             else:
                 self.azerwindow.run_command("open_dir", { "dir": os.path.dirname(path), "file": os.path.basename(path) })
 
-class FmDeleteCommand(sublime_plugin.ApplicationCommand):
+class FmDeleteCommand(AppCommand):
 
     def delete(self, index):
         if index == 0:
@@ -417,7 +419,7 @@ class FmDeleteCommand(sublime_plugin.ApplicationCommand):
             'Cancel'
         ], self.delete)
 
-class FmOpenInBrowserCommand(sublime_plugin.ApplicationCommand):
+class FmOpenInBrowserCommand(AppCommand):
 
     def run(self, paths=None, *args, **kwargs):
         self.window = get_window()
@@ -433,7 +435,7 @@ class FmOpenInBrowserCommand(sublime_plugin.ApplicationCommand):
 
             webbrowser.open_new(path)
 
-class FmCopyCommand(sublime_plugin.ApplicationCommand):
+class FmCopyCommand(AppCommand):
 
     def run(self, which, paths=None):
         self.view = get_view()
@@ -459,7 +461,7 @@ class FmCopyCommand(sublime_plugin.ApplicationCommand):
 
         copy('\n'.join(bit.replace(os.path.sep, '/') for bit in text))
 
-class FmOpenTerminalCommand(sublime_plugin.ApplicationCommand):
+class FmOpenTerminalCommand(AppCommand):
 
     def open_terminal(self, cmd, cwd):
         if os.path.isfile(cwd):
@@ -494,6 +496,3 @@ class FmOpenTerminalCommand(sublime_plugin.ApplicationCommand):
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
-
-    def is_visible(self, *args, **kwargs):
-        return self.is_enabled(*args, **kwargs)

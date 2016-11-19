@@ -1,6 +1,5 @@
 # Todo
 
 - settings per command (move complete with files)
-- `is_visible() == is_enable()`? settings
+- open browser take `url` settings to open from
 - duplicate folders (only files for now)
-- redo copy command
