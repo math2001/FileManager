@@ -4,12 +4,11 @@ File Manager is a plugin for Sublime Text that is suppose to remplace SideBarEnh
 
 Why? Because those to plugin basically do the same thing: *They mangage files from sublime text*
 
-So, why would you take File Manager? Here's a few thing:
+So, why would you take File Manager?:
 
-- Use auto completion in the input to create a file
+- It uses auto completion in the input to create a file
 - Is available from the side bar
 - Working on both Sublime Text 2 **and** 3!
-- Compared to SideBarEnhancement, it comes only with feature that are *useful* (thinking about the `edit` option)
 - When you select `File: New File`, and you have different folder in the current project, you can pick which folder take as a reference by typing it's position (from 0).
 
 ```
@@ -19,9 +18,11 @@ FOLDERS
 > fast-markdown
 ```
 
-If you want to create a file from `fast-markdown`, just type: `2>path/to/my/file`. And the `>` is customizable! You can pick a space for example!
+If you want to create a file from `fast-markdown`, just type: `2>path/to/my/file`. And the `>` is customizable in your settings! You can pick a space for example!
 
 If there is no project open, it's going to create from the file that is currently open, and if there is none, then from `~`.
+
+![create file from the index you choose](gifs/create2.gif)
 
 - It uses user friendly path. Even on window, you can do: `~/Documents/a_new_document.txt`. (it's the same as `C:/Users/<user>/Documents/a_new_document.txt`)
 - When you forget what folders were in the current directory, you can try to use the auto completion, but there is better! Say you've typed `~/Pictures`, and `Pictures` exists, if you hit `enter`, it will open a quick panel (such as the command palette) with all the folders and files listed, with 2 options added:
@@ -29,7 +30,10 @@ If there is no project open, it's going to create from the file that is currentl
     2. Go up (`..`)
 - Logs in the status bar where it's creating the file
 - It uses templates! You can create a template for each different extension. In the folder `${packages}/User/.FileManager`, create a file `template.<ext>`, and now, every file that you will create using File Manager with the extension `<ext>` will have as a default content the file you've just created's content.
-- Open terminal from Sublime Text (which one(s), it's up to you)
+
+![uses template](gifs/template2.gif)
+
+- Open terminal from Sublime Text (which one(s), it's up to you, just have a look in the settings)
 
 ##### But, here's the main reason: I personally uses this package, and I hate when things don't go as well as they could. So, you can be sure that this package is 100% optimized for *speed*.
 

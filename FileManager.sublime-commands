@@ -57,6 +57,14 @@
         }
     },
     {
+        "caption": "File Manager: Create Template",
+        "command": "fm_create",
+        "args": {
+            "paths": ["${packages}/User/.FileManager/"],
+            "initial_text": "template."
+        }
+    },
+    {
         "caption": "Preferences: File Manager Settings",
         "command": "edit_settings",
         "args": {

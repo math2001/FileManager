@@ -45,7 +45,7 @@ class InputForPath(object):
         if self.create_from:
             self.create_from = ph.computer_friendly(self.create_from)
             if not os.path.isdir(self.create_from):
-                em('The path `create_from` should exists. {0!r} does not.'.format(self.create_from))
+                em('The path `create_from` should exists. {0!r} does not exists.'.format(self.create_from))
 
         self.browser = StdClass()
         self.browser.path = self.create_from

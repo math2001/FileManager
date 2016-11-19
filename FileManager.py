@@ -135,7 +135,7 @@ class FmEditReplace(sublime_plugin.TextCommand):
 
 class FmCreateCommand(AppCommand):
 
-    def run(self, paths=None):
+    def run(self, paths=None, initial_text=''):
         self.settings = get_settings()
         self.window = sublime.active_window()
         self.index_folder_separator = self.settings.get('index_folder_separator')
@@ -156,7 +156,7 @@ class FmCreateCommand(AppCommand):
 
         if paths is not None:
             # creating from the sidebar
-            create_from = paths[0]
+            create_from = paths[0].replace('${packages}', sublime.packages_path())
             # you can right-click on a file, and run `New...`
             if os.path.isfile(create_from):
                 create_from = os.path.dirname(create_from)
@@ -172,7 +172,7 @@ class FmCreateCommand(AppCommand):
             create_from = '~'
 
         self.input = InputForPath(caption='New: ',
-                                  initial_text='',
+                                  initial_text=initial_text,
                                   on_done=self.on_done,
                                   on_change=self.on_change,
                                   on_cancel=None,
@@ -246,11 +246,13 @@ class FmRenameCommand(AppCommand):
     def rename(self, dst, input_dst):
 
         def rename():
+            makedirs(os.path.dirname(dst), exist_ok=True)
             os.rename(self.origin, dst)
             view = self.window.find_open_file(self.origin)
             if view:
                 view.close()
-            self.window.open_file(dst)
+            if os.path.isfile(dst):
+                self.window.open_file(dst)
 
 
         if os.path.exists(dst):
@@ -352,7 +354,7 @@ class FmDuplicateCommand(AppCommand):
                                   on_change=None,
                                   on_cancel=None,
                                   create_from='',
-                                  with_files=self.settings.get('complete_with_files_too'),
+                                  with_files=False,
                                   pick_first=self.settings.get('pick_first'),
                                   case_sensitive=self.settings.get('case_sensitive'),
                                   log_in_status_bar=self.settings.get('log_in_status_bar'),
@@ -397,8 +399,7 @@ class FmDuplicateCommand(AppCommand):
         refresh_sidebar(self.settings, self.window)
 
     def is_enabled(self, paths=None):
-
-        return paths is None or len(paths) == 1
+        return paths is None or (len(paths) == 1 and os.path.isfile(paths[0]))
 
 
 
@@ -550,12 +551,15 @@ class FmEditToTheRightCommand(AppCommand):
             "rows": [0.0, 1.0],
             "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
         })
-        for file in files:
-            w.set_view_index(w.open_file(file), 1, len(w.views_in_group(1)))
+        for i, file in enumerate(files, 1):
+            w.set_view_index(w.open_file(file), 1, 0)
         w.focus_group(1)
 
     def is_enabled(self, files=None):
         return (files is None or len(files) >= 1) and get_window().active_group() != 1
+
+    def is_visible(self, *args, **kwargs):
+        return self.is_enabled(*args, **kwargs)
 
 
 class FmEditToTheLeftCommand(AppCommand):
@@ -573,12 +577,15 @@ class FmEditToTheLeftCommand(AppCommand):
             "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
         })
         for file in files:
-            w.set_view_index(w.open_file(file), 0, len(w.views_in_group(0)))
+            w.set_view_index(w.open_file(file), 0, 0)
 
         w.focus_group(0)
 
     def is_enabled(self, files=None):
         return (files is None or len(files) >= 1) and get_window().active_group() != 0
+
+    def is_visible(self, *args, **kwargs):
+        return self.is_enabled(*args, **kwargs)
 
 
 class FmFindInFilesCommand(AppCommand):
@@ -595,8 +602,6 @@ class FmFindInFilesCommand(AppCommand):
             "panel": "find_in_files",
             "where": ', '.join(paths)
         })
-
-
 
 # --- Listener --- (pathetic, right?) :D
 
