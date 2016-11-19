@@ -15,6 +15,10 @@ except (ImportError, ValueError):
     import pathhelper as ph
     from sublimefunctions import *
 
+
+def get_settings():
+    return sublime.load_settings('FileManager.sublime-settings')
+
 def makedirs(path, exist_ok=False):
     if exist_ok is False:
         os.makedirs(path)
@@ -505,3 +509,70 @@ class FmOpenTerminalCommand(AppCommand):
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
+
+
+
+class FmEditToTheRightCommand(AppCommand):
+
+    def run(self, files=None):
+        v = get_view()
+        w = get_window()
+
+        if files is None:
+            files = [v.file_name()]
+
+        w.set_layout({
+            "cols": [0.0, 0.5, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+        })
+        for file in files:
+            w.set_view_index(w.open_file(file), 1, len(w.views_in_group(1)))
+        w.focus_group(1)
+
+    def is_enabled(self, files=None):
+        return (files is None or len(files) >= 1) and get_window().active_group() != 1
+
+
+class FmEditToTheLeftCommand(AppCommand):
+
+    def run(self, files=None):
+        v = get_view()
+        w = get_window()
+
+        if files is None:
+            files = [v.file_name()]
+
+        w.set_layout({
+            "cols": [0.0, 0.5, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+        })
+        for file in files:
+            w.set_view_index(w.open_file(file), 0, len(w.views_in_group(0)))
+
+        w.focus_group(0)
+
+    def is_enabled(self, files=None):
+        return (files is None or len(files) >= 1) and get_window().active_group() != 0
+
+class FmListener(sublime_plugin.EventListener):
+
+    def on_close(self, view):
+        if get_settings().get('auto_close_empty_groups') is not True:
+            return
+        def run():
+            w = get_window()
+            reset_layouts = False
+            for group in range(w.num_groups()):
+                if len(w.views_in_group(group)) == 0:
+                    reset_layouts = True
+
+            if reset_layouts:
+                w.set_layout({
+                    "cols": [0.0, 1.0],
+                    "rows": [0.0, 1.0],
+                    "cells": [[0, 0, 1, 1]]
+                })
+
+        sublime.set_timeout(run, 50)

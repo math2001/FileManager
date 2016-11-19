@@ -43,6 +43,9 @@
 
     // If set to true, all the command that are disabled (in grey)
     // will be hidden
-    "menu_without_dirstraction": false
+    "menu_without_dirstraction": false,
+
+    // no need to comment anything on that one I guess :)
+    "auto_close_empty_groups": true
 
 }

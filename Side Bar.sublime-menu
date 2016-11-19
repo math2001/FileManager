@@ -1,10 +1,23 @@
 [
-
     {
         "caption": "New...",
         "command": "fm_create",
         "args": {
             "paths": []
+        }
+    },
+    {
+        "caption": "Edit to the right",
+        "command": "fm_edit_to_the_right",
+        "args": {
+            "files": []
+        }
+    },
+    {
+        "caption": "Edit to the left",
+        "command": "fm_edit_to_the_left",
+        "args": {
+            "files": []
         }
     },
     {
