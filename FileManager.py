@@ -200,7 +200,7 @@ class FmCreateCommand(AppCommand):
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
-class FmRename(AppCommand):
+class FmRenameCommand(AppCommand):
 
     def rename(self, dst, input_dst):
 
@@ -311,7 +311,7 @@ class FmMoveCommand(AppCommand):
             if view:
                 self.window.open_file(new_name)
 
-class FmDuplicate(AppCommand):
+class FmDuplicateCommand(AppCommand):
 
     def run(self, paths=None):
         self.settings = sublime.load_settings('FileManager.sublime-settings')

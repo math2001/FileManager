@@ -196,25 +196,3 @@ class InputForPath(object):
         set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(ph.user_friendly(self.browser.path)))
 
         self.window.show_quick_panel(self.browser.items, self.browsing_on_done, 0, 2)
-
-
-class FmTestCommand(sublime_plugin.ApplicationCommand):
-
-    def run(self):
-
-        def on_done(text):
-            md('create file at {!r}'.format(text))
-
-        def on_change(text):
-            print(text)
-
-        self.complete_input = InputForPath(caption='',
-                                           initial_text='',
-                                           on_done=on_done,
-                                           on_change=on_change,
-                                           on_cancel=None,
-                                           create_from='~',
-                                           with_files=True,
-                                           pick_first=None,
-                                           case_sensitive=False,
-                                           log_in_status_bar=False)

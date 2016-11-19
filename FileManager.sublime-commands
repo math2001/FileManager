@@ -35,21 +35,21 @@
         "caption": "File: Copy Name",
         "command": "fm_copy",
         "args": {
-            "which": "name",
+            "which": "name"
         }
     },
     {
         "caption": "File: Copy Absolute Path",
         "command": "fm_copy",
         "args": {
-            "which": "absolute path",
+            "which": "absolute path"
         }
     },
     {
         "caption": "File: Copy Relative Path",
         "command": "fm_copy",
         "args": {
-            "which": "relative path",
+            "which": "relative path"
         }
     },
     {
