@@ -9,7 +9,7 @@ So, why would you take File Manager? Here's a few thing:
 - Use auto completion in the input to create a file
 - Is available from the side bar
 - Working on both Sublime Text 2 **and** 3!
-- Compared to SideBarEnhancement, it comes only with feature that are *useful* (thinking about the `edit` open)
+- Compared to SideBarEnhancement, it comes only with feature that are *useful* (thinking about the `edit` option)
 - When you select `File: New File`, and you have different folder in the current project, you can pick which folder take as a reference by typing it's position (from 0).
 
 ```
@@ -29,6 +29,9 @@ If there is no project open, it's going to create from the file that is currentl
     2. Go up (`..`)
 - Logs in the status bar where it's creating the file
 - It uses templates! You can create a template for each different extension. In the folder `${packages}/User/.FileManager`, create a file `template.<ext>`, and now, every file that you will create using File Manager with the extension `<ext>` will have as a default content the file you've just created's content.
+- Open terminal from Sublime Text (which one(s), it's up to you)
+
+##### But, here's the main reason: I personally uses this package, and I hate when things don't go as well as they could. So, you can be sure that this package is 100% optimized for *speed*.
 
 
 
@@ -41,7 +44,7 @@ Because it is not available on package control for now, you have to add this rep
 1. open up the command palette (`ctrl+shift+p`), and find `Package Control: Add Repository`. Then enter the URL of this repo: `https://github.com/math2001/FileManager` in the input field.
 2. open up the command palette again and find `Package Control: Install Package`, and just search for `FileManager`. (just a normal install)
 
-## Using the command line
+#### Using the command line
 
 ```
 cd "%APPDATA%\Roaming\Sublime Text 3\Packages"     # on window
@@ -52,3 +55,34 @@ git clone "https://github.com/math2001/fast-markdown"
 ```
 
 Note: to open the README, use [ReadmePlease](https://packagecontrol.io/packages/ReadmePlease)
+
+## For sublime text **2** user
+
+First, I recommended that you swap to Sublime Text **3**, because:
+
+- more and more package are only available on ST3 (have a look at this [stats page](https://packagecontrol.io/stats))
+- the development of ST2 has been dropped, in favour for ST3, so it means that all the new cool feature are available only for ST3 users.
+- as John said:
+
+> With these latest changes, Sublime Text 3 is almost ready to graduate out of beta, and into a 3.0 version.
+
+
+So, talking about the cool feature, there is one that has been included in the build 3124:
+
+**The settings opens in a new window, the default ones on the left, and the users one on the right**
+
+As you probably understand, this plugin uses this feature, but ST2 does not have it. So, I created a poly fill for it (a little plugin that makes it available for ST2 users). It's only one file, and all you have to do is paste a code in your console (just like package control) and it will download it for you. [`settings.py`](https://gist.github.com/math2001/6cd5cbb9d2741654c2e994d33c395729#file-settings-py-L27)
+
+Once you've pasted it in the console, go to `preferences -> package settings -> File Manager`, and there you have it!
+
+### Contributing
+
+There is 2 way of contributing to this packages:
+
+You have an idea that could improve this package:
+
+1. fork it
+2. create a new branch called with this format: `my-feature`
+3. **add it to the todo.md**
+4. If you know how to do it, you have the time and you *want* to do it, then **just do it** (and get the pleasure to remove it from the `todo.md`).
+5. Pull Request
