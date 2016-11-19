@@ -46,6 +46,11 @@
     "menu_without_dirstraction": false,
 
     // no need to comment anything on that one I guess :)
-    "auto_close_empty_groups": true
+    "auto_close_empty_groups": true,
+
+    // auto refresh the side bar when you run any action that might affect it
+    // by default, sublime text would do it by itself, but if this is
+    // set to true, then it will be explicitly refreshed
+    "explicitly_refresh_sidebar": false
 
 }

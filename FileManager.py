@@ -25,6 +25,10 @@ def remove_duplicate(arr):
 def get_settings():
     return sublime.load_settings('FileManager.sublime-settings')
 
+def refresh_sidebar(settings, window):
+    if settings.get('explicitly_refresh_sidebar') is True:
+        window.run_command('refresh_folder_list')
+
 def makedirs(path, exist_ok=False):
     if exist_ok is False:
         os.makedirs(path)
@@ -103,12 +107,15 @@ def yes_no_cancel_panel(message, yes, no, cancel, yes_text='Yes', no_text='No', 
     window = get_window()
     window.show_quick_panel(items, on_done, 0, 1)
 
-class StdClass: pass
+
+class StdClass:
+    pass
+
 
 class AppCommand(sublime_plugin.ApplicationCommand):
 
     def is_visible(self, *args, **kwargs):
-        return self.is_enabled(*args, **kwargs) or not sublime.load_settings('FileManager.sublime-settings').get('menu_without_dirstraction')
+        return self.is_enabled(*args, **kwargs) or not get_settings().get('menu_without_dirstraction')
 
 if not hasattr(get_view(), 'close'):
     def close_file_poyfill(view):
@@ -123,10 +130,13 @@ class FmEditReplace(sublime_plugin.TextCommand):
     def run(self, edit, **kwargs):
         kwargs.get('view', self.view).replace(edit, sublime.Region(*kwargs['region']), kwargs['text'])
 
+
+# --- File Affecting Commands ---
+
 class FmCreateCommand(AppCommand):
 
     def run(self, paths=None):
-        self.settings = sublime.load_settings('FileManager.sublime-settings')
+        self.settings = get_settings()
         self.window = sublime.active_window()
         self.index_folder_separator = self.settings.get('index_folder_separator')
         self.default_index_folder = self.settings.get('default_index_folder')
@@ -183,6 +193,7 @@ class FmCreateCommand(AppCommand):
         if input_path[-1] == '/':
             return makedirs(abspath, exist_ok=True)
         view = self.window.open_file(abspath)
+        refresh_sidebar(self.settings, self.window)
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
         if path_to_create_choosed_from_browsing:
@@ -202,7 +213,35 @@ class FmCreateCommand(AppCommand):
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
+
 class FmRenameCommand(AppCommand):
+
+    def run(self, paths=None):
+        self.settings = get_settings()
+        self.window = get_window()
+        self.view = self.window.active_view()
+
+        if paths is None:
+            self.origin = self.view.file_name()
+        else:
+            self.origin = paths[0]
+
+        filename, ext = os.path.splitext(os.path.basename(self.origin))
+
+        self.input = InputForPath(caption='Rename to: ',
+                                       initial_text='{0}{1}'.format(filename, ext),
+                                       on_done=self.rename,
+                                       on_change=None,
+                                       on_cancel=None,
+                                       create_from=os.path.dirname(self.origin),
+                                       with_files=self.settings.get('complete_with_files_too'),
+                                       pick_first=self.settings.get('pick_first'),
+                                       case_sensitive=self.settings.get('case_sensitive'),
+                                       log_in_status_bar=self.settings.get('log_in_status_bar'),
+                                       log_template='Renaming to {0}',
+                                       enable_browser=True)
+        self.input.input.view.selection.clear()
+        self.input.input.view.selection.add(sublime.Region(0, len(filename)))
 
     def rename(self, dst, input_dst):
 
@@ -236,42 +275,17 @@ class FmRenameCommand(AppCommand):
                                        no_text=['Just open the target file', user_friendly_path],
                                        cancel_text=["No, don't do anything"])
 
-        return rename()
-
-    def run(self, paths=None):
-        self.settings = sublime.load_settings('FileManager.sublime-settings')
-        self.window = get_window()
-        self.view = self.window.active_view()
-
-        if paths is None:
-            self.origin = self.view.file_name()
-        else:
-            self.origin = paths[0]
-
-        filename, ext = os.path.splitext(os.path.basename(self.origin))
-
-        self.input = InputForPath(caption='Rename to: ',
-                                       initial_text='{0}{1}'.format(filename, ext),
-                                       on_done=self.rename,
-                                       on_change=None,
-                                       on_cancel=None,
-                                       create_from=os.path.dirname(self.origin),
-                                       with_files=self.settings.get('complete_with_files_too'),
-                                       pick_first=self.settings.get('pick_first'),
-                                       case_sensitive=self.settings.get('case_sensitive'),
-                                       log_in_status_bar=self.settings.get('log_in_status_bar'),
-                                       log_template='Renaming to {0}',
-                                       enable_browser=True)
-        self.input.input.view.selection.clear()
-        self.input.input.view.selection.add(sublime.Region(0, len(filename)))
+        rename()
+        refresh_sidebar(self.settings, self.window)
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
+
 class FmMoveCommand(AppCommand):
 
     def run(self, paths=None):
-        self.settings = sublime.load_settings('FileManager.sublime-settings')
+        self.settings = get_settings()
         self.window = get_window()
         self.view = self.window.active_view()
 
@@ -312,11 +326,13 @@ class FmMoveCommand(AppCommand):
                 em(e)
             if view:
                 self.window.open_file(new_name)
+        refresh_sidebar(self.settings, self.window)
+
 
 class FmDuplicateCommand(AppCommand):
 
     def run(self, paths=None):
-        self.settings = sublime.load_settings('FileManager.sublime-settings')
+        self.settings = get_settings()
 
         self.window = get_window()
 
@@ -378,25 +394,13 @@ class FmDuplicateCommand(AppCommand):
             with open(self.origin, 'r') as fpread:
                 fp.write(fpread.read())
         self.window.open_file(path)
+        refresh_sidebar(self.settings, self.window)
 
     def is_enabled(self, paths=None):
 
         return paths is None or len(paths) == 1
 
-class FmRevealCommand(AppCommand):
 
-    def run(self, paths=None, *args, **kwargs):
-        self.window = get_window()
-        self.view = get_view()
-
-        if paths is None:
-            paths = [self.view.file_name()]
-
-        for path in paths:
-            if os.path.isdir(path):
-                self.window.run_command('open_dir', { 'dir': path })
-            else:
-                self.azerwindow.run_command("open_dir", { "dir": os.path.dirname(path), "file": os.path.basename(path) })
 
 class FmDeleteCommand(AppCommand):
 
@@ -410,8 +414,10 @@ class FmDeleteCommand(AppCommand):
                     send2trash(path)
                 except OSError as e:
                     return em('Unable to send to trash: ', e)
+        refresh_sidebar(self.settings, self.window)
 
     def run(self, paths=None, *args, **kwargs):
+        self.settings = get_settings()
         self.window = get_window()
         self.view = get_view()
 
@@ -420,6 +426,9 @@ class FmDeleteCommand(AppCommand):
             ['Send item {0} to trash'.format(('s' if len(self.paths) > 1 else ''))] + self.paths,
             'Cancel'
         ], self.delete)
+
+
+# --- Extra ---
 
 class FmOpenInBrowserCommand(AppCommand):
 
@@ -472,6 +481,7 @@ class FmCopyCommand(AppCommand):
 
         copy('\n'.join(bit.replace(os.path.sep, '/') for bit in text))
 
+
 class FmOpenTerminalCommand(AppCommand):
 
     def open_terminal(self, cmd, cwd, name):
@@ -485,7 +495,7 @@ class FmOpenTerminalCommand(AppCommand):
 
     def run(self, paths=None):
 
-        self.settings = sublime.load_settings('FileManager.sublime-settings')
+        self.settings = get_settings()
         self.window = get_window()
         self.view = self.window.active_view()
         self.terminals = self.settings.get('terminals')
@@ -507,6 +517,22 @@ class FmOpenTerminalCommand(AppCommand):
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
+
+
+class FmRevealCommand(AppCommand):
+
+    def run(self, paths=None, *args, **kwargs):
+        self.window = get_window()
+        self.view = get_view()
+
+        if paths is None:
+            paths = [self.view.file_name()]
+
+        for path in paths:
+            if os.path.isdir(path):
+                self.window.run_command('open_dir', { 'dir': path })
+            else:
+                self.azerwindow.run_command("open_dir", { "dir": os.path.dirname(path), "file": os.path.basename(path) })
 
 
 
@@ -554,6 +580,7 @@ class FmEditToTheLeftCommand(AppCommand):
     def is_enabled(self, files=None):
         return (files is None or len(files) >= 1) and get_window().active_group() != 0
 
+
 class FmFindInFilesCommand(AppCommand):
 
     def run(self, paths=None):
@@ -568,6 +595,10 @@ class FmFindInFilesCommand(AppCommand):
             "panel": "find_in_files",
             "where": ', '.join(paths)
         })
+
+
+
+# --- Listener --- (pathetic, right?) :D
 
 class FmListener(sublime_plugin.EventListener):
 
