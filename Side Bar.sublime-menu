@@ -39,21 +39,21 @@
         "caption": "-"
     },
     {
-        "caption": "Open in a terminal",
-        "command": "fm_open_terminal",
-        "args": {
-            "paths": []
-        }
-    },
-    {
-        "caption": "Reveal",
+        "caption": "Open in explorer",
         "command": "fm_reveal",
         "args": {
             "paths": []
         }
     },
     {
-        "caption": "Open in browser",
+        "caption": "Open a terminal from here",
+        "command": "fm_open_terminal",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "Open in a browser",
         "command": "fm_open_in_browser",
         "args": {
             "paths": []

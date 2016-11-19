@@ -425,15 +425,24 @@ class FmOpenInBrowserCommand(AppCommand):
         self.window = get_window()
         self.view = get_view()
 
-        paths = paths or [self.view.file_name()]
-        for path in paths:
-            path = path.replace(os.path.sep, '/')
-            if 'C:/wamp/www' in path:
-                path = 'http://' + path.replace('C:/wamp/www', self.view.settings().get('localhost', 'localhost'))
-            else:
-                path = 'file:///' + path
+        if paths is None:
+            paths = [self.view.file_name()]
 
-            webbrowser.open_new(path)
+        url = self.view.settings().get('url')
+        if url is not None:
+            url = url.strip('/')
+        files = []
+        folders = self.window.folders()
+
+        for path in paths:
+            if url is None:
+                sublime.run_command('open_url', {'url': 'file:///' + path})
+            else:
+                for folder in folders:
+                    if folder in path:
+                        sublime.run_command('open_url', {'url': url + path.replace(folder, '') })
+                        break
+
 
 class FmCopyCommand(AppCommand):
 
@@ -445,6 +454,7 @@ class FmCopyCommand(AppCommand):
             paths = [self.view.file_name()]
 
         text = []
+        folders = self.window.folders()
 
         for path in paths:
             if which == 'name':
@@ -452,7 +462,6 @@ class FmCopyCommand(AppCommand):
             elif which == 'absolute path':
                 text.append(path)
             elif which == 'relative path':
-                folders = self.window.folders()
                 for folder in folders:
                     if folder not in path:
                         continue
@@ -463,13 +472,13 @@ class FmCopyCommand(AppCommand):
 
 class FmOpenTerminalCommand(AppCommand):
 
-    def open_terminal(self, cmd, cwd):
+    def open_terminal(self, cmd, cwd, name):
         if os.path.isfile(cwd):
             cwd = os.path.dirname(cwd)
 
         for j, bit in enumerate(cmd):
             cmd[j] = bit.replace('$cwd', cwd)
-        sm('Opening terminal at', ph.user_friendly(cwd))
+        sm('Opening "{0}" at {1}'.format(name, ph.user_friendly(cwd)))
         return subprocess.Popen(cmd, cwd=cwd)
 
     def run(self, paths=None):
@@ -484,15 +493,15 @@ class FmOpenTerminalCommand(AppCommand):
         else:
             cwd = self.view.file_name()
 
-        def open_terminal(index):
+        def open_terminal_callback(index):
             if index == -1:
                 return
-            self.open_terminal(self.terminals[index]['cmd'], cwd)
+            self.open_terminal(self.terminals[index]['cmd'], cwd, self.terminals[index]['name'])
 
         if len(self.terminals) == 1:
-            self.open_terminal(self.terminals[0]['cmd'], cwd)
+            open_terminal_callback(0)
         else:
-            self.window.show_quick_panel([terminal_options['name'] for terminal_options in self.terminals], open_terminal)
+            self.window.show_quick_panel([terminal_options['name'] for terminal_options in self.terminals], open_terminal_callback)
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
