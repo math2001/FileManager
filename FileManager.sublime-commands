@@ -32,6 +32,10 @@
         "command": "fm_open_terminal"
     },
     {
+        "caption": "File: Find In Files",
+        "command": "fm_find_in_files"
+    },
+    {
         "caption": "File: Copy Name",
         "command": "fm_copy",
         "args": {

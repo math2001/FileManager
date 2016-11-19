@@ -15,6 +15,12 @@ except (ImportError, ValueError):
     import pathhelper as ph
     from sublimefunctions import *
 
+def remove_duplicate(arr):
+    new = []
+    for el in arr:
+        if not el in new:
+            new.append(el)
+    return new
 
 def get_settings():
     return sublime.load_settings('FileManager.sublime-settings')
@@ -27,14 +33,6 @@ def makedirs(path, exist_ok=False):
             os.makedirs(path)
         except OSError:
             pass
-
-def log_path_in_status_bar(path):
-    path = path.replace('/', os.path.sep)
-    if os.path.isdir(os.path.dirname(path) if path[-1] != os.path.sep else path):
-        path += ' ✓'
-    else:
-        path += ' ✗ (path to file does not exists)'
-    sm(path)
 
 def quote(s):
     return '"{0}"'.format(s)
@@ -555,6 +553,21 @@ class FmEditToTheLeftCommand(AppCommand):
 
     def is_enabled(self, files=None):
         return (files is None or len(files) >= 1) and get_window().active_group() != 0
+
+class FmFindInFilesCommand(AppCommand):
+
+    def run(self, paths=None):
+        if paths is None:
+            paths = [get_view().file_name()]
+        for i, path in enumerate(paths):
+            if os.path.isfile(path):
+                paths[i] = os.path.dirname(path)
+        paths = remove_duplicate(paths)
+        w = get_window()
+        w.run_command('show_panel', {
+            "panel": "find_in_files",
+            "where": ', '.join(paths)
+        })
 
 class FmListener(sublime_plugin.EventListener):
 

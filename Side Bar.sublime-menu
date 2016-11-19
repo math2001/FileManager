@@ -52,6 +52,16 @@
         "caption": "-"
     },
     {
+        "caption": "Find In Files",
+        "command": "fm_find_in_files",
+        "args": {
+            "paths": []
+        }
+    },
+    {
+        "caption": "-"
+    },
+    {
         "caption": "Open in explorer",
         "command": "fm_reveal",
         "args": {
