@@ -20,6 +20,8 @@ FOLDERS
 
 If you want to create a file from `fast-markdown`, just type: `2>path/to/my/file`. And the `>` is customizable in your settings! You can pick a space for example!
 
+*It's working with **python** lists, so you can set negative indexes to start from the bottom (try -1 for example)*
+
 If there is no project open, it's going to create from the file that is currently open, and if there is none, then from `~`.
 
 ![create file from the index you choose](gifs/create2.gif)
@@ -58,7 +60,7 @@ cd ~/.config/sublime-text-3                        # on linux
 git clone "https://github.com/math2001/fast-markdown"
 ```
 
-Note: to open the README, use [ReadmePlease](https://packagecontrol.io/packages/ReadmePlease)
+
 
 ## For sublime text **2** user
 
@@ -78,6 +80,10 @@ So, talking about the cool feature, there is one that has been included in the b
 As you probably understand, this plugin uses this feature, but ST2 does not have it. So, I created a poly fill for it (a little plugin that makes it available for ST2 users). It's only one file, and all you have to do is paste a code in your console (just like package control) and it will download it for you. [`settings.py`](https://gist.github.com/math2001/6cd5cbb9d2741654c2e994d33c395729#file-settings-py-L27)
 
 Once you've pasted it in the console, go to `preferences -> package settings -> File Manager`, and there you have it!
+
+## How top open the readme
+
+Some of the package add a command in the menus, others in the command palette, or other nowhere. None of those options are really good, escpecially the last one on ST3 because the packages are compressed. But, fortunatly, there is plugin that exists and will **solve this problem for us**: [ReadmePlease](https://packagecontrol.io/packages/ReadmePlease).
 
 ### Contributing
 
