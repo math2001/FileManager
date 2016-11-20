@@ -3,6 +3,7 @@ import sublime, sublime_plugin
 import webbrowser
 import os
 import subprocess
+import shutil
 
 try:
     from .send2trash import send2trash
@@ -343,8 +344,6 @@ class FmDuplicateCommand(AppCommand):
         else:
             self.origin = paths[0]
 
-        if os.path.isdir(self.origin):
-            return em('Duplicating folders is not implemented yet.')
 
         initial_path = ph.user_friendly(self.origin)
 
@@ -366,41 +365,48 @@ class FmDuplicateCommand(AppCommand):
         self.input.input.view.selection.clear()
         self.input.input.view.selection.add(sublime.Region(head, head + filename))
 
-    def duplicate(self, path, input_path):
-        user_friendly_path = ph.user_friendly(path)
-        if os.path.exists(path):
-            def overwrite():
-                try:
-                    send2trash(path)
-                except OSError as e:
-                    return em('Unable to send to trash: ', e)
+    def duplicate(self, dst, input_path):
+        user_friendly_path = ph.user_friendly(dst)
 
-                with open(path, 'w') as fp:
+        if os.path.isdir(self.origin):
+            if not os.path.exists(dst):
+                shutil.copytree(self.origin, dst)
+            else:
+                em('This path already exists!')
+        else:
+            if not os.path.exists(dst):
+                with open(dst, 'w') as fp:
                     with open(self.origin, 'r') as fpread:
                         fp.write(fpread.read())
-                self.window.open_file(path)
+                self.window.open_file(dst)
+            else:
+                def overwrite():
+                    try:
+                        send2trash(dst)
+                    except OSError as e:
+                        return em('Unable to send to trash: ', e)
 
-            def open_file():
-                return self.window.open_file(path)
+                    with open(dst, 'w') as fp:
+                        with open(self.origin, 'r') as fpread:
+                            fp.write(fpread.read())
+                    self.window.open_file(dst)
 
-            yes_no_cancel_panel(message=['This file already exists. Overwrite?', user_friendly_path],
-                                yes=overwrite,
-                                no=open_file,
-                                cancel=None,
-                                yes_text=['Yes. Overwrite', user_friendly_path, 'will be sent to the trash, and then written'],
-                                no_text=['Just open the target file', user_friendly_path],
-                                cancel_text=["No, don't do anything"])
-            return
+                def open_file():
+                    return self.window.open_file(dst)
 
-        with open(path, 'w') as fp:
-            with open(self.origin, 'r') as fpread:
-                fp.write(fpread.read())
-        self.window.open_file(path)
+                yes_no_cancel_panel(message=['This file already exists. Overwrite?', user_friendly_path],
+                                    yes=overwrite,
+                                    no=open_file,
+                                    cancel=None,
+                                    yes_text=['Yes. Overwrite', user_friendly_path, 'will be sent to the trash, and then written'],
+                                    no_text=['Just open the target file', user_friendly_path],
+                                    cancel_text=["No, don't do anything"])
+
         refresh_sidebar(self.settings, self.window)
-
+        return
+        
     def is_enabled(self, paths=None):
-        return paths is None or (len(paths) == 1 and os.path.isfile(paths[0]))
-
+        return paths is None or len(paths) == 1
 
 
 class FmDeleteCommand(AppCommand):

@@ -5,3 +5,4 @@
 - template using snippet
 - log in status bar: path to file exists, files already exists, etc
 - Rename folder in project data
+- add mnemonic
