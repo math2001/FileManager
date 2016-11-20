@@ -187,13 +187,18 @@ class FmCreateCommand(AppCommand):
 
     def on_done(self, abspath, input_path):
         input_path = ph.user_friendly(input_path)
+        if input_path[-1] == '/':
+            return makedirs(abspath, exist_ok=True)
         if not os.path.isfile(abspath):
             makedirs(os.path.dirname(abspath), exist_ok=True)
             with open(abspath, 'w') as fp:
-                fp.write(get_template(abspath, self.TEMPLATE_FILES, self.TEMPLATE_FOLDER))
-        if input_path[-1] == '/':
-            return makedirs(abspath, exist_ok=True)
+                pass
+            template = get_template(abspath, self.TEMPLATE_FILES, self.TEMPLATE_FOLDER)
+        else:
+            template = None
         view = self.window.open_file(abspath)
+        if template:
+            view.settings().set('fm_insert_snippet_on_load', template)
         refresh_sidebar(self.settings, self.window)
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
@@ -404,7 +409,7 @@ class FmDuplicateCommand(AppCommand):
 
         refresh_sidebar(self.settings, self.window)
         return
-        
+
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
@@ -631,3 +636,10 @@ class FmListener(sublime_plugin.EventListener):
                 })
 
         sublime.set_timeout(run, 50)
+
+
+    def on_load(self, view):
+        snippet = view.settings().get('fm_insert_snippet_on_load', None)
+        print("FileManager.py:643", 'load', snippet)
+        if snippet:
+            view.run_command('insert_snippet', {'contents': snippet})
