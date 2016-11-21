@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>File Manager</title>
+    <link>http://replace-this-with-your-hugo-site.com/index.xml</link>
+    <description>Recent content on File Manager</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-au</language>
+    <lastBuildDate>Sun, 20 Nov 2016 14:54:24 +1100</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+      
+    
+      
+    
+  </channel>
+</rss>
