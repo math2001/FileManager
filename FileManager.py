@@ -270,7 +270,8 @@ class FmRenameCommand(AppCommand):
                 try:
                     send2trash(dst)
                 except OSError as e:
-                    return em('Unable to send to trash: ', e)
+                    sublime.error_message('Unable to send to trash: ', e)
+                    raise OSError('Unable to send the item {0!r} to the trash! Error {1!r}'.format(dst, e))
 
                 rename()
             user_friendly_path = ph.user_friendly(dst)
@@ -331,7 +332,8 @@ class FmMoveCommand(AppCommand):
             try:
                 os.rename(origin, new_name)
             except Exception as e:
-                em(e)
+                sublime.error_message('An error occured while moving the file', e)
+                raise OSError('An error occured while moving the file {0!r} to {1!r}'.format(origin, new_name))
             if view:
                 self.window.open_file(new_name)
         refresh_sidebar(self.settings, self.window)
@@ -377,7 +379,8 @@ class FmDuplicateCommand(AppCommand):
             if not os.path.exists(dst):
                 shutil.copytree(self.origin, dst)
             else:
-                em('This path already exists!')
+                sublime.error_message('This path already exists!')
+                raise ValueError('Cannot move the directory {0!r} because it already exists {1!r}'.format(self.origin, dst))
         else:
             if not os.path.exists(dst):
                 with open(dst, 'w') as fp:
@@ -389,7 +392,8 @@ class FmDuplicateCommand(AppCommand):
                     try:
                         send2trash(dst)
                     except OSError as e:
-                        return em('Unable to send to trash: ', e)
+                        sublime.error_message('Unable to send to trash: ', e)
+                        raise OSError('Unable to send to the trash the item {0}'.format(e))
 
                     with open(dst, 'w') as fp:
                         with open(self.origin, 'r') as fpread:
@@ -425,7 +429,8 @@ class FmDeleteCommand(AppCommand):
                 try:
                     send2trash(path)
                 except OSError as e:
-                    return em('Unable to send to trash: ', e)
+                    sublime.error_message('Unable to send to trash: ', e)
+                    raise OSError('Unable to send {0!r} to trash: {1}'.format(path, e))
         refresh_sidebar(self.settings, self.window)
 
     def run(self, paths=None, *args, **kwargs):

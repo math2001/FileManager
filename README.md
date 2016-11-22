@@ -39,7 +39,7 @@ If there is no project open, it's going to create from the file that is currentl
 
 ##### But, here's the main reason: I personally uses this package, and I hate when things don't go as well as they could. So, you can be sure that this package is 100% optimized for *speed*.
 
-
+**This plugin is in development. It means that there is probably some bugs. If it's the case, please log an issue [on the github  issue tracker](https://github.com/math2001/FileManager/issues) **
 
 ## Installation
 

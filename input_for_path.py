@@ -45,7 +45,8 @@ class InputForPath(object):
         if self.create_from:
             self.create_from = ph.computer_friendly(self.create_from)
             if not os.path.isdir(self.create_from):
-                em('The path `create_from` should exists. {0!r} does not exists.'.format(self.create_from))
+                sublime.error_message('The path `create_from` should exists. {0!r} does not exists.'.format(self.create_from))
+                raise ValueError('The path create from does not exists ({0!r})'.format(self.create_from))
 
         self.browser = StdClass()
         self.browser.path = self.create_from
@@ -140,7 +141,7 @@ class InputForPath(object):
 
         else:
             if not self.log_in_status_bar:
-                return em('no log', self.log_in_status_bar)
+                return
 
             path = os.path.normpath(os.path.join(self.create_from, ph.computer_friendly(self.input_path)))
             if self.input_path != '' and self.input_path[-1] == '/':
