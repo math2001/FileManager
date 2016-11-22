@@ -121,69 +121,24 @@ class InputForPath(object):
             if item.startswith(prefix):
                 # I add items[i] because it's case is never changed
                 items_with_right_prefix.append([items[i],
-                                                os.path.isdir(items[i])])
+                                                os.path.isdir(os.path.join(load_items_from, items[i]))])
 
 
-        files, folders = sort_in_two_list(items_with_right_prefix, lambda item: [item[1], item[0]])
+        folders, files = sort_in_two_list(items_with_right_prefix, lambda item: [item[1], item[0]])
         if can_add_slash:
             folders = [folder + '/' for folder in folders]
         if with_files:
             if pick_first == 'folders':
                 return prefix, folders + files
-            else:
+            elif pick_first == 'files':
                 return prefix, files + folders
+            elif pick_first == 'alphabetic':
+                return prefix, sorted(files + folders)
+            else:
+                sublime.error_message('The keyword {0!r} to define the order of completions is not valid. See the default settings.'.format(pick_first))
+                raise ValueError('The keyword {0!r} to define the order of completions is not valid. See the default settings.'.format(pick_first))
         else:
             return prefix, folders
-
-    def input_on_change_(self, input_path):
-        self.input_path = ph.user_friendly(input_path)
-        if self.user_on_change:
-            new_values = self.user_on_change(self.input_path, self.path_to_create_choosed_from_browsing)
-            print('new_values', new_values)
-            if new_values is not None:
-                create_from, self.input_path = new_values
-                self.create_from = ph.computer_friendly(create_from)
-
-        # complete and log in status bar
-        splited_input = self.input_path.split('\t', 1)
-        if len(splited_input) == 2:
-            # complete
-            before, after = splited_input
-            prefix, completions = self.__get_completion_for(abspath=ph.computer_friendly(os.path.join(self.create_from, before)),
-                                             # with_files=self.with_files,
-                                             with_files=False,
-                                             # pick_first=self.pick_first,
-                                             pick_first=False,
-                                             case_sensitive=False,
-                                             # case_sensitive=self.case_sensitive,
-                                             can_add_slash=after == '' or after[0] != '/')
-            if not completions:
-                return em('no completion')
-
-            index = self.input.settings.get('completion_index', -1)
-            if self.prev_input_path != self.input_path:
-                print('reset_input')
-                print(repr(self.prev_input_path))
-                print(repr(self.input_path))
-                index = -1
-            index += 1
-            self.input.settings.set('completion_index', index)
-
-            print(completions, index)
-
-            self.input.view.run_command('edit_replace', {'text': completions[index], 'region': [self.input.view.sel()[0].begin()]})
-            self.prev_input_path = self.input.view.substr(sublime.Region(0, self.input.view.size()))
-
-        else:
-            if not self.log_in_status_bar:
-                return em('no log', self.log_in_status_bar)
-
-            path = os.path.normpath(os.path.join(self.create_from, ph.computer_friendly(self.input_path)))
-            if self.input_path != '' and self.input_path[-1] == '/':
-                path += os.path.sep
-            if self.log_in_status_bar == 'user':
-                path = ph.user_friendly(path)
-            set_status(self.view, self.STATUS_KEY, self.log_template.format(path))
 
     def input_on_change(self, input_path):
         self.input_path = ph.user_friendly(input_path)
@@ -195,12 +150,10 @@ class InputForPath(object):
                 self.create_from = ph.computer_friendly(create_from)
 
         def reset_settings():
-            print("!! @reset_settings")
             self.input.settings.erase('completions')
             self.input.settings.erase('completions_index')
 
         def replace_with_completion(completions, index, prefix=None):
-            print('!! @replace_with_completion')
             # replace the previous completion
             # with the new one (completions[index+1])
             region = [self.input.view.sel()[0].begin()]
@@ -217,14 +170,6 @@ class InputForPath(object):
             self.prev_input_path = self.input.view.substr(sublime.Region(0, self.input.view.size()))
 
 
-        # print(
-        #     'just_completed    ', self.input.settings.get('just_completed'), '\n',
-        #     'completions       ', self.input.settings.get('completions'), '\n',
-        #     'completions_index ', self.input.settings.get('completions_index'), '\n',
-        #     'prev              ', repr(self.prev_input_path), '\n',
-        #     'current           ', repr(self.input_path), '\n',
-        # sep='')
-
         if not hasattr(self.input, 'settings'):
             return
 
@@ -237,7 +182,6 @@ class InputForPath(object):
             if text[-1] == '\t':
                 text = text[:-1]
             if not text.endswith(tuple(completions)):
-                print(repr(text), completions)
                 return reset_settings()
             if '\t' in input_path:
 
@@ -246,7 +190,6 @@ class InputForPath(object):
                     return replace_with_completion(completions, index)
         if '\t' in input_path:
             before, after = self.input_path.split('\t')
-
             prefix, completions = self.__get_completion_for(abspath=ph.computer_friendly(os.path.join(self.create_from, before)),
                                                             with_files=self.with_files,
                                                             pick_first=self.pick_first,
@@ -254,7 +197,7 @@ class InputForPath(object):
                                                             can_add_slash=after == '' or after[0] != '/'
                                                             )
             if not completions:
-                return print('no completions', completions)
+                return
 
             self.input.settings.set('completions', completions)
             self.input.settings.set('completions_index', -1)

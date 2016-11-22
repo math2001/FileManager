@@ -4,9 +4,9 @@
 
     // only relevant if complete_with_files_too is true
     // choose folder over file if folder and file are available for
-    // completion
-    // valid values: "files", "folders", null
-    "pick_first": "folders",
+    // completion. Null means that it will be selected by alphabetic order
+    // valid values: "files", "folders", "alphabetic"
+    "pick_first": "alphabetic",
 
     // define if the auto completion case sensitive
     "case_sensitive": false,
