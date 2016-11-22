@@ -1,56 +1,56 @@
 [
     {
-        "caption": "File: New File",
+        "caption": "File Manager: New File",
         "command": "fm_create"
     },
     {
-        "caption": "File: Rename",
+        "caption": "File Manager: Rename",
         "command": "fm_rename"
     },
     {
-        "caption": "File: Move",
+        "caption": "File Manager: Move",
         "command": "fm_move"
     },
     {
-        "caption": "File: Duplicate",
+        "caption": "File Manager: Duplicate",
         "command": "fm_duplicate"
     },
     {
-        "caption": "File: Delete",
+        "caption": "File Manager: Delete",
         "command": "fm_delete"
     },
     {
-        "caption": "File: Reveal",
+        "caption": "File Manager: Reveal",
         "command": "fm_reveal"
     },
     {
-        "caption": "File: Open in browser",
+        "caption": "File Manager: Open in browser",
         "command": "fm_open_in_browser"
     },
     {
-        "caption": "Terminal: Open Terminal",
+        "caption": "File Manager: Open Terminal",
         "command": "fm_open_terminal"
     },
     {
-        "caption": "File: Find In Files",
+        "caption": "File Manager: Find In Files",
         "command": "fm_find_in_files"
     },
     {
-        "caption": "File: Copy Name",
+        "caption": "File Manager: Copy Name",
         "command": "fm_copy",
         "args": {
             "which": "name"
         }
     },
     {
-        "caption": "File: Copy Absolute Path",
+        "caption": "File Manager: Copy Absolute Path",
         "command": "fm_copy",
         "args": {
             "which": "absolute path"
         }
     },
     {
-        "caption": "File: Copy Relative Path",
+        "caption": "File Manager: Copy Relative Path",
         "command": "fm_copy",
         "args": {
             "which": "relative path"
