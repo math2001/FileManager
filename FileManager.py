@@ -112,11 +112,26 @@ def yes_no_cancel_panel(message, yes, no, cancel, yes_text='Yes', no_text='No', 
 class StdClass:
     pass
 
+def to_snake_case(camelCaseString):
+    snake = ''
+    for char in camelCaseString:
+        if char.isupper():
+            if snake == '':
+                snake += char.lower()
+            else:
+                snake += '_' + char.lower()
+        else:
+            snake += char
+    return snake
+
 
 class AppCommand(sublime_plugin.ApplicationCommand):
 
     def is_visible(self, *args, **kwargs):
-        return self.is_enabled(*args, **kwargs) or not get_settings().get('menu_without_dirstraction')
+        settings = get_settings()
+        return (settings.get('show_' +
+                             to_snake_case(self.__class__.__name__.replace('Fm', ''))) and
+                (self.is_enabled(*args, **kwargs) or not settings.get('menu_without_dirstraction')))
 
 if not hasattr(get_view(), 'close'):
     def close_file_poyfill(view):
@@ -573,9 +588,6 @@ class FmEditToTheRightCommand(AppCommand):
 
     def is_enabled(self, files=None):
         return (files is None or len(files) >= 1) and get_window().active_group() != 1
-
-    def is_visible(self, *args, **kwargs):
-        return self.is_enabled(*args, **kwargs)
 
 
 class FmEditToTheLeftCommand(AppCommand):
