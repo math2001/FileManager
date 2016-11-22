@@ -45,6 +45,9 @@ class InputForPath(object):
         if self.create_from:
             self.create_from = ph.computer_friendly(self.create_from)
             if not os.path.isdir(self.create_from):
+                if os.path.exists(self.create_from):
+                    sublime.error_message("This path exists, but doesn't seem to be a directory. Please report this (see link in the console)")
+                    raise ValueError("This path exists, but doesn't seem to be a directory. Here's the path {0}. Please report this bug here: https://github.com/math2001/FileManager/issues")
                 sublime.error_message('The path `create_from` should exists. {0!r} does not exists.'.format(self.create_from))
                 raise ValueError('The path create from does not exists ({0!r})'.format(self.create_from))
 
