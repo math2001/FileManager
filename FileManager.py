@@ -657,6 +657,5 @@ class FmListener(sublime_plugin.EventListener):
 
     def on_load(self, view):
         snippet = view.settings().get('fm_insert_snippet_on_load', None)
-        print("FileManager.py:643", 'load', snippet)
         if snippet:
             view.run_command('insert_snippet', {'contents': snippet})
