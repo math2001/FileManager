@@ -1,9 +1,12 @@
 # -*- encoding: utf-8 -*-
-import sublime, sublime_plugin
-import webbrowser
+import sublime
+import sublime_plugin
 import os
 import subprocess
 import shutil
+
+import imp
+import sys
 
 try:
     from .send2trash import send2trash
@@ -15,6 +18,31 @@ except (ImportError, ValueError):
     from input_for_path import InputForPath
     import pathhelper as ph
     from sublimefunctions import *
+
+# auto reload sub files - for dev
+
+BASE_NAME = os.path.dirname(__file__)
+PYTHON_NAME = os.path.basename(BASE_NAME)
+
+def _reload(file):
+    filename, ext = os.path.splitext(file)
+    if ext != '.py':
+        raise ValueError('The file must be a python file! (with a .py ext)')
+
+    module = sys.modules.get('.'.join([PYTHON_NAME, filename]))
+    if module:
+        imp.reload(module)
+
+class FmDevListener(sublime_plugin.EventListener):
+
+    def on_post_save(self, view):
+        if BASE_NAME in view.file_name():
+            # reload the file
+            _reload(os.path.basename(view.file_name()))
+            # reload the main file (this one)
+            _reload(os.path.basename(__file__))
+
+# Now comes the funny part!
 
 def remove_duplicate(arr):
     new = []
@@ -155,7 +183,7 @@ class FmCreateCommand(AppCommand):
         self.settings = get_settings()
         self.window = sublime.active_window()
         self.index_folder_separator = self.settings.get('index_folder_separator')
-        self.default_index_folder = self.settings.get('default_index_folder')
+        self.default_index = self.settings.get('default_index')
 
         self.TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), 'User', '.FileManager')
 
@@ -223,12 +251,14 @@ class FmCreateCommand(AppCommand):
         if self.know_where_to_create_from:
             return
         elif self.folders:
-            mess = input_path.split(self.index_folder_separator, 1)
-            if len(mess) == 1:
-                index = self.default_index_folder
-            elif isdigit(mess[0]):
-                index = int(mess[0])
-            return self.folders[index], mess[-1]
+            splited_input = input_path.split(self.index_folder_separator, 1)
+            if len(splited_input) == 1:
+                index = self.default_index
+            elif isdigit(splited_input[0]):
+                index = int(splited_input[0])
+            else:
+                index = self.default_index
+            return self.folders[index], splited_input[-1]
         return '~', input_path
 
     def is_enabled(self, paths=None):

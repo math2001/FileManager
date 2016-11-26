@@ -13,7 +13,7 @@ dst = 'C:\\Users\\math\\AppData\\Roaming\\Sublime Text 2\\Packages\\' + 'FileMan
 def copy_and_overwrite(from_path, to_path):
 
     def ignore(path, items):
-        return ['.git']
+        return ['.git', 'docs']
 
     if os.path.exists(to_path):
         shutil.rmtree(to_path)

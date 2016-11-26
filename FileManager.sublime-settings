@@ -2,11 +2,11 @@
     // auto complete with files
     "complete_with_files_too": true,
 
-    // only relevant if complete_with_files_too is True
+    // only relevant if complete_with_files_too is true
     // choose folder over file if folder and file are available for
-    // completion
-    // valid values: "files", "folders", null
-    "pick_first": "folders",
+    // completion. Null means that it will be selected by alphabetic order
+    // valid values: "files", "folders", "alphabetic"
+    "pick_first": "alphabetic",
 
     // define if the auto completion case sensitive
     "case_sensitive": false,
@@ -14,9 +14,9 @@
     // recommended to be a char that cannot be in a file name
     "index_folder_separator": ">",
 
-    // which folder to pick for reference
+    // which folder to pick for reference by default
     // (create folder from it)
-    "default_index_folder": 0,
+    "default_index": 0,
 
     // valid value
     // false: disable the log
@@ -46,7 +46,7 @@
     "menu_without_dirstraction": false,
 
     // no need to comment anything on that one I guess :)
-    "auto_close_empty_groups": true,
+    "auto_close_empty_groups": false,
 
     // auto refresh the side bar when you run any action that might affect it
     // by default, sublime text would do it by itself, but if this is
