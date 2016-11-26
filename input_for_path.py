@@ -169,6 +169,14 @@ class InputForPath(object):
             self.input.view.run_command('edit_replace', {'region': region, 'text': completions[index]})
             self.prev_input_path = self.input.view.substr(sublime.Region(0, self.input.view.size()))
 
+        # log in the status bar
+        if self.log_in_status_bar:
+            path = os.path.normpath(os.path.join(self.create_from, ph.computer_friendly(self.input_path)))
+            if self.input_path != '' and self.input_path[-1] == '/':
+                path += os.path.sep
+            if self.log_in_status_bar == 'user':
+                path = ph.user_friendly(path)
+            set_status(self.view, self.STATUS_KEY, self.log_template.format(path))
 
         if not hasattr(self.input, 'settings'):
             return
