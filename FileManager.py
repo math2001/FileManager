@@ -511,13 +511,18 @@ class FmOpenInBrowserCommand(AppCommand):
         folders = self.window.folders()
 
         for path in paths:
+
             if url is None:
                 sublime.run_command('open_url', {'url': 'file:///' + path})
             else:
                 for folder in folders:
                     if folder in path:
+                        if os.path.splitext(os.path.basename(path))[0] == 'index':
+                            path = os.path.dirname(path)
                         sublime.run_command('open_url', {'url': url + path.replace(folder, '') })
                         break
+                    else:
+                        sublime.run_command('open_url', {'url': 'file:///' + path})
 
 
 class FmCopyCommand(AppCommand):
