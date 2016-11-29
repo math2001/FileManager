@@ -27,7 +27,7 @@ PYTHON_NAME = os.path.basename(BASE_NAME)
 def _reload(file):
     filename, ext = os.path.splitext(file)
     if ext != '.py':
-        raise ValueError('The file must be a python file! (with a .py ext)')
+        raise ValueError('The file must be a python file! (with a .py ext). {0}'.format(file))
 
     module = sys.modules.get('.'.join([PYTHON_NAME, filename]))
     if module:
@@ -36,11 +36,14 @@ def _reload(file):
 class FmDevListener(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
-        if BASE_NAME in view.file_name():
+        if BASE_NAME in view.file_name() and os.path.splitext(view.file_name())[1] == '.py':
             # reload the file
             _reload(os.path.basename(view.file_name()))
             # reload the main file (this one)
-            _reload(os.path.basename(__file__))
+            file = __file__
+            if file.endswith('.pyc'):
+                file = file[:-1]
+            _reload(os.path.basename(file))
 
 # Now comes the funny part!
 
