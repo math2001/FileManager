@@ -1,3 +1,5 @@
+from __future__ import print_function, division
+
 import sublime
 import sublime_plugin
 import os
@@ -165,12 +167,12 @@ class InputForPath(object):
             region.append(region[0] - len(prefix if prefix is not None else completions[index]) - 1)
             index += 1
             self.input.settings.set('completions_index', index)
-            # Running edit_replace will trigger this function
+            # Running fm_edit_replace will trigger this function
             # and because it is not going to find any \t
             # it's going to erase the settings
             # Adding this will prevent this behaviour
             self.input.settings.set('just_completed', True)
-            self.input.view.run_command('edit_replace', {'region': region, 'text': completions[index]})
+            self.input.view.run_command('fm_edit_replace', {'region': region, 'text': completions[index]})
             self.prev_input_path = self.input.view.substr(sublime.Region(0, self.input.view.size()))
 
         # log in the status bar
@@ -187,6 +189,8 @@ class InputForPath(object):
 
         completions = self.input.settings.get('completions', None)
         index = self.input.settings.get('completions_index', None)
+
+        print("input_for_path.py:191", completions, index, input_path)
 
         if completions is not None and index is not None:
             # check if the user typed something after the completion
@@ -213,6 +217,8 @@ class InputForPath(object):
 
             self.input.settings.set('completions', completions)
             self.input.settings.set('completions_index', -1)
+
+            print("input_for_path.py:221", self.input.settings.get('completions'))
 
             replace_with_completion(completions, -1, prefix)
 
