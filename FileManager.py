@@ -175,7 +175,7 @@ class FmEditReplace(sublime_plugin.TextCommand):
         kwargs.get('view', self.view).replace(edit, sublime.Region(*kwargs['region']), kwargs['text'])
 
 
-# --- File Affecting Commands ---
+# --- Commands Affecting File ---
 
 class FmCreateCommand(AppCommand):
 
@@ -683,7 +683,6 @@ class FmListener(sublime_plugin.EventListener):
                 })
 
         sublime.set_timeout(run, 50)
-
 
     def on_load(self, view):
         snippet = view.settings().get('fm_insert_snippet_on_load', None)
