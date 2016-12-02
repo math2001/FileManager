@@ -150,15 +150,14 @@ def yes_no_cancel_panel(message, yes, no, cancel, yes_text='Yes', no_text='No', 
     window = get_window()
     window.show_quick_panel(items, on_done, 0, 1)
 
-def close_view(window, view_to_close):
+def close_view(view_to_close):
     if isSt3():
         view_to_close.close()
         return
+    window = view_to_close.window()
     window.focus_view(view_to_close)
     window.run_command('close')
 
-class StdClass:
-    pass
 
 def to_snake_case(camelCaseString):
     snake = ''
@@ -171,6 +170,9 @@ def to_snake_case(camelCaseString):
         else:
             snake += char
     return snake
+
+class StdClass:
+    pass
 
 
 class AppCommand(sublime_plugin.ApplicationCommand):
