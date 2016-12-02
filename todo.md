@@ -7,4 +7,5 @@
 - add fallback
 - specify snippet **file** to use as a template
 - create a file from url (in js: <script type="text/javascript" src="file/to/create.js"></script>)
-- if file is `index.html?`, open the dirname, not the file (better url)
+- update docs
+- list templates

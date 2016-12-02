@@ -28,5 +28,5 @@ if __name__ == '__main__':
         print('!! Sublime text 2 needs to be closed to be able to push !!')
         print('-' * 58)
         print(e)
-    else:   
+    else:
         print('Finish copying!')

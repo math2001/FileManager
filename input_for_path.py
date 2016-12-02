@@ -1,5 +1,3 @@
-from __future__ import print_function, division
-
 import sublime
 import sublime_plugin
 import os
@@ -190,8 +188,6 @@ class InputForPath(object):
         completions = self.input.settings.get('completions', None)
         index = self.input.settings.get('completions_index', None)
 
-        print("input_for_path.py:191", completions, index, input_path)
-
         if completions is not None and index is not None:
             # check if the user typed something after the completion
             text = input_path
@@ -218,7 +214,6 @@ class InputForPath(object):
             self.input.settings.set('completions', completions)
             self.input.settings.set('completions_index', -1)
 
-            print("input_for_path.py:221", self.input.settings.get('completions'))
 
             replace_with_completion(completions, -1, prefix)
 

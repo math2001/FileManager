@@ -4,9 +4,11 @@ import sublime_plugin
 import os
 import subprocess
 import shutil
+import re
 
 import imp
 import sys
+
 
 try:
     from .send2trash import send2trash
@@ -23,6 +25,13 @@ except (ImportError, ValueError):
 
 BASE_NAME = os.path.dirname(__file__)
 PYTHON_NAME = os.path.basename(BASE_NAME)
+
+TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), 'User', '.FileManager')
+
+FIND_PATH = re.compile(r'[^\^<>\?\"\'\n\t]+')
+
+def isSt3():
+    return int(sublime.version()) > 3000
 
 def _reload(file):
     filename, ext = os.path.splitext(file)
@@ -96,9 +105,11 @@ def file_get_content(path):
     with open(path, 'r') as fp:
         return fp.read()
 
-def get_template(path, TEMPLATE_FILES, TEMPLATE_FOLDER):
-    for item in TEMPLATE_FILES:
-        if os.path.splitext(item)[0] == 'template' and os.path.splitext(item)[1] == os.path.splitext(path)[1]:
+def get_template(created_file):
+    """Return the right template for the create file"""
+    template_files = os.listdir(TEMPLATE_FOLDER)
+    for item in template_files:
+        if os.path.splitext(item)[0] == 'template' and os.path.splitext(item)[1] == os.path.splitext(created_file)[1]:
             return file_get_content(os.path.join(TEMPLATE_FOLDER, item))
     return ''
 
@@ -139,6 +150,12 @@ def yes_no_cancel_panel(message, yes, no, cancel, yes_text='Yes', no_text='No', 
     window = get_window()
     window.show_quick_panel(items, on_done, 0, 1)
 
+def close_view(window, view_to_close):
+    if isSt3():
+        view_to_close.close()
+        return
+    window.focus_view(view_to_close)
+    window.run_command('close')
 
 class StdClass:
     pass
@@ -239,7 +256,7 @@ class FmCreateCommand(AppCommand):
             makedirs(os.path.dirname(abspath), exist_ok=True)
             with open(abspath, 'w') as fp:
                 pass
-            template = get_template(abspath, self.TEMPLATE_FILES, self.TEMPLATE_FOLDER)
+            template = get_template(abspath)
         else:
             template = None
         view = self.window.open_file(abspath)
@@ -304,7 +321,7 @@ class FmRenameCommand(AppCommand):
             os.rename(self.origin, dst)
             view = self.window.find_open_file(self.origin)
             if view:
-                view.close()
+                close_view(view)
             if os.path.isfile(dst):
                 self.window.open_file(dst)
 
@@ -376,7 +393,7 @@ class FmMoveCommand(AppCommand):
             view = self.window.find_open_file(origin)
             new_name = os.path.join(path, os.path.basename(origin))
             if view:
-                view.close()
+                close_view(view)
             try:
                 os.rename(origin, new_name)
             except Exception as e:
@@ -473,7 +490,7 @@ class FmDeleteCommand(AppCommand):
             for path in self.paths:
                 view = self.window.find_open_file(path)
                 if view is not None:
-                    view.close()
+                    close_view(view)
                 try:
                     send2trash(path)
                 except OSError as e:
@@ -650,8 +667,54 @@ class FmEditToTheLeftCommand(AppCommand):
     def is_enabled(self, files=None):
         return (files is None or len(files) >= 1) and get_window().active_group() != 0
 
-    def is_visible(self, *args, **kwargs):
-        return self.is_enabled(*args, **kwargs)
+# disabled command
+class FmCreateFileFromSelectionCommand:
+
+    """Right click on a file and create the realative path to it.
+    Inspired a lot by Default.open_context_menu. Thanks John!"""
+
+    CONTEXT_MAX_LENGTH = 20
+
+    def run(self, edit, event):
+        md(self.get_path(event))
+
+    def want_event(self):
+        return True
+
+    def get_path(self, event, for_context_menu=False):
+        if self.view.file_name() is None:
+            return
+        pt = self.view.window_to_text((event["x"], event["y"]))
+        if not 'string' in self.view.scope_name(pt):
+            return
+
+        line = self.view.line(pt)
+
+        line.a = max(line.a, pt - 1024)
+        line.b = min(line.b, pt + 1024)
+
+        text = self.view.substr(line)
+
+        it = FIND_PATH.finditer(text)
+
+        for match in it:
+            if match.start() <= (pt - line.a) and match.end() >= (pt - line.a):
+                path = text[match.start():match.end()]
+                if for_context_menu:
+                    return os.path.dirname(self.view.file_name()), ph.computer_friendly(path)
+                return os.path.join(os.path.dirname(self.view.file_name()), ph.computer_friendly(path))
+        return None
+
+    def description(self, event):
+        base, filename = self.get_path(event, True)
+        if len(base) + len(filename) > self.CONTEXT_MAX_LENGTH:
+            path = base[:len(filename) - 3] + '...' + filename
+        else:
+            path = os.path.join(base, filename)
+        return "Create " + path
+
+    def is_visible(self, event):
+        return self.get_path(event) is not None
 
 
 class FmFindInFilesCommand(AppCommand):
@@ -696,3 +759,4 @@ class FmListener(sublime_plugin.EventListener):
         snippet = view.settings().get('fm_insert_snippet_on_load', None)
         if snippet:
             view.run_command('insert_snippet', {'contents': snippet})
+            view.settings().erase('fm_insert_snippet_on_load')
