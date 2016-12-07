@@ -32,7 +32,14 @@ class FindInFolderCommand(sublime_plugin.WindowCommand):
 		return False
 	def is_enabled(self):
 		return False
+
 class OpenContainingFolderCommand(sublime_plugin.WindowCommand):
+	def is_visible(self):
+		return False
+	def is_enabled(self):
+		return False
+
+class OpenInBrowserCommand(sublime_plugin.TextCommand):
 	def is_visible(self):
 		return False
 	def is_enabled(self):

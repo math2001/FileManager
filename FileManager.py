@@ -621,7 +621,7 @@ class FmRevealCommand(AppCommand):
             if os.path.isdir(path):
                 self.window.run_command('open_dir', { 'dir': path })
             else:
-                self.azerwindow.run_command("open_dir", { "dir": os.path.dirname(path), "file": os.path.basename(path) })
+                self.window.run_command("open_dir", { "dir": os.path.dirname(path), "file": os.path.basename(path) })
 
 
 
