@@ -1,6 +1,6 @@
 [
-    {
-        "keys": ["ctrl+n"],
-        "command": "fm_create"
-    }
+//     {
+//         "keys": ["ctrl+n"],
+//         "command": "fm_create"
+//     }
 ]
