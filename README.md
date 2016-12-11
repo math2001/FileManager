@@ -41,6 +41,10 @@ If there is no project open, it's going to create from the file that is currentl
 
 **This plugin is in development. It means that there is probably some bugs. If it's the case, please log an issue [on the github  issue tracker](https://github.com/math2001/FileManager/issues)**
 
+## Docs
+
+The docs are a work in progress, but there's a few useful infos about the `fm_create` command escpecially (the one to create/open file/folder). They're simply on the [github wiki](https://github.com/math2001/FileManager/wiki). **Go have a quick look, you won't regret it** :smile:
+
 ## Installation
 
 #### Using package control
@@ -59,8 +63,6 @@ cd ~/.config/sublime-text-3                        # on linux
 
 git clone "https://github.com/math2001/fast-markdown"
 ```
-
-
 
 ## For sublime text **2** user
 
