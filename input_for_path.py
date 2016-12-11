@@ -175,7 +175,7 @@ class InputForPath(object):
 
         # log in the status bar
         if self.log_in_status_bar:
-            path = os.path.normpath(os.path.join(self.create_from, ph.computer_friendly(self.input_path)))
+            path = ph.computer_friendly(os.path.normpath(self.create_from + os.path.sep + self.input_path))
             if self.input_path != '' and self.input_path[-1] == '/':
                 path += os.path.sep
             if self.log_in_status_bar == 'user':
@@ -250,7 +250,7 @@ class InputForPath(object):
             self.browser.path = os.path.join(self.browser.path, self.browser.items[index])
 
         if os.path.isfile(self.browser.path):
-            self.window.open_file(self.browser.path)
+            return self.window.open_file(self.browser.path)
 
         folders, files = [], []
         for item in os.listdir(self.browser.path):

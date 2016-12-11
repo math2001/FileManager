@@ -1,7 +1,7 @@
 [
-    // {
-        // "command": "fm_create_file_from_selection"
-    // }
+    {
+        "command": "fm_create_file_from_selection"
+    },
     {
         "caption": "Open In Browser",
         "command": "fm_open_in_browser"

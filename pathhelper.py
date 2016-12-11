@@ -1,11 +1,17 @@
 import os
 
+
 def user_friendly(path):
     path = computer_friendly(path)
     return path.replace(os.path.expanduser('~'), '~').replace(os.path.sep, '/')
     return path.replace(os.path.expanduser('~'), '~').replace(os.path.sep, '/')
 
 def computer_friendly(path):
+    """Also makes sure the path is valid"""
+    if '~' in path:
+        path = path[path.rfind("~"):]
+    if ':' in path:
+        path = path[path.rfind(':')-1:]
     path = path.replace('~', os.path.expanduser('~'))
     path = path.replace('/', os.path.sep)
     return path

@@ -23,12 +23,14 @@ except (ImportError, ValueError):
 
 # auto reload sub files - for dev
 
-BASE_NAME = os.path.dirname(__file__)
-PYTHON_NAME = os.path.basename(BASE_NAME)
+def plugin_loaded():
+    global BASE_NAME, PYTHON_NAME, TEMPLATE_FOLDER, FIND_PATH
+    BASE_NAME = os.path.dirname(__file__)
+    PYTHON_NAME = os.path.basename(BASE_NAME)
 
-TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), 'User', '.FileManager')
+    TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), 'User', '.FileManager')
 
-FIND_PATH = re.compile(r'[^\^<>\?\"\'\n\t]+')
+    FIND_PATH = re.compile(r'[^\^<>\?\"\'\n\t]+')
 
 def isSt3():
     return int(sublime.version()) > 3000
@@ -670,7 +672,7 @@ class FmEditToTheLeftCommand(AppCommand):
         return (files is None or len(files) >= 1) and get_window().active_group() != 0
 
 # disabled command
-class FmCreateFileFromSelectionCommand:
+class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
     """Right click on a file and create the realative path to it.
     Inspired a lot by Default.open_context_menu. Thanks John!"""
@@ -684,28 +686,19 @@ class FmCreateFileFromSelectionCommand:
         return True
 
     def get_path(self, event, for_context_menu=False):
-        if self.view.file_name() is None:
+        v = get_view()
+        if v.file_name() is None:
             return
-        pt = self.view.window_to_text((event["x"], event["y"]))
-        if not 'string' in self.view.scope_name(pt):
+        pt = v.window_to_text((event["x"], event["y"]))
+        if not 'string' in v.scope_name(pt):
             return
 
-        line = self.view.line(pt)
-
-        line.a = max(line.a, pt - 1024)
-        line.b = min(line.b, pt + 1024)
-
-        text = self.view.substr(line)
-
-        it = FIND_PATH.finditer(text)
-
-        for match in it:
-            if match.start() <= (pt - line.a) and match.end() >= (pt - line.a):
-                path = text[match.start():match.end()]
-                if for_context_menu:
-                    return os.path.dirname(self.view.file_name()), ph.computer_friendly(path)
-                return os.path.join(os.path.dirname(self.view.file_name()), ph.computer_friendly(path))
-        return None
+        if 'html' in v.settings().get('syntax').lower():
+            regions = v.find_by_selector('meta.tag.inline.any.html')
+            for region in regions:
+                if region.contains(sublime.Region(pt)):
+                    v.selection.add(region)
+            string = v.sel()[0]
 
     def description(self, event):
         base, filename = self.get_path(event, True)
@@ -715,9 +708,10 @@ class FmCreateFileFromSelectionCommand:
             path = os.path.join(base, filename)
         return "Create " + path
 
-    def is_visible(self, event):
-        return self.get_path(event) is not None
-
+    def is_visible(self, event=None):
+        return False
+        self.get_path(event)
+        return True
 
 class FmFindInFilesCommand(AppCommand):
 

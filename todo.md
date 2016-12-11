@@ -9,3 +9,4 @@
 - create a file from url (in js: <script type="text/javascript" src="file/to/create.js"></script>)
 - update docs
 - list templates
+- save contants once st is loaded @IMPORTANT
