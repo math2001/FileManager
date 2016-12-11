@@ -37,13 +37,15 @@ If there is no project open, it's going to create from the file that is currentl
 
 - Open terminal from Sublime Text (which one(s), it's up to you, just have a look in the settings)
 
-##### But, here's the main reason: I personally uses this package, and I hate when things don't go as well as they could. So, you can be sure that this package is 100% optimized for *speed*.
+## "Spirit"
 
-**This plugin is in development. It means that there is probably some bugs. If it's the case, please log an issue [on the github  issue tracker](https://github.com/math2001/FileManager/issues)**
+This package has as a target to be 100% optimized. There shouldn't be 2 commands when can do the job. You can hide the command you don't use (please submit an issue to let me know if it's the case), there is an auto completion system, and, finally, I use it, so I'm able to see a fair bit of the bug, and I correct them (:smile:).
+
+**Although, remember that this plugin is in *development*. It means that there is probably some bugs. If it's the case, please log an issue [on the github  issue tracker](https://github.com/math2001/FileManager/issues)**
 
 ## Docs
 
-The docs are a work in progress, but there's a few useful infos about the `fm_create` command escpecially (the one to create/open file/folder). They're simply on the [github wiki](https://github.com/math2001/FileManager/wiki). **Go have a quick look, you won't regret it** :smile:
+The docs are a work in progress, but there's a few useful infos about the `fm_create` command especially (the one to create/open file/folder). They're simply on the [github wiki](https://github.com/math2001/FileManager/wiki). **Go have a quick look, you won't regret it** :smile:
 
 ## Installation
 
