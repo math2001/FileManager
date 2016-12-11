@@ -1,6 +1,6 @@
 [
     {
-        "keys": ["ctrl+n"],
+        "keys": ["alt+n"],
         "command": "fm_create"
     }
 ]
