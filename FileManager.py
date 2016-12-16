@@ -593,6 +593,8 @@ class FmOpenTerminalCommand(AppCommand):
 
         if paths is not None:
             cwd = paths[0]
+        elif self.window.folders() != []:
+            cwd = self.window.folders()[0]
         else:
             cwd = self.view.file_name()
 

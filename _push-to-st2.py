@@ -1,3 +1,4 @@
+# CSW: ignore
 # -*- encoding: utf-8 -*-
 
 """
