@@ -151,7 +151,8 @@ class InputForPath(object):
             new_values = self.user_on_change(self.input_path, self.path_to_create_choosed_from_browsing)
             if new_values is not None:
                 create_from, self.input_path = new_values
-                self.create_from = ph.computer_friendly(create_from)
+                if create_from is not None:
+                    self.create_from = ph.computer_friendly(create_from)
 
         def reset_settings():
             self.input.settings.erase('completions')

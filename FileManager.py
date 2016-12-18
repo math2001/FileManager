@@ -281,7 +281,7 @@ class FmCreateCommand(AppCommand):
             elif isdigit(splited_input[0]):
                 index = int(splited_input[0])
             else:
-                index = self.default_index
+                return None, input_path
             return self.folders[index], splited_input[-1]
         return '~', input_path
 
