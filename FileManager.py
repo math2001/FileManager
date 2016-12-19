@@ -15,13 +15,17 @@ try:
     from .input_for_path import InputForPath
     from . import pathhelper as ph
     from .sublimefunctions import *
+    from .commands.create_from_selection import *
 except (ImportError, ValueError):
     from send2trash import send2trash
     from input_for_path import InputForPath
     import pathhelper as ph
     from sublimefunctions import *
+    from commands.create_from_selection import *
 
-# auto reload sub files - for dev
+import sys, os.path, imp, sublime, sublime_plugin
+
+
 
 def plugin_loaded():
     global BASE_NAME, PYTHON_NAME, TEMPLATE_FOLDER, FIND_PATH
@@ -36,25 +40,35 @@ def isSt3():
     return int(sublime.version()) > 3000
 
 def _reload(file):
-    filename, ext = os.path.splitext(file)
-    if ext != '.py':
-        raise ValueError('The file must be a python file! (with a .py ext). {0}'.format(file))
-
-    module = sys.modules.get('.'.join([PYTHON_NAME, filename]))
+    if file.endswith('.pyc'):
+        file = file[:-1]
+    file = file[:-3]
+    module = sys.modules.get(file.replace(os.path.sep, '.'))
     if module:
         imp.reload(module)
+
+# auto reload sub files - for dev
 
 class FmDevListener(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
         if BASE_NAME in view.file_name() and os.path.splitext(view.file_name())[1] == '.py':
-            # reload the file
-            _reload(os.path.basename(view.file_name()))
+            if view.file_name() == __file__:
+                return
+            else:
+                _reload(view.file_name()[len(os.path.dirname(BASE_NAME)) + 1:])
+            if view.window().find_open_file(__file__):
+                close = False
+            file_view = view.window().open_file(__file__)
+            file_view.run_command('save')
+            def callback():
+                view.window().focus_view(view)
+                if close:
+                    file_view.close()
+            sublime.set_timeout(callback, 200)
             # reload the main file (this one)
-            file = __file__
-            if file.endswith('.pyc'):
-                file = file[:-1]
-            _reload(os.path.basename(file))
+            _reload(__file__[len(os.path.dirname(BASE_NAME)) + 1:])
+
 
 # Now comes the funny part!
 
@@ -68,7 +82,11 @@ def remove_duplicate(arr):
 def get_settings():
     return sublime.load_settings('FileManager.sublime-settings')
 
-def refresh_sidebar(settings, window):
+def refresh_sidebar(settings=None, window=None):
+    if window is None:
+        window = active_window()
+    if settings is None:
+        settings = window.active_view().settings()
     if settings.get('explicitly_refresh_sidebar') is True:
         window.run_command('refresh_folder_list')
 
@@ -199,6 +217,28 @@ class FmEditReplace(sublime_plugin.TextCommand):
         kwargs.get('view', self.view).replace(edit, sublime.Region(*kwargs['region']), kwargs['text'])
 
 
+class FmCreaterCommand(AppCommand):
+    """Create folder(s)/files that might be required and the
+    final ones if it doesn't exists. Finaly, opens the file"""
+
+    def run(self, abspath, input_path):
+        input_path = ph.user_friendly(input_path)
+        if input_path[-1] == '/':
+            return makedirs(abspath, exist_ok=True)
+        if not os.path.isfile(abspath):
+            makedirs(os.path.dirname(abspath), exist_ok=True)
+            with open(abspath, 'w') as fp:
+                pass
+            template = get_template(abspath)
+        else:
+            template = None
+        window = get_window()
+        view = window.open_file(abspath)
+        settings = view.settings()
+        if template:
+           settings.set('fm_insert_snippet_on_load', template)
+        refresh_sidebar(settings, window)
+
 # --- Commands Affecting File ---
 
 class FmCreateCommand(AppCommand):
@@ -252,22 +292,6 @@ class FmCreateCommand(AppCommand):
                                   log_template='Creating at {0}',
                                   enable_browser=True)
 
-    def on_done(self, abspath, input_path):
-        input_path = ph.user_friendly(input_path)
-        if input_path[-1] == '/':
-            return makedirs(abspath, exist_ok=True)
-        if not os.path.isfile(abspath):
-            makedirs(os.path.dirname(abspath), exist_ok=True)
-            with open(abspath, 'w') as fp:
-                pass
-            template = get_template(abspath)
-        else:
-            template = None
-        view = self.window.open_file(abspath)
-        if template:
-            view.settings().set('fm_insert_snippet_on_load', template)
-        refresh_sidebar(self.settings, self.window)
-
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
         if path_to_create_choosed_from_browsing:
             # The user has browsed, we let InputForPath select the path
@@ -287,6 +311,9 @@ class FmCreateCommand(AppCommand):
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
+
+    def on_done(self, abspath, input_path):
+        sublime.run_command('fm_creater', {'abspath': abspath, 'input_path': input_path})
 
 
 class FmRenameCommand(AppCommand):
@@ -628,7 +655,6 @@ class FmRevealCommand(AppCommand):
                 self.window.run_command("open_dir", { "dir": os.path.dirname(path), "file": os.path.basename(path) })
 
 
-
 class FmEditToTheRightCommand(AppCommand):
 
     def run(self, files=None):
@@ -674,46 +700,7 @@ class FmEditToTheLeftCommand(AppCommand):
         return (files is None or len(files) >= 1) and get_window().active_group() != 0
 
 # disabled command
-class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
-    """Right click on a file and create the realative path to it.
-    Inspired a lot by Default.open_context_menu. Thanks John!"""
-
-    CONTEXT_MAX_LENGTH = 20
-
-    def run(self, edit, event):
-        md(self.get_path(event))
-
-    def want_event(self):
-        return True
-
-    def get_path(self, event, for_context_menu=False):
-        v = get_view()
-        if v.file_name() is None:
-            return
-        pt = v.window_to_text((event["x"], event["y"]))
-        if not 'string' in v.scope_name(pt):
-            return
-
-        if 'html' in v.settings().get('syntax').lower():
-            regions = v.find_by_selector('meta.tag.inline.any.html')
-            for region in regions:
-                if region.contains(sublime.Region(pt)):
-                    v.selection.add(region)
-            string = v.sel()[0]
-
-    def description(self, event):
-        base, filename = self.get_path(event, True)
-        if len(base) + len(filename) > self.CONTEXT_MAX_LENGTH:
-            path = base[:len(filename) - 3] + '...' + filename
-        else:
-            path = os.path.join(base, filename)
-        return "Create " + path
-
-    def is_visible(self, event=None):
-        return False
-        self.get_path(event)
-        return True
 
 class FmFindInFilesCommand(AppCommand):
 

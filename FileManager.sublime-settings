@@ -6,7 +6,7 @@
     // choose folder over file if folder and file are available for
     // completion. Null means that it will be selected by alphabetic order
     // valid values: "files", "folders", "alphabetic"
-    "pick_first": "alphabetic",
+    "pick_first": "folders",
 
     // define if the auto completion case sensitive
     "case_sensitive": false,
@@ -43,7 +43,7 @@
 
     // If set to true, all the command that are disabled (in grey)
     // will be hidden
-    "menu_without_dirstraction": false,
+    "menu_without_dirstraction": true,
 
     // no need to comment anything on that one I guess :)
     "auto_close_empty_groups": false,

@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 import unittest
 import sys
 import os
