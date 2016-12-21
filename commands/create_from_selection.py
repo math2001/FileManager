@@ -3,8 +3,7 @@
 import sublime
 import sublime_plugin
 import os
-import re
-from FileManager import pathhelper as ph
+from re import compile as re_comp
 from FileManager.sublimefunctions import *
 
 """ This command has been inspired at 90% by the open_url_context command
@@ -24,11 +23,11 @@ def move_until(view, stop_char, increment, start):
 class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
     CONTEXT_MAX_LENGTH = 50
-    MATCH_SOURCE_ATTR = re.compile(r'(src|href) *= *$')
+    MATCH_SOURCE_ATTR = re_comp(r'(src|href) *= *$')
 
     def run(self, edit, event):
         base_path, input_path = self.get_path(event)
-        abspath = ph.computer_friendly(os.path.join(base_path, input_path))
+        abspath = computer_friendly(os.path.join(base_path, input_path))
         sublime.run_command('fm_creater', {'abspath': abspath,
                                            'input_path': input_path})
 
@@ -57,7 +56,7 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
     def description(self, event):
         base, file_name = self.get_path(event, True)
-        base, file_name = ph.user_friendly(base), ph.user_friendly(file_name)
+        base, file_name = user_friendly(base), user_friendly(file_name)
         if len(base) + len(file_name) > self.CONTEXT_MAX_LENGTH:
             path = base[:len(file_name) - 3] + '...' + file_name
         else:

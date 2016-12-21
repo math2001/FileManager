@@ -7,3 +7,7 @@
 - specify snippet **file** to use as a template
 - update docs
 - list templates
+- add options:
+    - to reveal in side bar
+    - to save automatically after inserting snippet
+    - ignore patterns in auto completion

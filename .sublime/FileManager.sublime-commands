@@ -20,11 +20,11 @@
         "command": "fm_delete"
     },
     {
-        "caption": "File Manager: Reveal",
-        "command": "fm_reveal"
+        "caption": "File Manager: Open In Explorer",
+        "command": "fm_open_in_explorer"
     },
     {
-        "caption": "File Manager: Open in browser",
+        "caption": "File Manager: Open In Browser",
         "command": "fm_open_in_browser"
     },
     {

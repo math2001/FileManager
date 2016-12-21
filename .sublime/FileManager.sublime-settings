@@ -67,9 +67,9 @@
     "show_edit_to_the_right_command": true,
     "show_find_in_files_command": true,
     "show_move_command": true,
+    "show_open_in_explorer_command": true,
     "show_open_in_browser_command": true,
     "show_open_terminal_command": true,
-    "show_rename_command": true,
-    "show_reveal_command": true
+    "show_rename_command": true
 
 }

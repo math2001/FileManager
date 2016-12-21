@@ -63,7 +63,7 @@
     },
     {
         "caption": "Open in explorer",
-        "command": "fm_reveal",
+        "command": "fm_open_in_explorer",
         "args": {
             "paths": []
         }
