@@ -1,12 +1,21 @@
+from __future__ import absolute_import, unicode_literals, print_function, division
 import sublime
 import os
-from .pathhelper import *
+import sys
+
+if sys.version_info[0] >= 3:
+    from .pathhelper import *
+else:
+    from pathhelper import *
 
 outlocals = locals()
 def plugin_loaded():
     outlocals["TEMPLATE_FOLDER"] = os.path.join(sublime.packages_path(), 'User', '.FileManager')
     if not os.path.exists(outlocals["TEMPLATE_FOLDER"]):
         makedirs(TEMPLATE_FOLDER)
+
+if sys.version_info[0] < 3:
+    plugin_loaded()
 
 
 def md(*t, **kwargs):
@@ -123,4 +132,5 @@ def to_snake_case(camelCaseString):
     return snake
 
 def StdClass(name='Unknown'):
-    return type(name.title(), (), {})
+    # add the str() function because of the unicode in Python 2
+    return type(str(name).title(), (), {})

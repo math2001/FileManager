@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
-from FileManager.send2trash import send2trash
-from FileManager.sublimefunctions import *
-from FileManager.commands.appcommand import AppCommand
-from FileManager.input_for_path import InputForPath
+from __future__ import absolute_import, unicode_literals, print_function, division
+from .send2trash import send2trash
+from .sublimefunctions import *
+from .FMcommands.appcommand import AppCommand
+from .input_for_path import InputForPath
 
 
 class FmRenameCommand(AppCommand):

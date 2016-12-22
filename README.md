@@ -78,5 +78,3 @@ So, talking about the cool feature, there is one that has been included in the b
 As you probably understand, this plugin uses this feature, but ST2 does not have it. So, I created a poly fill for it (a little plugin that makes it available for ST2 users). It's only one file, and all you have to do is paste a code in your console (just like package control) and it will download it for you. [`settings.py`](https://gist.github.com/math2001/6cd5cbb9d2741654c2e994d33c395729#file-settings-py-L27)
 
 Once you've pasted it in the console, go to `Preferences -> Package Settings -> File Manager`, and there you have it!
-
-Note: due to recent changes, FileManager is not working on ST2 anymore. I'm working on changing this back, but the current solution is the clone the repo using `git` and `checkout` to a compatible previous commit.

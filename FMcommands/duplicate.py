@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
+from __future__ import absolute_import, unicode_literals, print_function, division
 
-from FileManager.sublimefunctions import *
-from FileManager.input_for_path import InputForPath
-from FileManager.commands.appcommand import AppCommand
+from .sublimefunctions import *
+from .input_for_path import InputForPath
+from .FMcommands.appcommand import AppCommand
 
 class FmDuplicateCommand(AppCommand):
 

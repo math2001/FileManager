@@ -1,11 +1,14 @@
+from __future__ import absolute_import, unicode_literals, print_function, division
 import sublime
 import sublime_plugin
 import os
-try:
-    from . import pathhelper as ph
+import sys
+
+if sys.version_info[0] >= 3:
+    from .pathhelper import *
     from .sublimefunctions import *
-except (ImportError, ValueError):
-    import pathhelper as ph
+else:
+    from pathhelper import *
     from sublimefunctions import *
 
 def isdigit(string):
@@ -15,10 +18,6 @@ def isdigit(string):
         return False
     else:
         return True
-
-class StdClass:
-    def __init__(self, name="Unnamed"):
-        self.__class__.__name__ = name.title()
 
 def set_status(view, key, value):
     if view:
@@ -49,7 +48,7 @@ class InputForPath(object):
 
         self.create_from = create_from
         if self.create_from:
-            self.create_from = ph.computer_friendly(self.create_from)
+            self.create_from = computer_friendly(self.create_from)
             if not os.path.isdir(self.create_from):
                 if os.path.exists(self.create_from):
                     sublime.error_message("This path exists, but doesn't seem to be a directory. Please report this (see link in the console)")
@@ -104,7 +103,7 @@ class InputForPath(object):
             return first, second
 
 
-        abspath = ph.computer_friendly(abspath)
+        abspath = computer_friendly(abspath)
 
         if abspath.endswith(os.path.sep):
             prefix = ''
@@ -136,7 +135,7 @@ class InputForPath(object):
                 return prefix, folders + files
             elif pick_first == 'files':
                 return prefix, files + folders
-            elif pick_first == 'alphabetic':
+            elif pick_first == 'albetic':
                 return prefix, sorted(files + folders)
             else:
                 sublime.error_message('The keyword {0!r} to define the order of completions is not valid. See the default settings.'.format(pick_first))
@@ -145,14 +144,14 @@ class InputForPath(object):
             return prefix, folders
 
     def input_on_change(self, input_path):
-        self.input_path = ph.user_friendly(input_path)
+        self.input_path = user_friendly(input_path)
         # get changed inputs and create_from from the on_change user function
         if self.user_on_change:
             new_values = self.user_on_change(self.input_path, self.path_to_create_choosed_from_browsing)
             if new_values is not None:
                 create_from, self.input_path = new_values
                 if create_from is not None:
-                    self.create_from = ph.computer_friendly(create_from)
+                    self.create_from = computer_friendly(create_from)
 
         def reset_settings():
             self.input.settings.erase('completions')
@@ -176,11 +175,11 @@ class InputForPath(object):
 
         # log in the status bar
         if self.log_in_status_bar:
-            path = ph.computer_friendly(os.path.normpath(self.create_from + os.path.sep + self.input_path))
+            path = computer_friendly(os.path.normpath(self.create_from + os.path.sep + self.input_path))
             if self.input_path != '' and self.input_path[-1] == '/':
                 path += os.path.sep
             if self.log_in_status_bar == 'user':
-                path = ph.user_friendly(path)
+                path = user_friendly(path)
             set_status(self.view, self.STATUS_KEY, self.log_template.format(path))
 
         if not hasattr(self.input, 'settings'):
@@ -203,7 +202,7 @@ class InputForPath(object):
                     return replace_with_completion(completions, index)
         if '\t' in input_path:
             before, after = self.input_path.split('\t')
-            prefix, completions = self.__get_completion_for(abspath=ph.computer_friendly(os.path.join(self.create_from, before)),
+            prefix, completions = self.__get_completion_for(abspath=computer_friendly(os.path.join(self.create_from, before)),
                                                             with_files=self.with_files,
                                                             pick_first=self.pick_first,
                                                             case_sensitive=self.case_sensitive,
@@ -223,7 +222,7 @@ class InputForPath(object):
             set_status(self.view, self.STATUS_KEY, '')
         # use the one returned by the on change function
         input_path = self.input_path
-        computer_path = ph.computer_friendly(os.path.join(self.create_from, input_path))
+        computer_path = computer_friendly(os.path.join(self.create_from, input_path))
         # open browser
         if os.path.isdir(computer_path):
             self.browser.path = computer_path
@@ -268,6 +267,6 @@ class InputForPath(object):
         else:
             self.browser.items = ['[cmd] ' + self.browser_action['title'], '[cmd] ...'] + folders + files
 
-        set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(ph.user_friendly(self.browser.path)))
+        set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(user_friendly(self.browser.path)))
 
         self.window.show_quick_panel(self.browser.items, self.browsing_on_done, 0, 2)

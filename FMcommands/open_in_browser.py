@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
+from __future__ import absolute_import, unicode_literals, print_function, division
 
-from FileManager.sublimefunctions import *
-from FileManager.commands.appcommand import AppCommand
+from .sublimefunctions import *
+from .FMcommands.appcommand import AppCommand
 
 class FmOpenInBrowserCommand(AppCommand):
 
