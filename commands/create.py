@@ -27,6 +27,9 @@ class FmCreaterCommand(AppCommand):
         if template:
            settings.set('fm_insert_snippet_on_load', template)
         refresh_sidebar(settings, window)
+        if get_settings().get('reveal_in_sidebar'):
+            settings.set('fm_reveal_in_sidebar', True)
+            sublime.set_timeout_async(lambda: window.run_command('reveal_in_side_bar'), 500)
 
 class FmCreateCommand(AppCommand):
 
