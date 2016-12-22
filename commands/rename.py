@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from FileManager.send2trash import send2trash
 from FileManager.sublimefunctions import *
 from FileManager.commands.appcommand import AppCommand
 from FileManager.input_for_path import InputForPath
