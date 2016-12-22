@@ -35,7 +35,7 @@ class InputForPath(object):
 
     def __init__(self, caption, initial_text, on_done, on_change, on_cancel, create_from,
                  with_files, pick_first, case_sensitive, log_in_status_bar, log_template,
-                 enable_browser):
+                 browser_action='default'):
 
 
         self.user_on_done = on_done
@@ -44,7 +44,7 @@ class InputForPath(object):
         self.caption = caption
         self.initial_text = initial_text
         self.log_template = log_template
-        self.enable_browser = enable_browser
+        self.browser_action = browser_action
 
 
         self.create_from = create_from
@@ -225,7 +225,7 @@ class InputForPath(object):
         input_path = self.input_path
         computer_path = ph.computer_friendly(os.path.join(self.create_from, input_path))
         # open browser
-        if self.enable_browser and os.path.isdir(computer_path):
+        if os.path.isdir(computer_path):
             self.browser.path = computer_path
             return self.browsing_on_done()
         else:
@@ -238,13 +238,16 @@ class InputForPath(object):
 
     def browsing_on_done(self, index=None):
         if index == -1:
-            return set_status(self.view, self.STATUS_KEY, '')
+            return self.input_on_cancel()
 
         if index == 0:
             # create from the position in the browser
             self.create_from = self.browser.path
             self.path_to_create_choosed_from_browsing = True
-            return self.create_input()
+            if self.browser_action == 'default':
+                return self.create_input()
+            else:
+                return self.browser_action['func'](self.create_from, None)
         elif index == 1:
             self.browser.path = os.path.normpath(os.path.join(self.browser.path, '..'))
         elif index is not None:
@@ -260,7 +263,10 @@ class InputForPath(object):
             else:
                 files.append(item)
 
-        self.browser.items = ['[cmd] Create from here', '[cmd] ..'] + folders + files
+        if self.browser_action == 'default':
+            self.browser.items = ['[cmd] Create from here', '[cmd] ...'] + folders + files
+        else:
+            self.browser.items = ['[cmd] ' + self.browser_action['title'], '[cmd] ...'] + folders + files
 
         set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(ph.user_friendly(self.browser.path)))
 

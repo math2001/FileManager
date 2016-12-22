@@ -33,7 +33,10 @@ class FmMoveCommand(AppCommand):
                             case_sensitive=self.settings.get('case_sensitive'),
                             log_in_status_bar=self.settings.get('log_in_status_bar'),
                             log_template='Moving at {0}',
-                            enable_browser=False)
+                            browser_action={
+                                'title': 'Move here',
+                                'func': self.move
+                            })
 
     def move(self, path, input_path):
         makedirs(path, exist_ok=True)

@@ -72,8 +72,7 @@ class FmCreateCommand(AppCommand):
                                     pick_first=self.settings.get('pick_first'),
                                     case_sensitive=self.settings.get('case_sensitive'),
                                     log_in_status_bar=self.settings.get('log_in_status_bar'),
-                                    log_template='Creating at {0}',
-                                    enable_browser=True)
+                                    log_template='Creating at {0}')
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
         if path_to_create_choosed_from_browsing:

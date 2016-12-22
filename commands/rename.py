@@ -29,8 +29,7 @@ class FmRenameCommand(AppCommand):
                                 pick_first=self.settings.get('pick_first'),
                                 case_sensitive=self.settings.get('case_sensitive'),
                                 log_in_status_bar=self.settings.get('log_in_status_bar'),
-                                log_template='Renaming to {0}',
-                                enable_browser=True)
+                                log_template='Renaming to {0}')
         self.input.input.view.selection.clear()
         self.input.input.view.selection.add(sublime.Region(0, len(filename)))
 

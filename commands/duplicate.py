@@ -29,8 +29,7 @@ class FmDuplicateCommand(AppCommand):
                                   pick_first=self.settings.get('pick_first'),
                                   case_sensitive=self.settings.get('case_sensitive'),
                                   log_in_status_bar=self.settings.get('log_in_status_bar'),
-                                  log_template='Duplicating at {0}',
-                                  enable_browser=True)
+                                  log_template='Duplicating at {0}')
 
         head = len(os.path.dirname(initial_path)) + 1
         filename = len(os.path.splitext(os.path.basename(initial_path))[0])
