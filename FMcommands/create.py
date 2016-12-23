@@ -34,7 +34,7 @@ class FmCreaterCommand(AppCommand):
 
 class FmCreateCommand(AppCommand):
 
-    def run(self, paths=None, initial_text='', start_with_browser=False):
+    def run(self, paths=None, initial_text='', start_with_browser=False, no_browser_action=False):
         self.settings = get_settings()
         self.window = sublime.active_window()
         self.index_folder_separator = self.settings.get('index_folder_separator')
@@ -74,7 +74,8 @@ class FmCreateCommand(AppCommand):
                                     case_sensitive=self.settings.get('case_sensitive'),
                                     log_in_status_bar=self.settings.get('log_in_status_bar'),
                                     log_template='Creating at {0}',
-                                    start_with_browser=start_with_browser)
+                                    start_with_browser=start_with_browser,
+                                    no_browser_action=no_browser_action)
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
         if path_to_create_choosed_from_browsing:

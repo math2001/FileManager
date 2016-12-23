@@ -70,7 +70,8 @@
         "args": {
             "paths": ["${packages}/User/.FileManager/"],
             "initial_text": "",
-            "start_with_browser": true
+            "start_with_browser": true,
+            "no_browser_action": true
         }
     },
     {

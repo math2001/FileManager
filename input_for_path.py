@@ -30,8 +30,7 @@ class InputForPath(object):
 
     def __init__(self, caption, initial_text, on_done, on_change, on_cancel, create_from,
                  with_files, pick_first, case_sensitive, log_in_status_bar, log_template,
-                 browser_action='default', start_with_browser=False):
-
+                 browser_action={}, start_with_browser=False, no_browser_action=False):
 
         self.user_on_done = on_done
         self.user_on_change = on_change
@@ -40,7 +39,7 @@ class InputForPath(object):
         self.initial_text = initial_text
         self.log_template = log_template
         self.browser_action = browser_action
-
+        self.no_browser_action = no_browser_action
 
         self.create_from = create_from
         if self.create_from:
@@ -237,15 +236,15 @@ class InputForPath(object):
         if index == -1:
             return self.input_on_cancel()
 
-        if index == 0:
+        if self.no_browser_action is False and index == 0:
             # create from the position in the browser
             self.create_from = self.browser.path
             self.path_to_create_choosed_from_browsing = True
-            if self.browser_action == 'default':
+            if self.browser_action.get('func', None) is None:
                 return self.create_input()
             else:
                 return self.browser_action['func'](self.create_from, None)
-        elif index == 1:
+        elif (self.no_browser_action is True and index == 0) or (index == 1 and self.no_browser_action is False):
             self.browser.path = os.path.normpath(os.path.join(self.browser.path, '..'))
         elif index is not None:
             self.browser.path = os.path.join(self.browser.path, self.browser.items[index])
@@ -260,11 +259,12 @@ class InputForPath(object):
             else:
                 files.append(item)
 
-        if self.browser_action == 'default':
-            self.browser.items = ['[cmd] Create from here', '[cmd] ...'] + folders + files
+        if self.no_browser_action:
+            self.browser.items = ['[cmd] ..'] + folders + files
+        elif self.browser_action.get('title', None) is not None:
+            self.browser.items = ['[cmd] ' + self.browser_action['title'], '[cmd] ..'] + folders + files
         else:
-            self.browser.items = ['[cmd] ' + self.browser_action['title'], '[cmd] ...'] + folders + files
+            self.browser.items = ['[cmd] Create from here', '[cmd] ..'] + folders + files
 
         set_status(self.view, self.STATUS_KEY, 'Browsing at: {0}'.format(user_friendly(self.browser.path)))
-
-        self.window.show_quick_panel(self.browser.items, self.browsing_on_done, 0, 2)
+        self.window.show_quick_panel(self.browser.items, self.browsing_on_done, 0, 1 if self.no_browser_action else 2)
