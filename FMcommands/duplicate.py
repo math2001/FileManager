@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals, print_function, division
 
+import shutil
 from ..sublimefunctions import *
 from ..input_for_path import InputForPath
 from .appcommand import AppCommand

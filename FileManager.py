@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals, print_function, divisi
 import sublime
 import sublime_plugin
 import os
-import subprocess
 import shutil
 import re
 
