@@ -1,10 +1,7 @@
 # -*- encoding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals, print_function, division
 import sublime
 import sublime_plugin
 import os
-import shutil
-import re
 
 import imp
 import sys
@@ -25,6 +22,7 @@ from .FMcommands.rename import FmRenameCommand
 
 BASE_NAME = os.path.dirname(__file__)
 
+
 def _reload(file):
     if file.endswith('.pyc'):
         file = file[:-1]
@@ -35,10 +33,12 @@ def _reload(file):
 
 # auto reload sub files - for dev
 
+
 class FmDevListener(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
-        if BASE_NAME in view.file_name() and os.path.splitext(view.file_name())[1] == '.py':
+        if BASE_NAME in view.file_name() and \
+            os.path.splitext(view.file_name())[1] == '.py':
             if view.file_name() == __file__:
                 return
             else:
@@ -48,6 +48,7 @@ class FmDevListener(sublime_plugin.EventListener):
                 close = False
             file_view = view.window().open_file(__file__)
             file_view.run_command('save')
+
             def callback():
                 view.window().focus_view(view)
                 if close:
@@ -55,6 +56,7 @@ class FmDevListener(sublime_plugin.EventListener):
             sublime.set_timeout(callback, 200)
             # reload the main file (this one)
             _reload(__file__[len(os.path.dirname(BASE_NAME)) + 1:])
+
 
 if not hasattr(sublime.View, 'close'):
     def close_file_poyfill(view):
@@ -64,18 +66,23 @@ if not hasattr(sublime.View, 'close'):
 
     sublime.View.close = close_file_poyfill
 
+
 class FmEditReplace(sublime_plugin.TextCommand):
 
     def run(self, edit, **kwargs):
-        kwargs.get('view', self.view).replace(edit, sublime.Region(*kwargs['region']), kwargs['text'])
+        kwargs.get('view', self.view).replace(edit,
+                                              sublime.Region(*kwargs['region']),
+                                              kwargs['text'])
 
 # --- Listener --- (pathetic, right?) :D
+
 
 class FmListener(sublime_plugin.EventListener):
 
     def on_close(self, view):
         if view.settings().get('auto_close_empty_groups') is not True:
             return
+
         def run():
             w = get_window()
             reset_layouts = False

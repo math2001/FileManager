@@ -1,25 +1,25 @@
-from __future__ import absolute_import, unicode_literals, print_function, division
 import sublime
-import sublime_plugin
 import os
-import sys
 
 from .pathhelper import *
 from .sublimefunctions import *
 
+
 def isdigit(string):
     try:
-        int(string);
+        int(string)
     except ValueError:
         return False
     else:
         return True
+
 
 def set_status(view, key, value):
     if view:
         view.set_status(key, value)
     else:
         sm(value)
+
 
 def get_entire_text(view):
     return view.substr(sublime.Region(0, view.size()))

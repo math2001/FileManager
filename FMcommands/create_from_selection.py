@@ -1,6 +1,4 @@
 # -*- encoding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals, print_function, division
-
 import sublime
 import sublime_plugin
 import os
@@ -10,9 +8,11 @@ from ..sublimefunctions import *
 """ This command has been inspired at 90% by the open_url_context command
 AND the vintage open_file_under_selection. Thanks John!"""
 
+
 def is_legal_path_char(c):
     # XXX make this platform-specific?
     return c not in " \n\"|*<>{}[]()"
+
 
 def move_until(view, stop_char, increment, start):
     char = view.substr(start)
@@ -20,6 +20,7 @@ def move_until(view, stop_char, increment, start):
         start += increment
         char = view.substr(start)
     return start
+
 
 class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 

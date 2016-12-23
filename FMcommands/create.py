@@ -1,6 +1,4 @@
 # -*- encoding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals, print_function, division
-
 import os.path
 from ..sublimefunctions import *
 from .appcommand import AppCommand
@@ -31,6 +29,7 @@ class FmCreaterCommand(AppCommand):
         if get_settings().get('reveal_in_sidebar'):
             settings.set('fm_reveal_in_sidebar', True)
             sublime.set_timeout_async(lambda: window.run_command('reveal_in_side_bar'), 500)
+
 
 class FmCreateCommand(AppCommand):
 
