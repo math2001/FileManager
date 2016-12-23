@@ -2,6 +2,7 @@
     {
         "caption": "New...",
         "command": "fm_create",
+        "mnemonic": "N",
         "args": {
             "paths": []
         }
@@ -9,6 +10,7 @@
     {
         "caption": "Edit to the right",
         "command": "fm_edit_to_the_right",
+        "mnemonic": "r",
         "args": {
             "files": []
         }
@@ -16,12 +18,14 @@
     {
         "caption": "Edit to the left",
         "command": "fm_edit_to_the_left",
+        "mnemonic": "l",
         "args": {
             "files": []
         }
     },
     {
         "caption": "Rename...",
+        "mnemonic": "R",
         "command": "fm_rename",
         "args": {
             "paths": []
@@ -30,6 +34,7 @@
     {
         "caption": "Move...",
         "command": "fm_move",
+        "mnemonic": "M",
         "args": {
             "paths": []
         }
@@ -37,6 +42,7 @@
     {
         "caption": "Duplicate...",
         "command": "fm_duplicate",
+        "mnemonic": "D",
         "args": {
             "paths": []
         }
@@ -44,6 +50,7 @@
     {
         "caption": "Delete",
         "command": "fm_delete",
+        "mnemonic": "e",
         "args": {
             "paths": []
         }
@@ -52,7 +59,8 @@
         "caption": "-"
     },
     {
-        "caption": "Find In Files",
+        "mnemonic": "F",
+        "caption": "Find In files",
         "command": "fm_find_in_files",
         "args": {
             "paths": []
@@ -64,11 +72,13 @@
     {
         "caption": "Open in explorer",
         "command": "fm_open_in_explorer",
+        "mnemonic": "x",
         "args": {
             "paths": []
         }
     },
     {
+        "mnemonic": "t",
         "caption": "Open a terminal from here",
         "command": "fm_open_terminal",
         "args": {
@@ -77,6 +87,7 @@
     },
     {
         "caption": "Open in a browser",
+        "mnemonic": "b",
         "command": "fm_open_in_browser",
         "args": {
             "paths": []
@@ -86,6 +97,7 @@
         "caption": "-"
     },
     {
+        "mnemonic": "C",
         "caption": "Copy",
         "children": [
             {
