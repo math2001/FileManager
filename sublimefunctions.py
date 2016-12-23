@@ -3,10 +3,7 @@ import sublime
 import os
 import sys
 
-if sys.version_info[0] >= 3:
-    from .pathhelper import *
-else:
-    from pathhelper import *
+from .pathhelper import *
 
 outlocals = locals()
 def plugin_loaded():
@@ -14,8 +11,6 @@ def plugin_loaded():
     if not os.path.exists(outlocals["TEMPLATE_FOLDER"]):
         makedirs(TEMPLATE_FOLDER)
 
-if sys.version_info[0] < 3:
-    plugin_loaded()
 
 
 def md(*t, **kwargs):

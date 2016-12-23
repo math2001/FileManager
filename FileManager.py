@@ -10,34 +10,19 @@ import re
 import imp
 import sys
 
-if sys.version_info[0] >= 3:
-    from .sublimefunctions import *
-    from .FMcommands.copy import FmCopyCommand
-    from .FMcommands.create import FmCreaterCommand, FmCreateCommand
-    from .FMcommands.create_from_selection import FmCreateFileFromSelectionCommand
-    from .FMcommands.delete import FmDeleteCommand
-    from .FMcommands.duplicate import FmDuplicateCommand
-    from .FMcommands.editto import FmEditToTheLeftCommand, FmEditToTheRightCommand
-    from .FMcommands.find_in_files import FmFindInFilesCommand
-    from .FMcommands.move import FmMoveCommand
-    from .FMcommands.open_in_explorer import FmOpenInExplorerCommand
-    from .FMcommands.open_in_browser import FmOpenInBrowserCommand
-    from .FMcommands.open_terminal import FmOpenTerminalCommand
-    from .FMcommands.rename import FmRenameCommand
-else:
-    from sublimefunctions import *
-    from FMcommands.copy import FmCopyCommand
-    from FMcommands.create import FmCreaterCommand, FmCreateCommand
-    from FMcommands.create_from_selection import FmCreateFileFromSelectionCommand
-    from FMcommands.delete import FmDeleteCommand
-    from FMcommands.duplicate import FmDuplicateCommand
-    from FMcommands.editto import FmEditToTheLeftCommand, FmEditToTheRightCommand
-    from FMcommands.find_in_files import FmFindInFilesCommand
-    from FMcommands.move import FmMoveCommand
-    from FMcommands.open_in_explorer import FmOpenInExplorerCommand
-    from FMcommands.open_in_browser import FmOpenInBrowserCommand
-    from FMcommands.open_terminal import FmOpenTerminalCommand
-    from FMcommands.rename import FmRenameCommand
+from .sublimefunctions import *
+from .FMcommands.copy import FmCopyCommand
+from .FMcommands.create import FmCreaterCommand, FmCreateCommand
+from .FMcommands.create_from_selection import FmCreateFileFromSelectionCommand
+from .FMcommands.delete import FmDeleteCommand
+from .FMcommands.duplicate import FmDuplicateCommand
+from .FMcommands.editto import FmEditToTheLeftCommand, FmEditToTheRightCommand
+from .FMcommands.find_in_files import FmFindInFilesCommand
+from .FMcommands.move import FmMoveCommand
+from .FMcommands.open_in_explorer import FmOpenInExplorerCommand
+from .FMcommands.open_in_browser import FmOpenInBrowserCommand
+from .FMcommands.open_terminal import FmOpenTerminalCommand
+from .FMcommands.rename import FmRenameCommand
 
 BASE_NAME = os.path.dirname(__file__)
 

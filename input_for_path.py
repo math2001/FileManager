@@ -4,12 +4,8 @@ import sublime_plugin
 import os
 import sys
 
-if sys.version_info[0] >= 3:
-    from .pathhelper import *
-    from .sublimefunctions import *
-else:
-    from pathhelper import *
-    from sublimefunctions import *
+from .pathhelper import *
+from .sublimefunctions import *
 
 def isdigit(string):
     try:
