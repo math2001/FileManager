@@ -2,9 +2,9 @@
 from __future__ import absolute_import, unicode_literals, print_function, division
 
 import os.path
-from .sublimefunctions import *
-from .FMcommands.appcommand import AppCommand
-from .input_for_path import InputForPath
+from ..sublimefunctions import *
+from .appcommand import AppCommand
+from ..input_for_path import InputForPath
 
 
 class FmCreaterCommand(AppCommand):
@@ -34,7 +34,7 @@ class FmCreaterCommand(AppCommand):
 
 class FmCreateCommand(AppCommand):
 
-    def run(self, paths=None, initial_text=''):
+    def run(self, paths=None, initial_text='', start_with_browser=False):
         self.settings = get_settings()
         self.window = sublime.active_window()
         self.index_folder_separator = self.settings.get('index_folder_separator')
@@ -73,7 +73,8 @@ class FmCreateCommand(AppCommand):
                                     pick_first=self.settings.get('pick_first'),
                                     case_sensitive=self.settings.get('case_sensitive'),
                                     log_in_status_bar=self.settings.get('log_in_status_bar'),
-                                    log_template='Creating at {0}')
+                                    log_template='Creating at {0}',
+                                    start_with_browser=start_with_browser)
 
     def on_change(self, input_path, path_to_create_choosed_from_browsing):
         if path_to_create_choosed_from_browsing:

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals, print_function, division
 import sublime_plugin
-from .sublimefunctions import get_settings, to_snake_case
+from ..sublimefunctions import get_settings, to_snake_case
 
 class AppCommand(sublime_plugin.ApplicationCommand):
 

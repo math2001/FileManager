@@ -30,7 +30,7 @@ class InputForPath(object):
 
     def __init__(self, caption, initial_text, on_done, on_change, on_cancel, create_from,
                  with_files, pick_first, case_sensitive, log_in_status_bar, log_template,
-                 browser_action='default'):
+                 browser_action='default', start_with_browser=False):
 
 
         self.user_on_done = on_done
@@ -67,8 +67,10 @@ class InputForPath(object):
 
         self.log_in_status_bar = log_in_status_bar
 
-        self.create_input()
-
+        if start_with_browser:
+            self.browsing_on_done()
+        else:
+            self.create_input()
 
 
     def create_input(self):

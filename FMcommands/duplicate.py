@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals, print_function, division
 
-from .sublimefunctions import *
-from .input_for_path import InputForPath
-from .FMcommands.appcommand import AppCommand
+from ..sublimefunctions import *
+from ..input_for_path import InputForPath
+from .appcommand import AppCommand
 
 class FmDuplicateCommand(AppCommand):
 
