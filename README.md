@@ -60,21 +60,4 @@ You have an idea that could improve this package:
 4. If you know how to do it, you have the time and you *want* to do it, then **just do it** (and get the pleasure to remove it from the `todo.md`).
 5. Pull Request
 
-## For sublime text **2** users
-
-First, I recommended that you swap to Sublime Text **3**, because:
-
-- more and more package are only available on ST3 (have a look at this [stats page](https://packagecontrol.io/stats))
-- the development of ST2 has been dropped, in favour for ST3, so it means that all the new cool feature are available only for ST3 users.
-- as John said:
-
-> With these latest changes, Sublime Text 3 is almost ready to graduate out of beta, and into a 3.0 version.
-
-
-So, talking about the cool feature, there is one that has been included in the build 3124:
-
-**The settings opens in a new window, the default ones on the left, and the users one on the right**
-
-As you probably understand, this plugin uses this feature, but ST2 does not have it. So, I created a poly fill for it (a little plugin that makes it available for ST2 users). It's only one file, and all you have to do is paste a code in your console (just like package control) and it will download it for you. [`settings.py`](https://gist.github.com/math2001/6cd5cbb9d2741654c2e994d33c395729#file-settings-py-L27)
-
-Once you've pasted it in the console, go to `Preferences -> Package Settings -> File Manager`, and there you have it!
+Note: This plugin is only working on Sublime Text 3.
