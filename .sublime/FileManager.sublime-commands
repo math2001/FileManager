@@ -66,13 +66,13 @@
     },
     {
         "caption": "File Manager: List Templates",
-        "commands": "fm_create",
+        "command": "fm_create",
         "args": {
             "paths": ["${packages}/User/.FileManager/"],
             "initial_text": "",
             "start_with_browser": true
         }
-    }
+    },
     {
         "caption": "Preferences: File Manager Settings",
         "command": "edit_settings",
