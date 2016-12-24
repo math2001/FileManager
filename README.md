@@ -11,7 +11,6 @@ Why? Because those to plugin basically do the same thing: *They mangage files fr
 - [Installation](#installation)
 - [How to open the `README`](#how-to-open-the-readme)
 - [Contributing](#contributing)
-- [For sublime text **2** users](#for-sublime-text-2-users)
 
 <!-- /MarkdownTOC -->
 
