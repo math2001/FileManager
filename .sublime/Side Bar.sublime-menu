@@ -8,7 +8,7 @@
         }
     },
     {
-        "caption": "Edit to the right",
+        "caption": "Edit to Right",
         "command": "fm_edit_to_the_right",
         "mnemonic": "r",
         "args": {
@@ -16,7 +16,7 @@
         }
     },
     {
-        "caption": "Edit to the left",
+        "caption": "Edit to Left",
         "command": "fm_edit_to_the_left",
         "mnemonic": "l",
         "args": {
@@ -60,7 +60,7 @@
     },
     {
         "mnemonic": "F",
-        "caption": "Find In files",
+        "caption": "Find in Files",
         "command": "fm_find_in_files",
         "args": {
             "paths": []
@@ -70,7 +70,7 @@
         "caption": "-"
     },
     {
-        "caption": "Open in explorer",
+        "caption": "Open in Explorer",
         "command": "fm_open_in_explorer",
         "mnemonic": "x",
         "args": {
@@ -79,14 +79,14 @@
     },
     {
         "mnemonic": "t",
-        "caption": "Open a terminal from here",
+        "caption": "Open Terminal Here",
         "command": "fm_open_terminal",
         "args": {
             "paths": []
         }
     },
     {
-        "caption": "Open in a browser",
+        "caption": "Open in Browser",
         "mnemonic": "b",
         "command": "fm_open_in_browser",
         "args": {
