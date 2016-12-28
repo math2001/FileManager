@@ -38,7 +38,7 @@ cd "%APPDATA%\Roaming\Sublime Text 3\Packages"     # on window
 cd ~/Library/Application\ Support/Sublime\ Text\ 3 # on mac
 cd ~/.config/sublime-text-3                        # on linux
 
-git clone "https://github.com/math2001/fast-markdown"
+git clone "https://github.com/math2001/FileManager"
 ```
 
 **Although, remember that this plugin is in *development*. It means that there is probably some bugs. If it's the case, please log an issue [on the github  issue tracker](https://github.com/math2001/FileManager/issues)**
