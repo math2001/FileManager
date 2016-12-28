@@ -174,7 +174,7 @@ class InputForPath(object):
 
     def input_on_change(self, input_path):
         self.input_path = user_friendly(input_path)
-        self.input_path = self.transform_aliases(self.input_for_path)
+        self.input_path = self.transform_aliases(self.input_path)
         # get changed inputs and create_from from the on_change user function
         if self.user_on_change:
             new_values = self.user_on_change(

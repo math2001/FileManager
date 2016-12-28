@@ -47,7 +47,6 @@ class FmDevListener(sublime_plugin.EventListener):
             'folders': ["FMcommands"],
             'scripts': ["input_for_path.py", "sublimefunctions.py",
                     "pathhelper.py"],
-            'times': 1
         })
 
 
