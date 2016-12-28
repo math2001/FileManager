@@ -6,7 +6,11 @@
 - add fallback
 - specify snippet **file** to use as a template
 - update docs
-- list templates
 - aliases
 - add options:
     - ignore patterns in auto completion (maybe use settings for the side bar)
+
+![](file://C:/Users/math/Pictures/logo/mail.png)
+
+
+This is a test
