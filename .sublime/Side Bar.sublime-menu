@@ -10,7 +10,7 @@
     {
         "caption": "Edit to Right",
         "command": "fm_edit_to_the_right",
-        "mnemonic": "r",
+        "mnemonic": "R",
         "args": {
             "files": []
         }
@@ -18,8 +18,8 @@
     {
         "caption": "Edit to Left",
         "command": "fm_edit_to_the_left",
-        "mnemonic": "l",
-        "args": {
+        "MNEMONIC": "L",
+        "ARGS": {
             "files": []
         }
     },
@@ -78,7 +78,7 @@
         }
     },
     {
-        "mnemonic": "t",
+        "mnemonic": "T",
         "caption": "Open Terminal Here",
         "command": "fm_open_terminal",
         "args": {
@@ -87,7 +87,7 @@
     },
     {
         "caption": "Open in Browser",
-        "mnemonic": "b",
+        "mnemonic": "B",
         "command": "fm_open_in_browser",
         "args": {
             "paths": []
@@ -101,7 +101,7 @@
         "caption": "Copy",
         "children": [
             {
-                "caption": "Name",
+                "caption": "name",
                 "command": "fm_copy",
                 "args": {
                     "which": "name",
@@ -109,7 +109,7 @@
                 }
             },
             {
-                "caption": "Absolute Path",
+                "caption": "absolute path",
                 "command": "fm_copy",
                 "args": {
                     "which": "absolute path",
@@ -117,7 +117,7 @@
                 }
             },
             {
-                "caption": "Relative Path",
+                "caption": "relative path",
                 "command": "fm_copy",
                 "args": {
                     "which": "relative path",
