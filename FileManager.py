@@ -45,8 +45,8 @@ class FmDevListener(sublime_plugin.EventListener):
         sublime.run_command('reload_plugin', {
             'main': __file__,
             'folders': ["FMcommands"],
-            'scripts': ["input_for_path.py", "sublimefunctions.py",
-                    "pathhelper.py"],
+            'scripts': ["input_for_path", "sublimefunctions",
+                    "pathhelper"],
         })
 
 
