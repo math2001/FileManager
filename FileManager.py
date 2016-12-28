@@ -40,7 +40,8 @@ class FmDevListener(sublime_plugin.EventListener):
         """Reload FileManager
         To use this, you need to have this plugin:
         https://github.com/math2001/sublime-plugin-reloader"""
-        if os.path.dirname(__file__) not in view.file_name():
+        if not (os.path.dirname(__file__) in view.file_name() and
+            view.file_name().endswith('.py')):
             return
         sublime.run_command('reload_plugin', {
             'main': __file__,

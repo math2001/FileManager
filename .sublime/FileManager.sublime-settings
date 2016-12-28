@@ -62,7 +62,7 @@
 
     "aliases": {
         "st": "$packages",
-        "desktop": "~/Desktop"
+        "des": "~/Desktop"
     },
 
     // Once again, to improve your speed, if there is commands
