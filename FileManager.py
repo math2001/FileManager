@@ -37,25 +37,19 @@ def _reload(file):
 class FmDevListener(sublime_plugin.EventListener):
 
     def on_post_save(self, view):
-        if BASE_NAME in view.file_name() and \
-            os.path.splitext(view.file_name())[1] == '.py':
-            if view.file_name() == __file__:
-                return
-            else:
-                _reload(view.file_name()[len(os.path.dirname(BASE_NAME)) + 1:])
-            close = True
-            if view.window().find_open_file(__file__):
-                close = False
-            file_view = view.window().open_file(__file__)
-            file_view.run_command('save')
+        """Reload FileManager
+        To use this, you need to have this plugin:
+        https://github.com/math2001/sublime-plugin-reloader"""
+        if os.path.dirname(__file__) not in view.file_name():
+            return
+        sublime.run_command('reload_plugin', {
+            'main': __file__,
+            'folders': ["FMcommands"],
+            'scripts': ["input_for_path.py", "sublimefunctions.py",
+                    "pathhelper.py"],
+            'times': 1
+        })
 
-            def callback():
-                view.window().focus_view(view)
-                if close:
-                    file_view.close()
-            sublime.set_timeout(callback, 200)
-            # reload the main file (this one)
-            _reload(__file__[len(os.path.dirname(BASE_NAME)) + 1:])
 
 
 if not hasattr(sublime.View, 'close'):
