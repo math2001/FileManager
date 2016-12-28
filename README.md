@@ -34,7 +34,7 @@ Because it is not available on package control for now, you have to add this rep
 #### Using the command line
 
 ```bash
-cd "%APPDATA%\Roaming\Sublime Text 3\Packages"     # on window
+cd "%APPDATA%\Sublime Text 3\Packages"     # on window
 cd ~/Library/Application\ Support/Sublime\ Text\ 3 # on mac
 cd ~/.config/sublime-text-3                        # on linux
 
