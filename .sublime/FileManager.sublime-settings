@@ -60,6 +60,7 @@
     // Save after creating a file (because a snippet can be inserted)
     "save_after_creating": false,
 
+
     "aliases": {
         "st": "$packages",
         "des": "~/Desktop"

@@ -176,10 +176,26 @@ class InputForPath(object):
         It means that in the user's aliases, there can be $packages for example
         """
 
-        string = sublime.expand_variables(string,
-                                          get_settings().get('aliases'))
-        string = sublime.expand_variables(string,
-                                          self.window.extract_variables())
+        string = string.replace('$$', '\\$')
+
+        vars = self.window.extract_variables()
+        vars.update(get_settings().get('aliases'))
+
+        has_var_to_replace = True
+        while has_var_to_replace:
+            index = string.find('$')
+            check_for_dolar = True
+            start = 0
+            while check_for_dolar:
+                index = string.find('$', start)
+                if index == -1:
+                    check_for_dolar = False
+                    has_var_to_replace = False
+                elif string[index-1] == '\\':
+                    start = index + 1
+                else:
+                    check_for_dolar = False
+            string = sublime.expand_variables(string, vars)
 
         return string
 

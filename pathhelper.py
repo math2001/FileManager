@@ -4,7 +4,6 @@ import os
 def user_friendly(path):
     path = computer_friendly(path)
     return path.replace(os.path.expanduser('~'), '~').replace(os.path.sep, '/')
-    return path.replace(os.path.expanduser('~'), '~').replace(os.path.sep, '/')
 
 def computer_friendly(path):
     """Also makes sure the path is valid"""
