@@ -66,6 +66,9 @@
         "des": "~/Desktop"
     },
 
+    // See https://github.com/math2001/FileManager/wiki/Aliases#watch-out-for-the-infinite-loop
+    "open_help_on_alias_infinite_loop": true,
+
     // Once again, to improve your speed, if there is commands
     // you never use, you can super easily hide them.
 

@@ -173,25 +173,38 @@ class InputForPath(object):
         It's recursive, so you can use aliases *in* your aliases' values
         """
 
+        def has_unescaped_dollar(string):
+            start = 0
+            while True:
+                index = string.find('$', start)
+                if index < 0:
+                    return False
+                elif string[index-1] == '\\':
+                    start = index + 1
+                else:
+                    return True
+
         string = string.replace('$$', '\\$')
 
         vars = self.window.extract_variables()
         vars.update(get_settings().get('aliases'))
 
-        has_var_to_replace = True
-        while has_var_to_replace:
-            index = string.find('$')
-            check_for_dollar = True
-            start = 0
-            while check_for_dollar:
-                index = string.find('$', start)
-                if index == -1:
-                    check_for_dollar = False
-                    has_var_to_replace = False
-                elif string[index-1] == '\\':
-                    start = index + 1
-                else:
-                    check_for_dollar = False
+        inifinite_loop_counter = 0
+        while has_unescaped_dollar(string):
+            inifinite_loop_counter += 1
+            if inifinite_loop_counter > 100:
+                sublime.error_message("Infinite loop: you better check your "
+                                      "aliases, they're calling each other "
+                                      "over and over again.")
+                if get_settings().get('open_help_on_alias_infinite_loop',
+                                      True) is True:
+
+                    sublime.run_command('open_url', {
+                        'url': 'https://github.com/math2001/'
+                               'FileManager/wiki/Aliases'
+                               '#watch-out-for-the-infinite-loop'
+                    })
+                return string
             string = sublime.expand_variables(string, vars)
 
         return string
