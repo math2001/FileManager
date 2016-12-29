@@ -169,11 +169,8 @@ class InputForPath(object):
             return prefix, folders
 
     def transform_aliases(self, string):
-        """Transform aliases using the settings
-        First, it transforms the path using the custom aliases (variables)
-        And then it uses the sublime variables (extract_variables).
-
-        It means that in the user's aliases, there can be $packages for example
+        """Transform aliases using the settings and the default variables
+        It's recursive, so you can use aliases *in* your aliases' values
         """
 
         string = string.replace('$$', '\\$')
