@@ -7,7 +7,5 @@
 - specify snippet **file** to use as a template
 - update docs
 - fix undo in `input_for_path`. **Really** messy when using auto completion.
-- aliases
-    - prevent infinite loop (see docs)
 - add options:
     - ignore patterns in auto completion (maybe use settings for the side bar)
