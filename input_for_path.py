@@ -184,17 +184,17 @@ class InputForPath(object):
         has_var_to_replace = True
         while has_var_to_replace:
             index = string.find('$')
-            check_for_dolar = True
+            check_for_dollar = True
             start = 0
-            while check_for_dolar:
+            while check_for_dollar:
                 index = string.find('$', start)
                 if index == -1:
-                    check_for_dolar = False
+                    check_for_dollar = False
                     has_var_to_replace = False
                 elif string[index-1] == '\\':
                     start = index + 1
                 else:
-                    check_for_dolar = False
+                    check_for_dollar = False
             string = sublime.expand_variables(string, vars)
 
         return string
