@@ -202,7 +202,7 @@ class InputForPath(object):
                     sublime.run_command('open_url', {
                         'url': 'https://github.com/math2001/'
                                'FileManager/wiki/Aliases'
-                               '#watch-out-for-the-infinite-loop'
+                               '#watch-out-for-infinite-loops'
                     })
                 return string
             string = sublime.expand_variables(string, vars)

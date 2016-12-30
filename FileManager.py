@@ -52,14 +52,6 @@ class FmDevListener(sublime_plugin.EventListener):
 
 
 
-if not hasattr(sublime.View, 'close'):
-    def close_file_poyfill(view):
-        window = get_window()
-        window.focus_view(view)
-        window.run_command('close')
-
-    sublime.View.close = close_file_poyfill
-
 
 class FmEditReplace(sublime_plugin.TextCommand):
 

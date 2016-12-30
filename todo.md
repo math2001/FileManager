@@ -3,7 +3,6 @@
 - settings per command (move: complete with files)
 - browser: open in transient mode when 'hovering'
 - log in status bar: path to file exists, files already exists, etc
-- add fallback
 - specify snippet **file** to use as a template
 - update docs
 - fix undo in `input_for_path`. **Really** messy when using auto completion.
