@@ -107,10 +107,7 @@ class InputForPath(object):
         self.input.settings.set('tab_completion', False)
         if not isST3():
             self.input.view.selection = self.input.view.sel()
-
-        # print('block me')
-        self.input.settings.set('draw_white_space', "all")
-
+            
     def __get_completion_for(self, abspath, with_files, pick_first,
                              case_sensitive, can_add_slash):
         """Return a string and list: the prefix, and the list

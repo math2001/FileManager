@@ -105,16 +105,13 @@ class FmListener(sublime_plugin.EventListener):
         # command_history: (command, args, times)
         first = view.command_history(0)
         if first[0] != 'fm_edit_replace' or first[2] != 1:
-            print("FileManager.py:106", 'return', first)
             return
 
         second = view.command_history(-1)
         if ((second[0] != 'reindent') and
             not (second[0] == 'insert' and second[1] == {'characters': '\t'})):
-            print("FileManager.py:112", 'return', second)
             return
 
-        print('run command!', first, second, view.command_history(-3))
         settings.set('ran_undo', True)
         view.run_command('undo')
 
