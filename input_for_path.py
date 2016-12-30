@@ -144,7 +144,7 @@ class InputForPath(object):
         for i, item in enumerate(items):
             if not case_sensitive:
                 item = item.lower()
-            if item.startswith(prefix):
+            if item.startswith(prefix) and item != prefix:
                 # I add items[i] because it's case is never changed
                 items_with_right_prefix.append([
                     items[i],
@@ -214,7 +214,6 @@ class InputForPath(object):
         return string
 
     def input_on_change(self, input_path):
-        print("input_for_path.py:217", 'on change')
         self.input_path = user_friendly(input_path)
         self.input_path = self.transform_aliases(self.input_path)
         # get changed inputs and create_from from the on_change user function
@@ -252,7 +251,6 @@ class InputForPath(object):
             self.prev_input_path = self.input.view.substr(
                 sublime.Region(0, self.input.view.size()))
 
-        # log in the status bar
         if self.log_in_status_bar:
             path = computer_friendly(
                 os.path.normpath(self.create_from + os.path.sep +
@@ -273,6 +271,10 @@ class InputForPath(object):
         completions = self.input.settings.get('completions', None)
         index = self.input.settings.get('completions_index', None)
 
+        if index == 0 and len(completions) == 1:
+            reset_settings()
+            return
+
         if completions is not None and index is not None:
             # check if the user typed something after the completion
             text = input_path
@@ -286,7 +288,7 @@ class InputForPath(object):
                 if len(completions) - 1 > index:
                     return replace_with_completion(completions, index)
         if '\t' in input_path:
-            before, after = self.input_path.split('\t')
+            before, after = self.input_path.split('\t', 1)
             prefix, completions = self.__get_completion_for(
                 abspath=computer_friendly(
                     os.path.join(self.create_from, before)),
@@ -294,6 +296,7 @@ class InputForPath(object):
                 pick_first=self.pick_first,
                 case_sensitive=self.case_sensitive,
                 can_add_slash=after == '' or after[0] != '/')
+
             if not completions:
                 return
 
