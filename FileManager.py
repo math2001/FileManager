@@ -117,5 +117,10 @@ class FmListener(sublime_plugin.EventListener):
         print('run command!', first, second, view.command_history(-3))
         settings.set('ran_undo', True)
         view.run_command('undo')
-        settings.erase('completions')
-        settings.erase('completions_index')
+
+        index = settings.get('completions_index')
+        if index == 0 or index is None:
+            settings.erase('completions')
+            settings.erase('completions_index')
+        else:
+            settings.set('completions_index', index - 1)
