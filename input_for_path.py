@@ -102,10 +102,14 @@ class InputForPath(object):
         self.input.view = self.window.show_input_panel(
             self.caption, self.initial_text, self.input_on_done,
             self.input_on_change, self.input_on_cancel)
+        self.input.view.set_name('FileManager::input-for-path')
         self.input.settings = self.input.view.settings()
         self.input.settings.set('tab_completion', False)
         if not isST3():
             self.input.view.selection = self.input.view.sel()
+
+        # print('block me')
+        self.input.settings.set('draw_white_space', "all")
 
     def __get_completion_for(self, abspath, with_files, pick_first,
                              case_sensitive, can_add_slash):
@@ -210,6 +214,7 @@ class InputForPath(object):
         return string
 
     def input_on_change(self, input_path):
+        print("input_for_path.py:217", 'on change')
         self.input_path = user_friendly(input_path)
         self.input_path = self.transform_aliases(self.input_path)
         # get changed inputs and create_from from the on_change user function
@@ -220,6 +225,7 @@ class InputForPath(object):
                 create_from, self.input_path = new_values
                 if create_from is not None:
                     self.create_from = computer_friendly(create_from)
+
 
         def reset_settings():
             self.input.settings.erase('completions')
@@ -260,6 +266,9 @@ class InputForPath(object):
 
         if not hasattr(self.input, 'settings'):
             return
+
+        if self.input.settings.get('ran_undo', False) is True:
+            return self.input.settings.erase('ran_undo')
 
         completions = self.input.settings.get('completions', None)
         index = self.input.settings.get('completions_index', None)

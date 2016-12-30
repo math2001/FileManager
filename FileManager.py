@@ -95,3 +95,27 @@ class FmListener(sublime_plugin.EventListener):
                 view.run_command('save')
             if settings.get('fm_reveal_in_sidebar'):
                 view.window().run_command('reveal_in_side_bar')
+
+    def on_text_command(self, view, command, args):
+        if command != 'undo' or view.name() != 'FileManager::input-for-path':
+            return
+
+        settings = view.settings()
+
+        # command_history: (command, args, times)
+        first = view.command_history(0)
+        if first[0] != 'fm_edit_replace' or first[2] != 1:
+            print("FileManager.py:106", 'return', first)
+            return
+
+        second = view.command_history(-1)
+        if ((second[0] != 'reindent') and
+            not (second[0] == 'insert' and second[1] == {'characters': '\t'})):
+            print("FileManager.py:112", 'return', second)
+            return
+
+        print('run command!', first, second, view.command_history(-3))
+        settings.set('ran_undo', True)
+        view.run_command('undo')
+        settings.erase('completions')
+        settings.erase('completions_index')
