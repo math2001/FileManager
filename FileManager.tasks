@@ -1,0 +1,15 @@
+Plugin:
+
+  ☐ move/rename save cursor position
+  ☐ settings per command (move: complete with files)
+  ☐ browser: open in transient mode when 'hovering'
+  ☐ log in status bar: path to file exists, files already exists, etc
+  ☐ specify snippet **file** to use as a template
+  ☐ autocompletion: complete with labels too
+  ☐ autocompletion: shift+tab -> prev completion
+
+  add settings:
+      ☐ ignore patterns in auto completion (maybe use settings for the side bar)
+
+Docs:
+  ☐ show the gifs.
