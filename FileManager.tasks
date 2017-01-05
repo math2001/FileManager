@@ -7,11 +7,15 @@ Plugin:
   ☐ specify snippet **file** to use as a template
   ☐ autocompletion: complete with labels too
   ☐ autocompletion: shift+tab -> prev completion
-  ☐ Fix case in Sidebar::copy
-  ☐ create_from_selection: support single quotes
 
   add settings:
     ☐ ignore patterns in auto completion (maybe use settings for the side bar)
 
 Docs:
   ☐ show the gifs.
+
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ Fix case in Sidebar::copy @done Thu 05 Jan 2017 at 19:22 @project(Plugin)
+ ✔ create_from_selection: support single quotes @done Thu 05 Jan 2017 at 19:20 @project(Plugin)

@@ -101,7 +101,7 @@
         "caption": "Copy",
         "children": [
             {
-                "caption": "name",
+                "caption": "Name",
                 "command": "fm_copy",
                 "args": {
                     "which": "name",
@@ -109,7 +109,7 @@
                 }
             },
             {
-                "caption": "absolute path",
+                "caption": "Absolute Path",
                 "command": "fm_copy",
                 "args": {
                     "which": "absolute path",
@@ -117,7 +117,7 @@
                 }
             },
             {
-                "caption": "relative path",
+                "caption": "Relative Path",
                 "command": "fm_copy",
                 "args": {
                     "which": "relative path",
