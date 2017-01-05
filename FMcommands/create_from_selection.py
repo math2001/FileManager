@@ -71,6 +71,13 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
                     file_name = current_line[7:].replace('.', '/') + '.py'
                 else:
                     return
+            elif 'php' in syntax:
+                current_line = self.view.substr(current_line)
+                if not (current_line.startswith('include ') or
+                        current_line.startswith('require ')):
+                    return
+                file_name = self.view.substr(
+                                self.view.extract_scope(caret_pos))
 
             else:
                 return

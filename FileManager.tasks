@@ -8,6 +8,7 @@ Plugin:
   ☐ autocompletion: complete with labels too
   ☐ autocompletion: shift+tab -> prev completion
   ☐ Fix case in Sidebar::copy
+  ☐ create_from_selection: support single quotes
 
   add settings:
     ☐ ignore patterns in auto completion (maybe use settings for the side bar)
