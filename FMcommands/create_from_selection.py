@@ -26,6 +26,7 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
     CONTEXT_MAX_LENGTH = 30
     MATCH_SOURCE_ATTR = re_comp(r'(src|href) *= *$')
+    MATCH_REQUIRE = re_comp(r'require\(\s*$')
 
     def run(self, edit, event):
         base_path, input_path = self.get_path(event)
@@ -54,7 +55,8 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
                 text = text[:region.begin()]
                 if self.MATCH_SOURCE_ATTR.search(text):
                     file_name = self.view.substr(region)[:-1]
-                    # removes the " at the end
+                    # removes the " at the end, I guess this is due to the
+                    # PHP syntax definition
                 else:
                     return
             elif 'python' in syntax:
@@ -79,6 +81,17 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
                     return
                 file_name = self.view.substr(
                                 self.view.extract_scope(call_pos))
+            elif 'javascript' in syntax:
+                # for now, it only supports require
+                region = self.view.extract_scope(call_pos)
+                text = self.view.substr(sublime.Region(0, self.view.size()))
+                text = text[:region.begin()]
+                if self.MATCH_REQUIRE.search(text) is None:
+                    return
+                # [1:-1] removes the quotes
+                file_name = self.view.substr(region)[1:-1]
+                if not file_name.endswith('.js'):
+                    file_name += '.js'
 
             else:
                 return
