@@ -49,14 +49,10 @@ Some of the package add a command in the menus, others in the command palette, o
 
 ## Contributing
 
-There is 2 way of contributing to this packages:
+You want to contribute? Great! First, whatever you want to do, please raise an issue. Then, if you feel in a hacky mood, go ahead and code it:
 
-You have an idea that could improve this package:
-
-1. fork it
-2. create a new branch called with this format: `my-feature`
-3. **add it to the todo.md**
-4. If you know how to do it, you have the time and you *want* to do it, then **just do it** (and get the pleasure to remove it from the `todo.md`).
-5. Pull Request
+- create a branch: `my-feature-name`
+- don't hesitate to change stuff in the `.tasks` file.
+- Push and PR
 
 Note: This plugin is only working on Sublime Text 3.
