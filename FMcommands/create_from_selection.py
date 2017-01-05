@@ -24,7 +24,7 @@ def move_until(view, stop_char, increment, start):
 
 class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
-    CONTEXT_MAX_LENGTH = 50
+    CONTEXT_MAX_LENGTH = 30
     MATCH_SOURCE_ATTR = re_comp(r'(src|href) *= *$')
 
     def run(self, edit, event):
@@ -37,30 +37,55 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
         return True
 
     def get_path(self, event, for_context_menu=False):
+        """
+            @return (base_path: str, relative_path: str)
+        """
         file_name = None
         region = self.view.sel()[0]
         if not region.empty():
             file_name = self.view.substr(region)
         else:
-            if 'html' in self.view.settings().get('syntax').lower():
-                caret_pos = self.view.window_to_text((event["x"], event["y"]))
-                current_line = self.view.line(caret_pos)
+            syntax = self.view.settings().get('syntax').lower()
+            caret_pos = self.view.window_to_text((event["x"], event["y"]))
+            current_line = self.view.line(caret_pos)
+            if 'html' in syntax:
                 left = move_until(self.view, '"', -1, caret_pos)
                 right = move_until(self.view, '"', 1, caret_pos)
                 text = self.view.substr(sublime.Region(0, self.view.size()))[:left]
                 if self.MATCH_SOURCE_ATTR.search(text):
                     file_name = self.view.substr(sublime.Region(left + 1, right))
                 else:
-                    return None
+                    return
+            elif 'python' in syntax:
+                current_line = self.view.substr(current_line)
+                if current_line.startswith('from .'):
+                    current_line = current_line[6:]
+                    index = current_line.find(' import')
+                    if index < 0:
+                        return
+                    current_line = current_line[:index].replace('.', '/')
+                    if current_line.startswith('/'):
+                        current_line = '..' + current_line
+                    file_name = current_line + '.py'
+                elif current_line.startswith('import '):
+                    file_name = current_line[7:].replace('.', '/') + '.py'
+                else:
+                    return
+
             else:
-                return None
+                return
         return os.path.dirname(self.view.file_name()), file_name
 
     def description(self, event):
         base, file_name = self.get_path(event, True)
+        while file_name.startswith('../'):
+            file_name = file_name[3:]
+            base = os.path.dirname(base)
         base, file_name = user_friendly(base), user_friendly(file_name)
+
         if len(base) + len(file_name) > self.CONTEXT_MAX_LENGTH:
-            path = base[:len(file_name) - 3] + '...' + file_name
+            path = base[:self.CONTEXT_MAX_LENGTH - len(file_name) - 4]
+            path += '.../' + file_name
         else:
             path = base + '/' + file_name
         return "Create " + path
