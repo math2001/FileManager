@@ -46,14 +46,15 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
             file_name = self.view.substr(region)
         else:
             syntax = self.view.settings().get('syntax').lower()
-            caret_pos = self.view.window_to_text((event["x"], event["y"]))
-            current_line = self.view.line(caret_pos)
+            call_pos = self.view.window_to_text((event["x"], event["y"]))
+            current_line = self.view.line(call_pos)
             if 'html' in syntax:
-                left = move_until(self.view, '"', -1, caret_pos)
-                right = move_until(self.view, '"', 1, caret_pos)
-                text = self.view.substr(sublime.Region(0, self.view.size()))[:left]
+                region = self.view.extract_scope(call_pos)
+                text = self.view.substr(sublime.Region(0, self.view.size()))
+                text = text[:region.begin()]
                 if self.MATCH_SOURCE_ATTR.search(text):
-                    file_name = self.view.substr(sublime.Region(left + 1, right))
+                    file_name = self.view.substr(region)[:-1]
+                    # removes the " at the end
                 else:
                     return
             elif 'python' in syntax:
@@ -77,7 +78,7 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
                         current_line.startswith('require ')):
                     return
                 file_name = self.view.substr(
-                                self.view.extract_scope(caret_pos))
+                                self.view.extract_scope(call_pos))
 
             else:
                 return
