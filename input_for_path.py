@@ -107,7 +107,7 @@ class InputForPath(object):
         self.input.settings.set('tab_completion', False)
         if not isST3():
             self.input.view.selection = self.input.view.sel()
-            
+
     def __get_completion_for(self, abspath, with_files, pick_first,
                              case_sensitive, can_add_slash):
         """Return a string and list: the prefix, and the list
@@ -157,7 +157,7 @@ class InputForPath(object):
                 return prefix, folders + files
             elif pick_first == 'files':
                 return prefix, files + folders
-            elif pick_first == 'albetic':
+            elif pick_first == 'alphabetic':
                 return prefix, sorted(files + folders)
             else:
                 sublime.error_message(
@@ -296,6 +296,7 @@ class InputForPath(object):
 
             if not completions:
                 return
+
 
             self.input.settings.set('completions', completions)
             self.input.settings.set('completions_index', -1)
