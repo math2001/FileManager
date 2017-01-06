@@ -233,8 +233,12 @@ class InputForPath(object):
             region = [self.input.view.sel()[0].begin()]
             # -1 because of the \t
             region.append(region[0] - len(prefix if prefix is not None else
-                                          completions[index]) - 1)
-            index += 1
+                              completions[index]) - 1)
+            if self.input.settings.get('go_backwards') is True:
+                index -= 1
+                self.input.settings.erase('go_backwards')
+            else:
+                index += 1
             self.input.settings.set('completions_index', index)
             # Running fm_edit_replace will trigger this function
             # and because it is not going to find any \t

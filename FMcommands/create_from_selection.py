@@ -103,7 +103,6 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
                 file_name = self.view.substr(region)[1:-1]
                 if not file_name.endswith('.rb'):
                     file_name += '.rb'
-
             else:
                 return
         return os.path.dirname(self.view.file_name()), file_name

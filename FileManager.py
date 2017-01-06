@@ -97,10 +97,16 @@ class FmListener(sublime_plugin.EventListener):
                 view.window().run_command('reveal_in_side_bar')
 
     def on_text_command(self, view, command, args):
-        if command != 'undo' or view.name() != 'FileManager::input-for-path':
+        if command not in ['undo', 'unindent'] or view.name() != 'FileManager::input-for-path':
             return
 
         settings = view.settings()
+
+        if command == 'unindent':
+            index = settings.get('completions_index')
+            settings.set('go_backwards', True)
+            view.run_command('insert', {'characters': '\t'})
+            return
 
         # command_history: (command, args, times)
         first = view.command_history(0)
