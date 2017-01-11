@@ -54,7 +54,7 @@ class FmRenameCommand(AppCommand):
                 try:
                     send2trash(dst)
                 except OSError as e:
-                    sublime.error_message('Unable to send to trash: ', e)
+                    sublime.error_message('Unable to send to trash: {}'.format(e))
                     raise OSError('Unable to send the item {0!r} to the trash! Error {1!r}'.format(dst, e))
 
                 rename()

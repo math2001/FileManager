@@ -56,7 +56,7 @@ class FmDuplicateCommand(AppCommand):
                     try:
                         send2trash(dst)
                     except OSError as e:
-                        sublime.error_message('Unable to send to trash: ', e)
+                        sublime.error_message('Unable to send to trash: {}'.format(e))
                         raise OSError('Unable to send to the trash the item {0}'.format(e))
 
                     with open(dst, 'w') as fp:

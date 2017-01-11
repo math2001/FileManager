@@ -48,7 +48,7 @@ class FmMoveCommand(AppCommand):
             try:
                 os.rename(origin, new_name)
             except Exception as e:
-                sublime.error_message('An error occured while moving the file', e)
+                sublime.error_message('An error occured while moving the file {}'.format(e))
                 raise OSError('An error occured while moving the file {0!r} to {1!r}'.format(origin, new_name))
             if view:
                 self.window.open_file(new_name)

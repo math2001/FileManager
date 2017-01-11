@@ -15,7 +15,7 @@ class FmDeleteCommand(AppCommand):
                 try:
                     send2trash(path)
                 except OSError as e:
-                    sublime.error_message('Unable to send to trash: ', e)
+                    sublime.error_message('Unable to send to trash: {}'.format(e))
                     raise OSError('Unable to send {0!r} to trash: {1}'.format(path, e))
         refresh_sidebar(self.settings, self.window)
 
