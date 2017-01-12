@@ -36,7 +36,8 @@ class FmMoveCommand(AppCommand):
                             browser_action={
                                 'title': 'Move here',
                                 'func': self.move
-                            })
+                            },
+                            browser_index=0)
 
     def move(self, path, input_path):
         makedirs(path, exist_ok=True)

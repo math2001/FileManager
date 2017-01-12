@@ -5,7 +5,7 @@ Plugin:
   ☐ browser: open in transient mode when 'hovering'
   ☐ log in status bar: path to file exists, files already exists, etc
   ☐ specify snippet **file** to use as a template
-  ☐ fix status bar when creating
+  ☐ fix status message bar when creating
 
   add settings:
     ☐ ignore patterns in auto completion (maybe use settings for the side bar)

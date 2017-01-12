@@ -13,17 +13,14 @@ def isdigit(string):
     else:
         return True
 
-
 def set_status(view, key, value):
     if view:
         view.set_status(key, value)
     else:
         sm(value)
 
-
 def get_entire_text(view):
     return view.substr(sublime.Region(0, view.size()))
-
 
 class InputForPath(object):
 
@@ -43,7 +40,8 @@ class InputForPath(object):
                  log_template,
                  browser_action={},
                  start_with_browser=False,
-                 no_browser_action=False):
+                 no_browser_action=False,
+                 browser_index=None):
 
         self.user_on_done = on_done
         self.user_on_change = on_change
@@ -53,6 +51,7 @@ class InputForPath(object):
         self.log_template = log_template
         self.browser_action = browser_action
         self.no_browser_action = no_browser_action
+        self.browser_index = browser_index
 
         self.create_from = create_from
         if self.create_from:
@@ -369,6 +368,12 @@ class InputForPath(object):
         set_status(
             self.view, self.STATUS_KEY,
             'Browsing at: {0}'.format(user_friendly(self.browser.path)))
+        if self.browser_index is not None:
+            index = self.browser_index
+        elif self.no_browser_action:
+            index = 1
+        else:
+            index = 2
+
         self.window.show_quick_panel(self.browser.items, self.browsing_on_done,
-                                     sublime.KEEP_OPEN_ON_FOCUS_LOST, 1
-                                     if self.no_browser_action else 2)
+                                     sublime.KEEP_OPEN_ON_FOCUS_LOST, index)
