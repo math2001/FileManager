@@ -105,6 +105,12 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
                     file_name += '.rb'
             else:
                 return
+
+        if file_name[0] in ('"', "'"):
+            file_name = file_name[1:]
+        if file_name[-1] in ('"', "'"):
+            file_name = file_name[:-1]
+            
         return os.path.dirname(self.view.file_name()), file_name
 
     def description(self, event):
