@@ -1,0 +1,68 @@
+______ _ _     ___  ___
+|  ___(_) |    |  \/  |
+| |_   _| | ___| .  . | __ _ _ __   __ _  __ _  ___ _ __
+|  _| | | |/ _ \ |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
+| |   | | |  __/ |  | | (_| | | | | (_| | (_| |  __/ |
+\_|   |_|_|\___\_|  |_/\__,_|_| |_|\__,_|\__, |\___|_|
+                                          __/ |
+                                         |___/
+
+Thanks for installing FileManger! I hope you'll like using it!
+
+Presentation:
+~~~~~~~~~~~~~
+
+FileManager is a package that propose you different *optimized* commands for
+managing your files from Sublime Text, such as creating, opening, renaming,
+moving, duplicating, etc...
+
+First, you can have a look around at the options it added to your sidebar's
+context menu and the command palette, but you really should have a look at the
+GitHub's wiki really get 100% of FileManager.
+
+Quick Start Tips:
+~~~~~~~~~~~~~~~~~
+
+- When you're creating something (pressed alt+n for example), if your path ends
+up with a '/', it'll create a folder instead of a file.
+- Try to create a folder that already exists ;)
+- Have a quick look in here: 'Preferences → Packages Settings → FileManager'
+
+Say thanks:
+~~~~~~~~~~~
+
+Just letting me know you're enjoying this package's a great way to say thanks!
+
+To do so, you can start the GitHub repository, or send me a tweet on twitter
+(@_math2001)
+
+Troubles?
+~~~~~~~~~
+
+If you have any trouble with FileManager, don't hesitate to let me know by
+raising an issue here:
+
+https://github.com/math2001/FileManager/issues
+
+Credits:
+~~~~~~~~
+
+The ASCII FileManager has been generated using the ASCII Decorator.
+
+https://github.com/viisual/ASCII-Decorator
+
+Tip of the day: You can bind commands to modifiers-free key combination:
+                {
+                    "keys": ["-", ">"],
+                    "command": "insert_snippet",
+                    "args": {
+                        "contents": "→ "
+                    }
+                }
+
+                Once set, each time you'll type '->', it'll insert this '→ '
+
+                If you don't know how to set up shortcuts, don't worry, it's
+                explained here:
+                
+                http://docs.sublimetext.info/en/latest/reference/key_bindings.html
