@@ -4,13 +4,11 @@ import sys
 
 from .pathhelper import *
 
-outlocals = locals()
 def plugin_loaded():
-    outlocals["TEMPLATE_FOLDER"] = os.path.join(sublime.packages_path(), 'User', '.FileManager')
-    if not os.path.exists(outlocals["TEMPLATE_FOLDER"]):
+    global TEMPLATE_FOLDER
+    TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), 'User', '.FileManager')
+    if not os.path.exists(TEMPLATE_FOLDER):
         makedirs(TEMPLATE_FOLDER)
-
-
 
 def md(*t, **kwargs):
     sublime.message_dialog(kwargs.get('sep', '\n').join([str(el) for el in t]))
