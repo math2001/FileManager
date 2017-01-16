@@ -59,15 +59,15 @@ class InputForPath(object):
             if not os.path.isdir(self.create_from):
                 if os.path.exists(self.create_from):
                     sublime.error_message(
-                        "This path exists, but doesn't seem to be a directory."
+                        "This path exists, but doesn't seem to be a directory. "
                         " Please report this (see link in the console)")
                     raise ValueError(
-                        "This path exists, but doesn't seem to be a directory."
+                        "This path exists, but doesn't seem to be a directory. "
                         "Here's the path {0}. Please report this bug here: "
                         "https://github.com/math2001/FileManager/issues"
                         .format(self.create_from))
                 sublime.error_message(
-                    'The path `create_from` should exists. {0!r} does not'
+                    'The path `create_from` should exists. {0!r} does not '
                     " exists.".format(self.create_from))
                 raise ValueError(
                     'The path create from does not exists ({0!r})'.format(
@@ -200,8 +200,8 @@ class InputForPath(object):
                                       True) is True:
 
                     sublime.run_command('open_url', {
-                        'url': 'https://github.com/math2001/'
-                               'FileManager/wiki/Aliases'
+                        'url': 'https://github.com/math2001/ '
+                               'FileManager/wiki/Aliases '
                                '#watch-out-for-infinite-loops'
                     })
                 return string
@@ -346,6 +346,7 @@ class InputForPath(object):
                                              self.browser.items[index])
 
         if os.path.isfile(self.browser.path):
+            set_status(self.view, self.STATUS_KEY, '')
             return self.window.open_file(self.browser.path)
 
         folders, files = [], []
@@ -365,8 +366,7 @@ class InputForPath(object):
             self.browser.items = ['[cmd] Create from here', '[cmd] ..'
                                   ] + folders + files
 
-        set_status(
-            self.view, self.STATUS_KEY,
+        set_status(self.view, self.STATUS_KEY,
             'Browsing at: {0}'.format(user_friendly(self.browser.path)))
         if self.browser_index is not None:
             index = self.browser_index
