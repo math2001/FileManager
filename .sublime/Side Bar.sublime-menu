@@ -18,8 +18,8 @@
     {
         "caption": "Edit to Left",
         "command": "fm_edit_to_the_left",
-        "MNEMONIC": "L",
-        "ARGS": {
+        "mnemonic": "L",
+        "args": {
             "files": []
         }
     },
