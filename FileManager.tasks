@@ -6,6 +6,9 @@ Plugin:
   ☐ log in status bar: path to file exists, files already exists, etc
   ☐ specify snippet **file** to use as a template
   ☐ fix status message bar when creating
+  ☐ open_in_browser: url per folder
+  ☐ platform for opening terminal
+  ☐ cycle through the auto completion
 
   add settings:
     ☐ ignore patterns in auto completion (maybe use settings for the side bar)

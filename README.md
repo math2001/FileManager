@@ -18,7 +18,15 @@ With this package, you can create, rename, move, duplicate and delete files or f
 
 ## "Spirit"
 
-This package has as a target to be 100% optimized. There shouldn't be 2 commands when one can do the job. You can hide any command you don't use (please submit an issue to let me know if it's the case), there is an auto completion system, and, finally, I use it. So I'm able to see a fair bit of the bug, and I correct them (:smile:). The idea is to propose only the *needed* options, and hopefully, fit your needs.
+#### The idea is to make you save time, not to propose you features you're never going to use.
+
+> This package has as main goal to be 100% optimized.
+
+So, for example, there is an **auto completion** system (based on the folders/files, both, you choose) on every input that is showed by FileManager. Just press <kbd>tab</kbd> to cycle through the auto completion.
+
+> There shouldn't be 2 commands when 1 can do the job.
+
+FileManager doesn't have a command `create_new_file` and `create_new_folder`. Just `fm_create`. It opens up an input, and the last character you type in is a `/` (or a `\`), it creates a folder instead of a file.
 
 ## Docs
 
@@ -51,7 +59,9 @@ To open their README, some of the package add a command in the menus, others in 
 
 ## Contributing
 
-You want to contribute? Great! First, whatever you want to do, please raise an issue. Then, if you feel in a hacky mood, go ahead and code it:
+You want to contribute? Great!
+
+First, whatever you want to do, please raise an issue. Then, if you feel in a hacky mood, go ahead and code it:
 
 - create a branch: `my-feature-name`
 - don't hesitate to change stuff in the `.tasks` file.

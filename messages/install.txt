@@ -33,7 +33,7 @@ Say thanks:
 
 Just letting me know you're enjoying this package's a great way to say thanks!
 
-To do so, you can start the GitHub repository, or send me a tweet on twitter
+To do so, you can star the GitHub repository, or send me a tweet
 (@_math2001)
 
 Troubles?
@@ -64,5 +64,5 @@ Tip of the day: You can bind commands to modifiers-free key combination:
 
                 If you don't know how to set up shortcuts, don't worry, it's
                 explained here:
-                
+
                 http://docs.sublimetext.info/en/latest/reference/key_bindings.html
