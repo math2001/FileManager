@@ -9,13 +9,15 @@ Plugin:
   ☐ open_in_browser: url per folder
   ☐ platform for opening terminal
   ☐ cycle through the auto completion
+  ☐ add global settings: `fm_use_terminal`
 
   add settings:
     ☐ ignore patterns in auto completion (maybe use settings for the side bar)
 
 Docs:
   ☐ show the gifs.
-
+  ☐ specify infos when duplicating folder
+  ☐ add license
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:

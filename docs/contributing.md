@@ -1,4 +1,4 @@
-You want to contribute to this Package? Great!
+You want to contribute to this package? Great!
 
 If you want to contribute to the documentation, you're at the right place.
 Otherwise, you should have a look [in the readme][0]

@@ -30,7 +30,7 @@ FileManager doesn't have a command `create_new_file` and `create_new_folder`. Ju
 
 ## Docs
 
-Although they're a fair bit of information in there, the docs are a work in progress. They're simply on the [github wiki](https://github.com/math2001/FileManager/wiki). **Go have a quick look, you won't regret it** :smile:
+Although they're a fair bit of information in there, the docs are still a work in progress. Here they are: [math2001.github.io/FileManager](https://math2001.github.io/FileManager). **Go have a quick look, you won't regret it** :smile:
 
 ## Installation
 
@@ -59,12 +59,22 @@ To open their README, some of the package add a command in the menus, others in 
 
 ## Contributing
 
-You want to contribute? Great!
+You want to contribute? Great! There's two different things you can contribute
+to:
 
-First, whatever you want to do, please raise an issue. Then, if you feel in a hacky mood, go ahead and code it:
+1. the package itself
+2. the docs
+
+If you want to contribute to the *package*, then you're at the right place.
+Otherwise, please go have a look at [the contributing part of the docs][0]
+
+First, whatever you want to do, please raise an issue. Then, if you feel in a
+hacky mood, go ahead and code it:
 
 - create a branch: `my-feature-name`
 - don't hesitate to change stuff in the `.tasks` file.
 - Push and PR
 
 Note: This plugin is only working on Sublime Text 3.
+
+[0]: https://math2001.github.io/FileManager/contributing/
