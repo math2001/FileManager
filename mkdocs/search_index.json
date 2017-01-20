@@ -1,0 +1,289 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Welcome to FileManager's Documentation!\n\n\nFileManager is a plugin for \nSublime Text 3\n that helps you manage your file \nfrom\n Sublime Text. It adds option to the Sidebar's context menu, to the command palette, comes in with an auto completion system, etc.\n\n\nThis documentation is a work in progress, but you can find a significant amount of information, so go have a look!\n\n\nQuick Start\n\n\nYou just installed FileManager? Here's a few tips that should get you started:\n\n\n\n\npress \nalt+n\n to create a file relative to the current opened folder, or, if there is none, the current view, or \nC:/Users/\nyour username\n (\n~\n for the purists)\n\n\npress \ntab\n to go through the auto completions (and \nshift+tab\n to go backwards)\n\n\ncreate and use some \naliases\n! You already have plenty! For example, you have \n$\npackages\n. Try it out!\n\n\nTry to create (\nalt+n\n) a folder that \nalready\n exists. You'll see, you're computer will dance the samba! Na, just kidding, but really, give it a go!\n\n\nAll the command are available from the command palette!\n\n\n\n\nYou definitely should have a look here: \ncommands",
+            "title": "Home"
+        },
+        {
+            "location": "/#welcome-to-filemanagers-documentation",
+            "text": "FileManager is a plugin for  Sublime Text 3  that helps you manage your file  from  Sublime Text. It adds option to the Sidebar's context menu, to the command palette, comes in with an auto completion system, etc.  This documentation is a work in progress, but you can find a significant amount of information, so go have a look!",
+            "title": "Welcome to FileManager's Documentation!"
+        },
+        {
+            "location": "/#quick-start",
+            "text": "You just installed FileManager? Here's a few tips that should get you started:   press  alt+n  to create a file relative to the current opened folder, or, if there is none, the current view, or  C:/Users/ your username  ( ~  for the purists)  press  tab  to go through the auto completions (and  shift+tab  to go backwards)  create and use some  aliases ! You already have plenty! For example, you have  $ packages . Try it out!  Try to create ( alt+n ) a folder that  already  exists. You'll see, you're computer will dance the samba! Na, just kidding, but really, give it a go!  All the command are available from the command palette!   You definitely should have a look here:  commands",
+            "title": "Quick Start"
+        },
+        {
+            "location": "/commands/",
+            "text": "This page will list every command available and explain what they do with \nevery single\n options.\n\n\nCreate (\nfm_create\n)\n\n\nYou can access it from 2 different ways:\n\n\nRight click on a file/folder in the side bar and choose \nNew\n\n\n\n\nWith this option, you will create \nfrom where you click\n. If it was a file, you will create from its \ncontaining folder\n.\n\n\nYou should see an input at the bottom of sublime text. You can type a file name or a path, and it will create it for you. You can use what I call [user friendly path],\ntype-of-path\n\n\nExample:\n\n\nfolder/file.py\n\n\nIf \nfolder\n does not exists, then it will create it for you.\nIf \nfile.py\n exists, it will open it, otherwise it will create it, and then open it.\n\n\nWith a shortcut \nalt+n\n\n\n\n\nWhen you use a shortcut, the plugin does not explicitly know from where you want to create. Here's how it \nguesses\n:\n\n\n\n\nIf there is some folders open in Sublime Text, it will create from the top one\n\n\nOtherwise, if there is file open, it will create from its containing folder\n\n\nFinally, it will choose \n~\n . You can change this fall back by adding to your settings the key \npath_fallback\n with the path you want\n\n\n\n\n\n\nIf there is some folders open in Sublime Text, it will create from the top one\n\n\n\n\nIf you want to select which folder you want to create from, you can just add this prefix: \nnb\n\n\nExample\n\n\n\n\n0\nfile.py\n Creates from the first folder, starting from the top. Here the prefix is useless, because it's the default value (you could have just typed \nfile.py\n)\n\n\n1\nfile.py\n Creates from the second folder, starting from the top\n\n\n-1\nfile.py\n Creates from the first folder, starting from the \nbottom\n\n\n\n\nYou get the idea.\n\n\nNote\n: Watch out, they're \"code lists\", which means that they start from \n0\n. \n0\n is the first one, \n1\n is the second, \n2\n is the third, etc...\n\n\nChanging the symbol (\n)\n\n\nI personally don't like typing the \n, because I have to move my hand a lot. So, I add an option to change it. For my part, I chose a space. The problem is that if I have the following structure:\n\n\ntest/\n    1 python/\nsamples/\n    hello/\n    index.html\n\n\n\n\n\nAnd that I want to create a file in the folder \n1 python\n, I'm going to type something line this \n1 python/afile.py\n. But, it's going select in \nsamples\n. \nSo\n, you would have to explicitly say that you want to create from the first folder, so: \n0 1 python/afile.py\n would work.\n\n\nBut, it's not that much of a big deal, because you rarely get a folder starting with a number and then a space, and as you saw, the solution is really simple.\n\n\nWhy isn't \n  a problem to? On windows at least, you can not have a file are a folder that has \n in it.\n\n\nSo, if you want to change the symbol, add this to your settings user (it can be, of course, whatever you want):\n\n\nindex_folder_separator\n:\n \n \n\n\n\n\n\n\nChanging the default index\n\n\nAs I said earlier, the default index is \n0\n. You can change this by adding this to your settings\n\n\ndefault_index\n:\n \n1\n\n\n\n\n\n\nThe Auto Completion system\n\n\nAll the input that are created from File Manager have an auto completions system. So, this one is included \n. If you want to learn more about about it, [here's the page dedicated to it][auto-completion.md]\n\n\nThe log in the status bar\n\n\nAs you probably noticed, when you create a file, there is in the side bar a message, like this\n\n\nCreating at \npath\n\n\nAnd the path is in \ncomputer friendly form\n ([more info],\ntype-of-path\n), but you can change it so it is in a \nuser friendly form\n.\n\n\nlog_in_status_bar\n:\n \nuser\n,\n \n//\n \neither\n \ncomputer\n,\n \nuser\n,\n \nor\n \nfalse\n\n\n\n\n\n\nIf it is set to \nfalse\n, it will be disabled.\n\n\nThe \"browser\"\n\n\nIf you try to create a file that already exists, it will simply open it. But what happens if you try to create a \nfolder\n that already exists? Well it's going to show up a quick panel with the folders and the files listed. If you pick a file, it will open it. If you pick a folder, it will reopen the browser listing all the items of this folder.\n\n\nThere is two more option. The first one is \n..\n, to go up of one folder, and the other one is: \ncreate form here\n. If you pick this option, it will simply reopen the input panel from your position in the browser.\n\n\nTemplates\n\n\nYou can specify templates so that when you create a new file, the content will be the content of you template. For more information, see \nthe page dedicated to the templates\n\n\n\n\nRename (\nfm_rename\n)\n\n\nThere is not much to explain here.\n\n\nYou can only rename \n1\n file at a time.\n\n\nIf you put a slash in your name, it will automatically create a sub-folders to it, and then move the file. For example, if you try to rename a file like this: \nhello/world.py\n and your file is called \nsomething.py\n, it will create the folder \nhello\n (if it doesn't already exists) and then rename \nsomething.py\n.\n\n\nNote\n: If your name is \n../hello.py\n, it will move your file one folder above.\n\n\nMove (\nfm_move\n)\n\n\nMuch better to move items. You can move several item at a time. If they aren't in the same folder, the path shown in the input will be the common path they have. Once you'll move them, \nthey'll be in every cases in the same folder\n.\n\n\nTo move a file, you're oblige to use the browser, because you have to choose a folder, so it will automatically pop up. But if you have a look, instead of having \n[cmd]: create from here\n, you have \n[cmd]: move here\n. As you probably guessed, you have to select this option to move your file/folder\n\n\nDuplicate (\nfm_duplicate\n)\n\n\nYou can duplicate folders and files, but, once again, one at a time.\n\n\nDelete (\nfm_delete\n)\n\n\nFile Manager doesn't delete permanently your files/folders, it only throws them to the bin.\n\n\nNote\n: When other commands needs to overwrite a file or a folders, they throw them to the bin \nbefore\n and then simply write.\n\n\nCreate from selection (\nfm_create_from_selection\n)\n\n\nAs the name says, this command allows you to create a file from text. For example, in \nhtml\n, if you right click on the value of an \nsrc\n or \nhref\n attribute, an option will appear called \nCreate \nthe path to you file\n (it will be shorten if it's too long). You don't even need to select anything.\n\n\nIf you do select something, then it will propose you to create the file using the path you've selected.\n\n\nHere's an example:\n\n\n\n\nFont: Droid Sans Mono; Theme: Boxy; Color Scheme: Boxy Yesterday\n\n\nIn every cases, the file will be created \nfrom\n the current file (so this command does not work if you're file is not saved on the disk).\n\n\nFor now, the \"auto selection\" only works in \nHTML\n. If you wish to see it added in others languages, just \nsubmit a new issue\n\n\nOpen in browser (\nfm_open_in_browser\n)\n\n\nThis command opens up the selected file in the default browser. You can run it from the command palette: \nFile Manager: Open In Browser\n, it'll open the current file. You can also run it from the Side Bar: it'll open the selected file.\n\n\nIt also, kind of \noverwrites\n the default \nOpen in browser\n option in the context menu (in fact, it hides default command, and shows the FileManager's command). Now, you might be wondering:\n\n\n\n\nWhy do an other command, while an other one exists?\n\n\n\n\nWell, this one is better \n. Here's how: \nit takes into account a global setting\n \nurl\n\n\nAn example's a great way to explain how it works (in \nMyProject.sublime-project\n):\n\n\n{\n\n    \nfolders\n:\n \n[\n\n        \n{\n\n            \npath\n:\n \nC:/wamp/www/MyAwesomeWebsite/\n\n        \n}\n\n    \n],\n\n    \nsettings\n:\n \n{\n\n        \nurl\n:\n \nhttp://localhost/MyAwesomeWebsite/\n\n    \n}\n\n\n}\n\n\n\n\n\n\nNow, when you're going to open a file that is in the the folder \nC:/wamp/www/MyAwesomeWebsite/\n, it'll simply replace this part with the \nurl\n value (here \nhttp://localhost/MyAwesomeWebsite/\n)\n\n\nExamples\n\n\n\n\nC:/wamp/www/MyAwesomeWebsite/index.html\n \u2192 \nhttp://localhost/MyAwesomeWebsite/\n (it's clever, it removes the \nindex.html\n)\n\n\nC:/wamp/www/MyAwesomeWebsite/index.php\n \u2192 \nhttp://localhost/MyAwesomeWebsite/\n\n\nC:/wamp/www/MyAwesomeWebsite/sub-folder/file.php\n \u2192 \nhttp://localhost/MyAwesomeWebsite/sub-folder/file.php\n\n\n\n\nOpen Terminal Here (\nfm_open_terminal\n)\n\n\nIt opens up the terminal in the selected folder (or the folder of the current file if you open it from the command palette). You can configure what's happening in your Filemanager's settings (\nPreferences \u2192 Packages Settings \u2192 FileManager\n).\n\n\nYou can add a setting called \nterminals\n. Here's the format:\n\n\n{\n\n    \nterminals\n:\n \n[\n\n        \n{\n\n            \nname\n:\n \nterminal name\n,\n\n            \ncmd\n:\n \n[\nthe\n,\n \ncommand\n,\n \nto\n,\n \nopen\n]\n\n        \n},\n\n        \n{\n\n            \nname\n:\n \nAn other Terminal\n,\n\n            \ncmd\n:\n \n[\nterminal\n,\n \n--new_tab\n,\n \n$cwd\n]\n\n        \n}\n\n    \n]\n\n\n}\n\n\n\n\n\n\nIn the \ncmd\n key, you have one variable: \n$\ncwd\n. It'll be replaced by the \ncurrent working dir\n (the folder from which the command will be run).\n\n\nSo, for example, on Windows, here's what you could do:\n\n\n{\n\n    \nterminals\n:\n \n[\n\n        \n{\n\n            \nname\n:\n \nCmder\n,\n\n            \ncmd\n:\n \n[\nC:/cmder/cmder.exe\n,\n \n/SINGLE\n,\n \n$cwd\n]\n\n        \n},\n\n        \n{\n\n            \nname\n:\n \nCMD\n,\n\n            \ncmd\n:\n \n[\ncmd\n]\n\n        \n}\n\n    \n]\n\n\n}\n\n\n\n\n\n\nOn other platform\n\n\nIf you're on mac, it might be a bit harder. Why? Because I don't have a Mac, so I can try to see if what I'm going to tell you is actualy working. Here's what I found:\n\n\nopen -a Terminal\n should open a new terminal. So, here's the config I'd recommend using:\n\n\n{\n\n    \nterminals\n:\n \n[\n\n        \n{\n\n            \nname\n:\n \nTerminal\n,\n\n            \ncmd\n:\n \n[\nopen\n,\n \n-a\n,\n \nTerminal\n]\n\n        \n}\n\n    \n]\n\n\n}\n\n\n\n\n\n\nIf you're using a Mac, and you found a solution (or you'd like to contribute to this repo), then please \nraise an issue\n.\n\n\nOpen In Explorer (\nfm_open_in_explorer\n)\n\n\nThis command simply opens the selected item(s) in your file explorer (or finder if you're on mac). It'll open the current file if it's run from the command palette.",
+            "title": "Commands"
+        },
+        {
+            "location": "/commands/#create-fm_create",
+            "text": "You can access it from 2 different ways:",
+            "title": "Create (fm_create)"
+        },
+        {
+            "location": "/commands/#right-click-on-a-filefolder-in-the-side-bar-and-choose-new",
+            "text": "With this option, you will create  from where you click . If it was a file, you will create from its  containing folder .  You should see an input at the bottom of sublime text. You can type a file name or a path, and it will create it for you. You can use what I call [user friendly path], type-of-path",
+            "title": "Right click on a file/folder in the side bar and choose New"
+        },
+        {
+            "location": "/commands/#example",
+            "text": "folder/file.py  If  folder  does not exists, then it will create it for you.\nIf  file.py  exists, it will open it, otherwise it will create it, and then open it.",
+            "title": "Example:"
+        },
+        {
+            "location": "/commands/#with-a-shortcut-altn",
+            "text": "When you use a shortcut, the plugin does not explicitly know from where you want to create. Here's how it  guesses :   If there is some folders open in Sublime Text, it will create from the top one  Otherwise, if there is file open, it will create from its containing folder  Finally, it will choose  ~  . You can change this fall back by adding to your settings the key  path_fallback  with the path you want    If there is some folders open in Sublime Text, it will create from the top one   If you want to select which folder you want to create from, you can just add this prefix:  nb",
+            "title": "With a shortcut alt+n"
+        },
+        {
+            "location": "/commands/#example_1",
+            "text": "0 file.py  Creates from the first folder, starting from the top. Here the prefix is useless, because it's the default value (you could have just typed  file.py )  1 file.py  Creates from the second folder, starting from the top  -1 file.py  Creates from the first folder, starting from the  bottom   You get the idea.  Note : Watch out, they're \"code lists\", which means that they start from  0 .  0  is the first one,  1  is the second,  2  is the third, etc...",
+            "title": "Example"
+        },
+        {
+            "location": "/commands/#changing-the-symbol",
+            "text": "I personally don't like typing the  , because I have to move my hand a lot. So, I add an option to change it. For my part, I chose a space. The problem is that if I have the following structure:  test/\n    1 python/\nsamples/\n    hello/\n    index.html  And that I want to create a file in the folder  1 python , I'm going to type something line this  1 python/afile.py . But, it's going select in  samples .  So , you would have to explicitly say that you want to create from the first folder, so:  0 1 python/afile.py  would work.  But, it's not that much of a big deal, because you rarely get a folder starting with a number and then a space, and as you saw, the solution is really simple.  Why isn't    a problem to? On windows at least, you can not have a file are a folder that has   in it.  So, if you want to change the symbol, add this to your settings user (it can be, of course, whatever you want):  index_folder_separator :",
+            "title": "Changing the symbol (&gt;)"
+        },
+        {
+            "location": "/commands/#changing-the-default-index",
+            "text": "As I said earlier, the default index is  0 . You can change this by adding this to your settings  default_index :   1",
+            "title": "Changing the default index"
+        },
+        {
+            "location": "/commands/#the-auto-completion-system",
+            "text": "All the input that are created from File Manager have an auto completions system. So, this one is included  . If you want to learn more about about it, [here's the page dedicated to it][auto-completion.md]",
+            "title": "The Auto Completion system"
+        },
+        {
+            "location": "/commands/#the-log-in-the-status-bar",
+            "text": "As you probably noticed, when you create a file, there is in the side bar a message, like this  Creating at  path  And the path is in  computer friendly form  ([more info], type-of-path ), but you can change it so it is in a  user friendly form .  log_in_status_bar :   user ,   //   either   computer ,   user ,   or   false   If it is set to  false , it will be disabled.",
+            "title": "The log in the status bar"
+        },
+        {
+            "location": "/commands/#the-browser",
+            "text": "If you try to create a file that already exists, it will simply open it. But what happens if you try to create a  folder  that already exists? Well it's going to show up a quick panel with the folders and the files listed. If you pick a file, it will open it. If you pick a folder, it will reopen the browser listing all the items of this folder.  There is two more option. The first one is  .. , to go up of one folder, and the other one is:  create form here . If you pick this option, it will simply reopen the input panel from your position in the browser.",
+            "title": "The \"browser\""
+        },
+        {
+            "location": "/commands/#templates",
+            "text": "You can specify templates so that when you create a new file, the content will be the content of you template. For more information, see  the page dedicated to the templates",
+            "title": "Templates"
+        },
+        {
+            "location": "/commands/#rename-fm_rename",
+            "text": "There is not much to explain here.  You can only rename  1  file at a time.  If you put a slash in your name, it will automatically create a sub-folders to it, and then move the file. For example, if you try to rename a file like this:  hello/world.py  and your file is called  something.py , it will create the folder  hello  (if it doesn't already exists) and then rename  something.py .  Note : If your name is  ../hello.py , it will move your file one folder above.",
+            "title": "Rename (fm_rename)"
+        },
+        {
+            "location": "/commands/#move-fm_move",
+            "text": "Much better to move items. You can move several item at a time. If they aren't in the same folder, the path shown in the input will be the common path they have. Once you'll move them,  they'll be in every cases in the same folder .  To move a file, you're oblige to use the browser, because you have to choose a folder, so it will automatically pop up. But if you have a look, instead of having  [cmd]: create from here , you have  [cmd]: move here . As you probably guessed, you have to select this option to move your file/folder",
+            "title": "Move (fm_move)"
+        },
+        {
+            "location": "/commands/#duplicate-fm_duplicate",
+            "text": "You can duplicate folders and files, but, once again, one at a time.",
+            "title": "Duplicate (fm_duplicate)"
+        },
+        {
+            "location": "/commands/#delete-fm_delete",
+            "text": "File Manager doesn't delete permanently your files/folders, it only throws them to the bin.  Note : When other commands needs to overwrite a file or a folders, they throw them to the bin  before  and then simply write.",
+            "title": "Delete (fm_delete)"
+        },
+        {
+            "location": "/commands/#create-from-selection-fm_create_from_selection",
+            "text": "As the name says, this command allows you to create a file from text. For example, in  html , if you right click on the value of an  src  or  href  attribute, an option will appear called  Create  the path to you file  (it will be shorten if it's too long). You don't even need to select anything.  If you do select something, then it will propose you to create the file using the path you've selected.  Here's an example:   Font: Droid Sans Mono; Theme: Boxy; Color Scheme: Boxy Yesterday  In every cases, the file will be created  from  the current file (so this command does not work if you're file is not saved on the disk).  For now, the \"auto selection\" only works in  HTML . If you wish to see it added in others languages, just  submit a new issue",
+            "title": "Create from selection (fm_create_from_selection)"
+        },
+        {
+            "location": "/commands/#open-in-browser-fm_open_in_browser",
+            "text": "This command opens up the selected file in the default browser. You can run it from the command palette:  File Manager: Open In Browser , it'll open the current file. You can also run it from the Side Bar: it'll open the selected file.  It also, kind of  overwrites  the default  Open in browser  option in the context menu (in fact, it hides default command, and shows the FileManager's command). Now, you might be wondering:   Why do an other command, while an other one exists?   Well, this one is better  . Here's how:  it takes into account a global setting   url  An example's a great way to explain how it works (in  MyProject.sublime-project ):  { \n     folders :   [ \n         { \n             path :   C:/wamp/www/MyAwesomeWebsite/ \n         } \n     ], \n     settings :   { \n         url :   http://localhost/MyAwesomeWebsite/ \n     }  }   Now, when you're going to open a file that is in the the folder  C:/wamp/www/MyAwesomeWebsite/ , it'll simply replace this part with the  url  value (here  http://localhost/MyAwesomeWebsite/ )",
+            "title": "Open in browser (fm_open_in_browser)"
+        },
+        {
+            "location": "/commands/#examples",
+            "text": "C:/wamp/www/MyAwesomeWebsite/index.html  \u2192  http://localhost/MyAwesomeWebsite/  (it's clever, it removes the  index.html )  C:/wamp/www/MyAwesomeWebsite/index.php  \u2192  http://localhost/MyAwesomeWebsite/  C:/wamp/www/MyAwesomeWebsite/sub-folder/file.php  \u2192  http://localhost/MyAwesomeWebsite/sub-folder/file.php",
+            "title": "Examples"
+        },
+        {
+            "location": "/commands/#open-terminal-here-fm_open_terminal",
+            "text": "It opens up the terminal in the selected folder (or the folder of the current file if you open it from the command palette). You can configure what's happening in your Filemanager's settings ( Preferences \u2192 Packages Settings \u2192 FileManager ).  You can add a setting called  terminals . Here's the format:  { \n     terminals :   [ \n         { \n             name :   terminal name , \n             cmd :   [ the ,   command ,   to ,   open ] \n         }, \n         { \n             name :   An other Terminal , \n             cmd :   [ terminal ,   --new_tab ,   $cwd ] \n         } \n     ]  }   In the  cmd  key, you have one variable:  $ cwd . It'll be replaced by the  current working dir  (the folder from which the command will be run).  So, for example, on Windows, here's what you could do:  { \n     terminals :   [ \n         { \n             name :   Cmder , \n             cmd :   [ C:/cmder/cmder.exe ,   /SINGLE ,   $cwd ] \n         }, \n         { \n             name :   CMD , \n             cmd :   [ cmd ] \n         } \n     ]  }",
+            "title": "Open Terminal Here (fm_open_terminal)"
+        },
+        {
+            "location": "/commands/#on-other-platform",
+            "text": "If you're on mac, it might be a bit harder. Why? Because I don't have a Mac, so I can try to see if what I'm going to tell you is actualy working. Here's what I found:  open -a Terminal  should open a new terminal. So, here's the config I'd recommend using:  { \n     terminals :   [ \n         { \n             name :   Terminal , \n             cmd :   [ open ,   -a ,   Terminal ] \n         } \n     ]  }   If you're using a Mac, and you found a solution (or you'd like to contribute to this repo), then please  raise an issue .",
+            "title": "On other platform"
+        },
+        {
+            "location": "/commands/#open-in-explorer-fm_open_in_explorer",
+            "text": "This command simply opens the selected item(s) in your file explorer (or finder if you're on mac). It'll open the current file if it's run from the command palette.",
+            "title": "Open In Explorer (fm_open_in_explorer)"
+        },
+        {
+            "location": "/auto-completion/",
+            "text": "All the input that are created from File Manager has an auto completions system. There is few things that you can change, but let's start with the beginning.\n\n\nSay you have the following structure:\n\n\nroot/\n    img/\n        favicon.png\n\n    styles/\n        stylus/\n            main.styl\n        css/\n            main.css\n\n    scripts/\n        coffee/\n            main.coffee\n        js/\n            main.js\n\n    index.html\n\n\n\n\n\nIf you want to create a new script, you're going to have to type \nscripts/coffee/mynewscript.coffee\n. But, if you just type \nsc\n and then press \ntab\n, you'll see that \nscripts/\n automatically replace the \nsc\n, and you can type \nco\n press \ntab\n, \ncoffee\n will replace the \nco\n. I say \nreplace\n because it is case \ninsensitive\n. If you type \nST\n, it will replace it by \nstyles\n (in lower case).\n\n\nHere's a little gif to show you:\n\n\n\n\nOptions\n\n\n\n\ncase_sensitive\n: defines if the completion case sensitive. (default to \nfalse\n)\n\n\ncomplete_with_files_too\n: If you want the auto completion to use complete with files too (default to \ntrue\n)\n\n\npick_first\n: only relevant if \ncomplete_with_files_too\n is \ntrue\n. Define what to choose first if at least one folder and one file are available for completion. The valid values: \nfiles\n, \nfolders\n or \nnull\n. (default to \nfolders\n)",
+            "title": "Auto Completion"
+        },
+        {
+            "location": "/auto-completion/#options",
+            "text": "case_sensitive : defines if the completion case sensitive. (default to  false )  complete_with_files_too : If you want the auto completion to use complete with files too (default to  true )  pick_first : only relevant if  complete_with_files_too  is  true . Define what to choose first if at least one folder and one file are available for completion. The valid values:  files ,  folders  or  null . (default to  folders )",
+            "title": "Options"
+        },
+        {
+            "location": "/settings/",
+            "text": "When, in this documentation, I'm talking about settings \nin general\n, I'm talking about FileManager's settings.\n\n\nQuick reminder\n\n\nThere's two \"type\" of settings.\n\n\n1: The global settings. Here's the hierarchy:\n\n\n\n\nBelow, you can see the order in which Sublime Text would process a hypothetical hierarchy of settings for Python files on Windows:\n\n\n\n\nPackages/Default/Preferences.sublime-settings\n\n\nPackages/Default/Preferences (Windows).sublime-settings\n\n\nPackages/AnyOtherPackage/Preferences.sublime-settings\n\n\nPackages/AnyOtherPackage/Preferences (Windows).sublime-settings\n\n\nPackages/User/Preferences.sublime-settings\n\n\nSettings from the current project\n\n\nPackages/Python/Python.sublime-settings\n\n\nPackages/Python/Python (Windows).sublime-settings\n\n\nPackages/User/Python.sublime-settings\n\n\nSession data for the current file\n\n\nAuto-adjusted settings\n\n\n\n\n\u2013 from \nthe unofficial docs\n (Thanks a lot)\n\n\n\n\n2: The packages settings.\n\n\nThey don't affect anything, except ... the plugin. They have 2 files, with the same name: one in the package folder, the other in you \nUser\n directory. This is the case for FileManager. And this file is called ... \nFileManager.sublime-settings\n. So, the file in the package directory is the default one, and the one in the user directory \noverwrites\n them.\n\n\nSo, which one are you talking about then?\n\n\nThe second one.\n\n\nHow do I edit them?\n\n\nThere's a few different ways:\n\n\n\n\nPreferences -\n Packages Settings -\n FileManager\n\n\nOpen the command palette (\nctrl+shift+p\n), and find \nPreferences\n:\n \nFile\n \nManager\n \nSettings\n\n\n\n\nThe file on the left is the default one (don't edit it, just look at it), and the one on the right is yours, have fun with it!\n\n\nA few example to make sure you understand...\n\n\n\n\nIn your \nsettings\n, you can specify an option: \naliases\n. It has to be an object.\n\n\n\n\n\n    \nIn this part, I meant...\n\n    The FileManager's settings (the second one)",
+            "title": "Settings"
+        },
+        {
+            "location": "/settings/#quick-reminder",
+            "text": "There's two \"type\" of settings.",
+            "title": "Quick reminder"
+        },
+        {
+            "location": "/settings/#1-the-global-settings-heres-the-hierarchy",
+            "text": "Below, you can see the order in which Sublime Text would process a hypothetical hierarchy of settings for Python files on Windows:   Packages/Default/Preferences.sublime-settings  Packages/Default/Preferences (Windows).sublime-settings  Packages/AnyOtherPackage/Preferences.sublime-settings  Packages/AnyOtherPackage/Preferences (Windows).sublime-settings  Packages/User/Preferences.sublime-settings  Settings from the current project  Packages/Python/Python.sublime-settings  Packages/Python/Python (Windows).sublime-settings  Packages/User/Python.sublime-settings  Session data for the current file  Auto-adjusted settings   \u2013 from  the unofficial docs  (Thanks a lot)",
+            "title": "1: The global settings. Here's the hierarchy:"
+        },
+        {
+            "location": "/settings/#2-the-packages-settings",
+            "text": "They don't affect anything, except ... the plugin. They have 2 files, with the same name: one in the package folder, the other in you  User  directory. This is the case for FileManager. And this file is called ...  FileManager.sublime-settings . So, the file in the package directory is the default one, and the one in the user directory  overwrites  them.",
+            "title": "2: The packages settings."
+        },
+        {
+            "location": "/settings/#so-which-one-are-you-talking-about-then",
+            "text": "The second one.",
+            "title": "So, which one are you talking about then?"
+        },
+        {
+            "location": "/settings/#how-do-i-edit-them",
+            "text": "There's a few different ways:   Preferences -  Packages Settings -  FileManager  Open the command palette ( ctrl+shift+p ), and find  Preferences :   File   Manager   Settings   The file on the left is the default one (don't edit it, just look at it), and the one on the right is yours, have fun with it!",
+            "title": "How do I edit them?"
+        },
+        {
+            "location": "/settings/#a-few-example-to-make-sure-you-understand",
+            "text": "In your  settings , you can specify an option:  aliases . It has to be an object.   \n     In this part, I meant... \n    The FileManager's settings (the second one)",
+            "title": "A few example to make sure you understand..."
+        },
+        {
+            "location": "/templates/",
+            "text": "What is this?\n\n\nWhen you create a new file, a template is inserted. For now, FileManager chooses which template it should insert using the extension. If you're trying to create a \n.py\n file, it will look for a template that has the extension \n.py\n.\n\n\nYou're probably a bit confused right now, so let's clarify this.\n\n\n${\npackages\n}\n/User/.FileManager/template.*\n\n\nYou're template are stored in the \n.FileManager\n folder, inside your Sublime Text \nUser\n directory. If you have a look, it should be empty.\n\n\nA template will be a file called \ntemplate.\n plus the extension you want it to be active with.\n\n\nSo, for example, if you create a file called \ntemplate.py\n inside the the \n.FileManager\n directory with this content:\n\n\n# -*- encoding: utf-8 -*-\n\n\n\n# this is my template\n\n\n\n\n\n\nEach time you're going to create a new python file (with the extension \n.py\n), this content will be inserted as soon as it is opened.\n\n\nNow, some of you might wondering: \nwhy don't FileManager write the file with the right content, and \nthen\n open it?\n. Well, this the good part.\n\n\nYour template is in fact... \nsnippets\n!\n\n\nYes, they're in fact snippets! If you don't know how to use them, I strongly recommend having a look at \nthe unofficial documentation about snippets\n.\n\n\nCreate/edit templates from Sublime Text\n\n\nYou can create and edit your templates from Sublime Text.\n\n\nCreate\n\n\nOpen up the command palette, and in there, you should be able to find \nFile Manager: Create Template\n.\n\n\nIf you pick this option, an input will appear with the text \ntemplate.\n. Add the extension that you want, and it will create the template (if it already exists, it will simply open it)\n\n\nNow, just edit the file, and you're done! Your template has been edited.\n\n\nList\n\n\nOpen up the command palette, and in there, you should be able to find \nFile Manager: List Templates\n.\n\n\nIt will open up the browser that you can get in the \ncreate\n command, listing all your templates. Just pick one to edit it.\n\n\nHere you go! Hope you enjoy it! If you do, please let others people know about it!",
+            "title": "Templates"
+        },
+        {
+            "location": "/templates/#what-is-this",
+            "text": "When you create a new file, a template is inserted. For now, FileManager chooses which template it should insert using the extension. If you're trying to create a  .py  file, it will look for a template that has the extension  .py .  You're probably a bit confused right now, so let's clarify this.",
+            "title": "What is this?"
+        },
+        {
+            "location": "/templates/#packagesuserfilemanagertemplate",
+            "text": "You're template are stored in the  .FileManager  folder, inside your Sublime Text  User  directory. If you have a look, it should be empty.  A template will be a file called  template.  plus the extension you want it to be active with.  So, for example, if you create a file called  template.py  inside the the  .FileManager  directory with this content:  # -*- encoding: utf-8 -*-  # this is my template   Each time you're going to create a new python file (with the extension  .py ), this content will be inserted as soon as it is opened.  Now, some of you might wondering:  why don't FileManager write the file with the right content, and  then  open it? . Well, this the good part.",
+            "title": "${packages}/User/.FileManager/template.*"
+        },
+        {
+            "location": "/templates/#your-template-is-in-fact-snippets",
+            "text": "Yes, they're in fact snippets! If you don't know how to use them, I strongly recommend having a look at  the unofficial documentation about snippets .",
+            "title": "Your template is in fact... snippets!"
+        },
+        {
+            "location": "/templates/#createedit-templates-from-sublime-text",
+            "text": "You can create and edit your templates from Sublime Text.",
+            "title": "Create/edit templates from Sublime Text"
+        },
+        {
+            "location": "/templates/#create",
+            "text": "Open up the command palette, and in there, you should be able to find  File Manager: Create Template .  If you pick this option, an input will appear with the text  template. . Add the extension that you want, and it will create the template (if it already exists, it will simply open it)  Now, just edit the file, and you're done! Your template has been edited.",
+            "title": "Create"
+        },
+        {
+            "location": "/templates/#list",
+            "text": "Open up the command palette, and in there, you should be able to find  File Manager: List Templates .  It will open up the browser that you can get in the  create  command, listing all your templates. Just pick one to edit it.  Here you go! Hope you enjoy it! If you do, please let others people know about it!",
+            "title": "List"
+        },
+        {
+            "location": "/type-of-path/",
+            "text": "On window, paths looks bad, and are not agreeable to type. On, Linux, it's different. So, user friendly path are path that are inspired by Linux. Computer friendly path are path that are valid for a computer, depending on the OS.\n\n\nExample on window\n\n\n\n\n\n\n\n\nFriendly form\n\n\nComputer form\n\n\n\n\n\n\n\n\n\n\n~/folder/file.txt\n\n\nC:\\Users\\\nusername\n\\folder\\file.txt\n\n\n\n\n\n\nC:\\Users\\math\\here\n\n\nC:\\Users\\math\\here\n\n\n\n\n\n\n\n\nYou'd like to use aliases? Have a look at the \naliases page\n then!",
+            "title": "Type of path"
+        },
+        {
+            "location": "/type-of-path/#example-on-window",
+            "text": "Friendly form  Computer form      ~/folder/file.txt  C:\\Users\\ username \\folder\\file.txt    C:\\Users\\math\\here  C:\\Users\\math\\here     You'd like to use aliases? Have a look at the  aliases page  then!",
+            "title": "Example on window"
+        },
+        {
+            "location": "/aliases/",
+            "text": "Why should I use aliases?\n\n\nFor example, if you'd like to create file in the Sublime Text packages directory, on window, you'd have to type \n~/AppData/Roaming/Sublime Text 3/Packages\n and then, the name/path of your file. Because you have access to those aliases\n\n\n\n\n\n\n\n\nAlias Name\n\n\nValue (changes, that's the good part \n)\n\n\n\n\n\n\n\n\n\n\nproject_extension\n\n\nsublime-project\n\n\n\n\n\n\nproject_name\n\n\nFileManagerDocs.sublime-project\n\n\n\n\n\n\nfile_name\n\n\nAliases.md\n\n\n\n\n\n\npackages\n\n\nC:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\n\n\n\n\n\n\nproject_base_name\n\n\nFileManagerDocs\n\n\n\n\n\n\nfile_base_name\n\n\nAliases\n\n\n\n\n\n\nfile\n\n\nC:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\FileManagerDocs\\wiki\\Aliases.md\n\n\n\n\n\n\nfolder\n\n\nC:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\FileManagerDocs\n\n\n\n\n\n\nfile_extension\n\n\nmd\n\n\n\n\n\n\nproject_path\n\n\nC:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\User\\Projects\n\n\n\n\n\n\nfile_path\n\n\nC:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\FileManagerDocs\\wiki\n\n\n\n\n\n\nproject\n\n\nC:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\User\\Projects\\FileManagerDocs.sublime-project\n\n\n\n\n\n\nplatform\n\n\nWindows\n\n\n\n\n\n\n\n\nYou can just type \n$\npackages\n/\n and your file/path! Sounds good? Then keep reading!\n\n\nSo, the table above shows all the aliases you have access to by default when you use the input of FileManager.\n\n\nHere, the values are the ones I get when, as you can see, I'm editing this page (\nAliases.md\n), I'm on Windows, the project name is \nFileManagerDocs.sublime-project\n etc...\n\n\nWhen you want to use those prefixes, you have to prefix them with a \n$\n, like so: \n$\npackages\n, \n$\nproject_base_name\n.\n\n\nUsing the aliases\n\n\nIf you're a Sublime Text 3 package developer, you've probably guessed that FileManager is using the \nsublime.expand_variables\n function. So, you probably already know how it works. If it's the case, you can skip this part, if not, then read on, what are you waiting for? \n\n\nAs I just said earlier, every aliases have to be prefixed by a \n$\n. But you can also wrap the alias name with some \n{curly braces}\n, with the \n$\n, like so: \n${\nmy\n \nvar\n}\n. When should you use curly braces? When there is character in the alias name that aren't normally allowed (such as spaces).\n\n\nstring: \nHello \n$var\n!\n\naliases: \n    - \nvar\n: \nworld\n\n\nresult: \nHello world!\n\n\nstring: \nHello \n${\nmy\n \nvar\n}\n!\n\naliases: \n    - \nmy var\n: \nworld\n\n\nresult: \nHello world!\n\n\n\n\n\n\nEscaping\n\n\n\n\nWhat if I want to use a \nliteral\n \n$\n?\n\n\n\n\nJust prefix it by an other \n$\n!\n\n\nstring: \nHello \n$$\nvar\n\n\naliases:\n\n\n    - var: \nit doesn\nt matter\n\n\nresult: \nHello \n$$\nvar\n\n\n\n\n\n\nNote: the function \nsublime.expand_variables\n escape the \n$\n using a backslash (\n\\\n). The problem is that FileManager auto replaces the backslash by forward slashes (because of windows).\n\n\nWhat if I try to use an alias that doesn't exists?\n\n\nWell, you're computer's going to start dancing the salsa. Na, just kidding. The default value of every aliases are an empty string \n. So, it will be replaced by an empty string.\n\n\nstring: \nHello \n${\nworld\n}\n\naliases: \n    - \nsomething\n: \na value\n\n\nresult: \nHello \n\n\n\n\n\n\nChanging the default value\n\n\nIf you want to change the default value, in case the alias is not defined, you can do it like so: \n${\nmy\n \nvar\n:\ndefault\n \nvalue\n}\n\n\nstring: \n${\nmy\n \nundefined\n \nvar\n:\nmy\n \ndefault\n \nvalue\n}\n and some text\n\naliases: \nempty\n\nresult: \nmy default value and some text\n\n\nstring: \n${\nmy\n \nundefined\n \nvar\n:\nmy\n \ndefault\n \nvalue\n}\n and some text\n\naliases: \n    - \nmy undefined var\n: \nhello\n\nresult: \nhello and some text\n\n\n\n\n\n\nNesting\n\n\nYou can nest them, like so: \n${\nvar1\n:\n$\n{\nvar2\n:\ndefault\n}\n}\n.\n\n\nMuch to complicated\n\n\nFor the default value, and the nested value, I don't see \nany\n use of this when you have to create a file. You know which aliases you have access to, so... I told you this just so that you're aware that it exists, and you can use it, not because in this case it's useful.\n\n\nReal example\n\n\nFor example, if you run the \nfm_create\n command (\nalt+n\n):\n\n\n$\npackages\n/FileManager/FMcommands\n\n\n\n\n\n\nIt will open the \n\"browser\"\n listing all the commands of FileManager, because each of them are in a separated file. \n\n\nCustom aliases\n\n\nThis is the good part. In your \nsettings\n, you can specify an option: \naliases\n. It has to be an object.\n\n\naliases\n:\n \n{\n\n    \nname\n:\n \nvalue (with othere $aliases if you want to)\n\n\n}\n\n\n\n\n\n\nIn the name, \ndo not specify the prefixing \n$\n. It won't work otherwise.\n\n\nIn your alias' value, you can use other aliases. And those aliases can use others, etc... It's recursive, there's no limit (almost). \n\n\naliases\n:\n \n{\n\n    \nst\n:\n \n$packages\n,\n \n// because being lazy is the first quality of a programmer\n\n    \nstu\n:\n \n$st/User\n,\n\n\n}\n\n\n\n\n\n\nYou see? It's fairly simple, but it saves (at least for me) a fair bit of time! (because I love looking having a look at the plugins code, okay, but I'm sure you'll find a use too!)\n\n\nWatch out for infinite loops!\n\n\nBecause aliases can \"call\" each other, it can make an infinite loop... And you don't want this.\n\n\nAn example of infinite loop\n\n\naliases\n:\n \n{\n\n    \nfirst\n:\n \ninclude $second\n,\n\n    \nsecond\n:\n \ninclude $first\n\n\n}\n\n\n\n\n\n\nAs you can see, they're going to call each other over and over again. So, an error message will pop up, telling you that there's been an infinite loop, and you need to check your aliases. It will also open your default browser right here. If you want to disable this last behaviour, add this to your \nsettings\n:\n\n\nopen_help_on_alias_infinite_loop\n:\n \nfalse\n,\n\n\n\n\n\n\nNote: the limit is 100. If there is more than 100 recursions, it will stop, and show up the error message, as explained earlier.\n\n\nWatch out for the viscous ones! This one is fairly simple, there's only 2 steps. But here's a not-so-well-intentioned:\n\n\naliases\n:\n \n{\n\n    \nfirst\n:\n \ninclude $second\n,\n\n    \nsecond\n:\n \nhello $third\n,\n\n    \nthird\n:\n \nshow $forth\n,\n\n    \nforth\n:\n \nloop $first\n\n\n}",
+            "title": "Aliases"
+        },
+        {
+            "location": "/aliases/#why-should-i-use-aliases",
+            "text": "For example, if you'd like to create file in the Sublime Text packages directory, on window, you'd have to type  ~/AppData/Roaming/Sublime Text 3/Packages  and then, the name/path of your file. Because you have access to those aliases     Alias Name  Value (changes, that's the good part  )      project_extension  sublime-project    project_name  FileManagerDocs.sublime-project    file_name  Aliases.md    packages  C:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages    project_base_name  FileManagerDocs    file_base_name  Aliases    file  C:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\FileManagerDocs\\wiki\\Aliases.md    folder  C:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\FileManagerDocs    file_extension  md    project_path  C:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\User\\Projects    file_path  C:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\FileManagerDocs\\wiki    project  C:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\User\\Projects\\FileManagerDocs.sublime-project    platform  Windows     You can just type  $ packages /  and your file/path! Sounds good? Then keep reading!  So, the table above shows all the aliases you have access to by default when you use the input of FileManager.  Here, the values are the ones I get when, as you can see, I'm editing this page ( Aliases.md ), I'm on Windows, the project name is  FileManagerDocs.sublime-project  etc...  When you want to use those prefixes, you have to prefix them with a  $ , like so:  $ packages ,  $ project_base_name .",
+            "title": "Why should I use aliases?"
+        },
+        {
+            "location": "/aliases/#using-the-aliases",
+            "text": "If you're a Sublime Text 3 package developer, you've probably guessed that FileManager is using the  sublime.expand_variables  function. So, you probably already know how it works. If it's the case, you can skip this part, if not, then read on, what are you waiting for?   As I just said earlier, every aliases have to be prefixed by a  $ . But you can also wrap the alias name with some  {curly braces} , with the  $ , like so:  ${ my   var } . When should you use curly braces? When there is character in the alias name that aren't normally allowed (such as spaces).  string:  Hello  $var ! \naliases: \n    -  var :  world \n\nresult:  Hello world! \n\nstring:  Hello  ${ my   var } ! \naliases: \n    -  my var :  world \n\nresult:  Hello world!",
+            "title": "Using the aliases"
+        },
+        {
+            "location": "/aliases/#escaping",
+            "text": "What if I want to use a  literal   $ ?   Just prefix it by an other  $ !  string:  Hello  $$ var  aliases:      - var:  it doesn t matter  result:  Hello  $$ var   Note: the function  sublime.expand_variables  escape the  $  using a backslash ( \\ ). The problem is that FileManager auto replaces the backslash by forward slashes (because of windows).",
+            "title": "Escaping"
+        },
+        {
+            "location": "/aliases/#what-if-i-try-to-use-an-alias-that-doesnt-exists",
+            "text": "Well, you're computer's going to start dancing the salsa. Na, just kidding. The default value of every aliases are an empty string  . So, it will be replaced by an empty string.  string:  Hello  ${ world } \naliases: \n    -  something :  a value \n\nresult:  Hello",
+            "title": "What if I try to use an alias that doesn't exists?"
+        },
+        {
+            "location": "/aliases/#changing-the-default-value",
+            "text": "If you want to change the default value, in case the alias is not defined, you can do it like so:  ${ my   var : default   value }  string:  ${ my   undefined   var : my   default   value }  and some text \naliases:  empty \nresult:  my default value and some text \n\nstring:  ${ my   undefined   var : my   default   value }  and some text \naliases: \n    -  my undefined var :  hello \nresult:  hello and some text",
+            "title": "Changing the default value"
+        },
+        {
+            "location": "/aliases/#nesting",
+            "text": "You can nest them, like so:  ${ var1 : $ { var2 : default } } .",
+            "title": "Nesting"
+        },
+        {
+            "location": "/aliases/#much-to-complicated",
+            "text": "For the default value, and the nested value, I don't see  any  use of this when you have to create a file. You know which aliases you have access to, so... I told you this just so that you're aware that it exists, and you can use it, not because in this case it's useful.",
+            "title": "Much to complicated"
+        },
+        {
+            "location": "/aliases/#real-example",
+            "text": "For example, if you run the  fm_create  command ( alt+n ):  $ packages /FileManager/FMcommands   It will open the  \"browser\"  listing all the commands of FileManager, because each of them are in a separated file.",
+            "title": "Real example"
+        },
+        {
+            "location": "/aliases/#custom-aliases",
+            "text": "This is the good part. In your  settings , you can specify an option:  aliases . It has to be an object.  aliases :   { \n     name :   value (with othere $aliases if you want to)  }   In the name,  do not specify the prefixing  $ . It won't work otherwise.  In your alias' value, you can use other aliases. And those aliases can use others, etc... It's recursive, there's no limit (almost).   aliases :   { \n     st :   $packages ,   // because being lazy is the first quality of a programmer \n     stu :   $st/User ,  }   You see? It's fairly simple, but it saves (at least for me) a fair bit of time! (because I love looking having a look at the plugins code, okay, but I'm sure you'll find a use too!)",
+            "title": "Custom aliases"
+        },
+        {
+            "location": "/aliases/#watch-out-for-infinite-loops",
+            "text": "Because aliases can \"call\" each other, it can make an infinite loop... And you don't want this.",
+            "title": "Watch out for infinite loops!"
+        },
+        {
+            "location": "/aliases/#an-example-of-infinite-loop",
+            "text": "aliases :   { \n     first :   include $second , \n     second :   include $first  }   As you can see, they're going to call each other over and over again. So, an error message will pop up, telling you that there's been an infinite loop, and you need to check your aliases. It will also open your default browser right here. If you want to disable this last behaviour, add this to your  settings :  open_help_on_alias_infinite_loop :   false ,   Note: the limit is 100. If there is more than 100 recursions, it will stop, and show up the error message, as explained earlier.  Watch out for the viscous ones! This one is fairly simple, there's only 2 steps. But here's a not-so-well-intentioned:  aliases :   { \n     first :   include $second , \n     second :   hello $third , \n     third :   show $forth , \n     forth :   loop $first  }",
+            "title": "An example of infinite loop"
+        },
+        {
+            "location": "/about/",
+            "text": "About FileManager\n\n\nHello! I'm math2001, and I'm the author of FileManager.\n\n\nI've created this package because I...don't have a really fast computer (pretty slow to be honest), so I'm use to have small tool, but still powerful. Sublime Text is probably the best example (although I wouldn't call it small, but super-fast \n)\n\n\nSo, when I installed SidebarEnhancement, it just didn't fit. There were so many options, I used only about half of them. You couldn't create any nested files (actually, you could, but you'd get an error message poping up). There was no auto completion and it was messy. I just didn't like it.\n\n\nThen AdvancedNewFile came into the game. This one is really cool. It has auto completion (although I discovered when I started creating FileManager \n), you can create nested files, folders. But it wasn't included in the Side Bar, which is, in my opinion, a bit silly.\n\n\nSo, I decided to mix them together, but I kept in mind that I should add feature that are \nreally\n useful. And out of this came \nFileManager\n.\n\n\nI'm completely open to any suggestions, and I would love to hear what \nyou\n think of this package or if you enjoy it! So, you can \nsend me a tweet\n, or simply star the repo!",
+            "title": "About"
+        },
+        {
+            "location": "/about/#about-filemanager",
+            "text": "Hello! I'm math2001, and I'm the author of FileManager.  I've created this package because I...don't have a really fast computer (pretty slow to be honest), so I'm use to have small tool, but still powerful. Sublime Text is probably the best example (although I wouldn't call it small, but super-fast  )  So, when I installed SidebarEnhancement, it just didn't fit. There were so many options, I used only about half of them. You couldn't create any nested files (actually, you could, but you'd get an error message poping up). There was no auto completion and it was messy. I just didn't like it.  Then AdvancedNewFile came into the game. This one is really cool. It has auto completion (although I discovered when I started creating FileManager  ), you can create nested files, folders. But it wasn't included in the Side Bar, which is, in my opinion, a bit silly.  So, I decided to mix them together, but I kept in mind that I should add feature that are  really  useful. And out of this came  FileManager .  I'm completely open to any suggestions, and I would love to hear what  you  think of this package or if you enjoy it! So, you can  send me a tweet , or simply star the repo!",
+            "title": "About FileManager"
+        }
+    ]
+}
