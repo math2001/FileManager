@@ -1,5 +1,6 @@
 site_name: FileManager
 theme: 'material'
+repo_name: 'math2001/FileManager'
 repo_url: https://github.com/math2001/FileManager
 site_description: Sublime Text 3 Plugin FileManager's documentation
 site_author: math2001
@@ -12,6 +13,7 @@ pages:
   - Templates: templates.md
   - Type of path: type-of-path.md
   - Aliases: aliases.md
+  - Contributing: contributing.md
   - About: about.md
 
 markdown_extensions:
