@@ -1,0 +1,43 @@
+site_name: FileManager
+theme: 'material'
+repo_url: https://github.com/math2001/FileManager
+site_description: Sublime Text 3 Plugin FileManager's documentation
+site_author: math2001
+
+pages:
+  - Home: index.md
+  - Commands: commands.md
+  - Auto Completion: auto-completion.md
+  - Settings: settings.md
+  - Templates: templates.md
+  - Type of path: type-of-path.md
+  - Aliases: aliases.md
+  - About: about.md
+
+markdown_extensions:
+  - toc(permalink=true)
+  - pymdownx.arithmatex
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tilde
+  - admonition
+  - codehilite
+
+extra:
+  palette:
+    primary: 'red'
+    accent: 'indigo'
+  social:
+    - type: 'github'
+      link: 'https://github.com/math2001'
+    - type: 'twitter'
+      link: 'https://twitter.com/_math2001'
