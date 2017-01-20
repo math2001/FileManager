@@ -59,6 +59,14 @@
 
     
     <url>
+     <loc>/contributing/</loc>
+     <lastmod>2017-01-20</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
      <loc>/about/</loc>
      <lastmod>2017-01-20</lastmod>
      <changefreq>daily</changefreq>

@@ -19,7 +19,7 @@
     
     
       
-        <title>About - FileManager</title>
+        <title>Contributing - FileManager</title>
       
     
     
@@ -79,7 +79,7 @@
             
               
             
-            About
+            Contributing
           
         </span>
       </div>
@@ -253,9 +253,35 @@
       
   <li class="md-nav__item">
     
-      <a href="../contributing/" title="Contributing" class="md-nav__link">
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
         Contributing
-      </a>
+      </label>
+    
+    <a href="./" title="Contributing" class="md-nav__link md-nav__link--active">
+      Contributing
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-doc-with-mkdoc" title="The doc with... MkDoc" class="md-nav__link">
+    The doc with... MkDoc
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -264,23 +290,9 @@
       
   <li class="md-nav__item">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-    <a href="./" title="About" class="md-nav__link md-nav__link--active">
-      About
-    </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-</nav>
+      <a href="../about/" title="About" class="md-nav__link">
+        About
+      </a>
     
   </li>
 
@@ -299,8 +311,18 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-doc-with-mkdoc" title="The doc with... MkDoc" class="md-nav__link">
+    The doc with... MkDoc
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -313,13 +335,57 @@
                
               
                 
-                <h1 id="about-filemanager">About FileManager<a class="headerlink" href="#about-filemanager" title="Permanent link">&para;</a></h1>
-<p>Hello! I'm math2001, and I'm the author of FileManager.</p>
-<p>I've created this package because I...don't have a really fast computer (pretty slow to be honest), so I'm use to have small tool, but still powerful. Sublime Text is probably the best example (although I wouldn't call it small, but super-fast <img alt="😉" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/1f609.svg" title=":wink:" />)</p>
-<p>So, when I installed SidebarEnhancement, it just didn't fit. There were so many options, I used only about half of them. You couldn't create any nested files (actually, you could, but you'd get an error message poping up). There was no auto completion and it was messy. I just didn't like it.</p>
-<p>Then AdvancedNewFile came into the game. This one is really cool. It has auto completion (although I discovered when I started creating FileManager <img alt="😆" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/1f606.svg" title=":laughing:" />), you can create nested files, folders. But it wasn't included in the Side Bar, which is, in my opinion, a bit silly.</p>
-<p>So, I decided to mix them together, but I kept in mind that I should add feature that are <em>really</em> useful. And out of this came <strong>FileManager</strong>.</p>
-<p>I'm completely open to any suggestions, and I would love to hear what <em>you</em> think of this package or if you enjoy it! So, you can <a href="https://twitter.com/_math2001">send me a tweet</a>, or simply star the repo! <iframe src="https://ghbtns.com/github-btn.html?user=math2001&repo=FileManager&type=star&count=false" frameborder="0" scrolling="0" width="160px" height="20px"></iframe></p>
+                  <h1>Contributing</h1>
+                
+                <p>You want to contribute to this Package? Great!</p>
+<p>If you want to contribute to the documentation, you're at the right place.
+Otherwise, you should have a look <a href="https://github.com/math2001/FileManager#contributing">in the readme</a></p>
+<p>First, you need to fork this repo.</p>
+<h3 id="the-doc-with-mkdoc">The doc with... MkDoc<a class="headerlink" href="#the-doc-with-mkdoc" title="Permanent link">&para;</a></h3>
+<p>I'm using mkdoc to build the documentation. Here's how you can get going:</p>
+<div class="codehilite"><pre><span></span>$ git clone &lt;your_fork&gt;
+$ <span class="nb">cd</span> FileManager
+$ virtualenv venv
+$ <span class="nb">source</span> venv/bin/activate  <span class="c1"># Windows: .\venv\Scripts\activate.bat</span>
+$ pip install -r requirements.txt
+</pre></div>
+
+
+<blockquote>
+<p>I don't have pip!</p>
+</blockquote>
+<p>Quickly, pip is a package manager for python. You can install it by saving this
+script: <a href="https://bootstrap.pypa.io/get-pip.py">get-pip.py</a> and running it like so</p>
+<div class="codehilite"><pre><span></span>python get-pip.py
+</pre></div>
+
+
+<blockquote>
+<p>I don't have virtualenv!</p>
+</blockquote>
+<p>Well, you install it by using <code class="codehilite">pip</code> like so:</p>
+<div class="codehilite"><pre><span></span>pip install virtualenv
+</pre></div>
+
+
+<p>Once you have this installed, you have access to the command <code class="codehilite">mkdocs</code>.</p>
+<p>Now, you need to create a new branch, with the "name" of what your adding. For
+example:</p>
+<div class="codehilite"><pre><span></span>git checkout -b improve-fm-create-explanation
+</pre></div>
+
+
+<p>Make your changes. You can preview them in your browser by running:</p>
+<div class="codehilite"><pre><span></span>mkdocs serve
+</pre></div>
+
+
+<p>Now, commit your changes, and push them. In this case, it'd be:</p>
+<div class="codehilite"><pre><span></span>git push origin improve-fm-create-explanation
+</pre></div>
+
+
+<p>And then, just send a pull request <img alt="😉" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/1f609.svg" title=":wink:" /></p>
               
             </article>
           </div>
@@ -332,7 +398,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../contributing/" title="Contributing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../aliases/" title="Aliases" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -341,11 +407,25 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Contributing
+                Aliases
               </span>
             </div>
           </a>
         
+        
+          <a href="../about/" title="About" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                About
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>
