@@ -8,7 +8,7 @@ that is shown by FileManager.
 ### The Auto Completion system
 
 All the input that are created from File Manager have an auto completions system. If you want to
-learn more about about it, [here's the page dedicated to it](auto-completion.md)
+learn more about about it, [here's the page dedicated to it](references/auto-completion.md)
 
 ### The log in the status bar
 
@@ -19,8 +19,8 @@ As you probably noticed, when you create a file, there is in the side bar a mess
 !!! note
     Of course, the the `Creating` will change if you're moving, renaming, duplicating etc.
 
-And the path is in a *computer friendly form* ([more info](type-of-path.md)), but you can change it
-so that it is in a *user friendly form*.
+And the path is in a *computer friendly form* ([more info](references/type-of-path.md)), but you
+can change it so that it is in a *user friendly form*.
 
 ```json
 "log_in_status_bar": "user"
@@ -36,7 +36,7 @@ If you try to create a file that already exists, it will simply open it.
 
 !!! note
     This is a trick that I realised I was using very often! It's even better when you use
-    [aliases](aliases.md)
+    [aliases](references/aliases.md)
 
 But what happens if you try to create a **folder** that already exists? Well it's going to show up
 a quick panel with every folders and every files listed. If you pick a file, it will open it. If
@@ -67,7 +67,7 @@ With this option, you will create *from where you click*. If it was a file, you 
 its *containing folder*.
 
 You should see an input at the bottom of sublime text. You can type a file name or a path, and it
-will create it for you. You can use what I call [user friendly path](type-of-path.md)
+will create it for you. You can use what I call [user friendly path](references/type-of-path.md)
 
 #### Example
 
@@ -147,7 +147,7 @@ As I said earlier, the default index is `0`. You can change this by adding this 
 ### Templates
 
 You can specify templates so that when you create a new file, the content will be the content of
-your template. For more information, see [the page dedicated to the templates](templates.md)
+your template. For more information, see [the page dedicated to the templates](references/templates.md)
 
 ## Rename
 
@@ -337,7 +337,7 @@ If it does, doesn't and you have a solution, or needs improvement, please let me
 
 !!! Tip
     If none of these works for you, and you don't know how to configure this, you can always use
-    Will Bond's package [Terminal][] and [hide this option (open terminal here)](settings.md)
+    Will Bond's package [Terminal][] and [hide this option (open terminal here)](references/settings.md)
 
 ## Open In Explorer
 

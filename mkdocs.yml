@@ -7,12 +7,14 @@ site_author: math2001
 
 pages:
   - Home: index.md
+  - Getting stated: getting-started.md
   - Commands: commands.md
-  - Auto Completion: auto-completion.md
-  - Settings: settings.md
-  - Templates: templates.md
-  - Type of path: type-of-path.md
-  - Aliases: aliases.md
+  - References:
+    - Auto Completion: references/auto-completion.md
+    - Settings: references/settings.md
+    - Templates: references/templates.md
+    - Type of path: references/type-of-path.md
+    - Aliases: references/aliases.md
   - Contributing: contributing.md
   - License: license.md
   - About: about.md

@@ -41,7 +41,7 @@ The file on the left is the default one (don't edit it, just look at it), and th
 
 ### An example to make sure you understand...
 
-> In your [settings](Settings), you can specify an option: `aliases`. It has to be an object.
+> In your [settings](settings.md), you can specify an option: `aliases`. It has to be an object.
 
 <details>
     <summary>In this part, I meant...</summary>
@@ -55,18 +55,15 @@ The file on the left is the default one (don't edit it, just look at it), and th
 This section is going to show you different settings that aren't specific to any command, that's
 why they have they're own.
 
-- `explicitly_refresh_sidebar` Each time you run a command that affects any file, if this
-                               option is set to true, FileManager will refresh the sidebar for
-                               you. Note that you can do this by running
-                               `Project: Refresh Folders` in the command palette.
-- `menu_without_dirstraction`  When a FileManager's command is not enabled, it will still
-                               appear in the sidebar's context menu, except if you set this
-                               option to `true`.
-- `show_*_command` Each FileManager's command has a settings starting with `show_`,
-                   the command name without the `fm_` and finishing by `_command`
-                   If set to `false`, this command will *always* be hidden
-                   (in the command palette, and the context menus)
+- `explicitly_refresh_sidebar` Each time you run a command that affects any file, if this option
+is set to true, FileManager will refresh the sidebar for you. Note that you can do this by running
+`Project: Refresh Folders` in the command palette.
+- `menu_without_dirstraction`  When a FileManager's command is not enabled, it will still appear in
+the sidebar's context menu, except if you set this option to `true`.
+- `show_*_command` Each FileManager's command has a settings starting with `show_`, the command
+name without the `fm_` and finishing by `_command`. If set to `false`, this command
+will *always* be hidden (in the command palette, and the context menus)
 
 !!! note
     To know the command name of a FileManager's command, just refer to the
-    [command page](commands.md) page. It's mentioned below each main title.
+    [command page](../commands.md) page. It's mentioned below each main title.
