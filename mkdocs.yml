@@ -1,6 +1,6 @@
 site_name: FileManager
-theme: 'material'
-repo_name: 'math2001/FileManager'
+theme: material
+repo_name: math2001/FileManager
 repo_url: https://github.com/math2001/FileManager
 site_description: Sublime Text 3 Plugin FileManager's documentation
 site_author: math2001
@@ -14,6 +14,7 @@ pages:
   - Type of path: type-of-path.md
   - Aliases: aliases.md
   - Contributing: contributing.md
+  - License: license.md
   - About: about.md
 
 markdown_extensions:
@@ -35,11 +36,12 @@ markdown_extensions:
   - codehilite
 
 extra:
+  logo: imgs/FileManager-opposite.svg
   palette:
-    primary: 'red'
-    accent: 'indigo'
+    primary: red
+    accent: Deep Orange
   social:
-    - type: 'github'
-      link: 'https://github.com/math2001'
-    - type: 'twitter'
-      link: 'https://twitter.com/_math2001'
+    - type: github
+      link: https://github.com/math2001
+    - type: twitter
+      link: https://twitter.com/_math2001

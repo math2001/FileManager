@@ -1,5 +1,8 @@
 # Welcome to FileManager's Documentation!
 
+<img src="imgs/FileManager.svg" alt="FileManager's logo"
+     style="width: 400px; margin: auto; display: block;">
+
 FileManager is a plugin for [Sublime Text 3][st3] that helps you manage your file *from* Sublime Text. It adds option to the Sidebar's context menu, to the command palette, comes in with an auto completion system, etc.
 
 This documentation is a work in progress, but you can find a significant amount of information, so go have a look!
