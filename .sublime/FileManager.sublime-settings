@@ -60,13 +60,12 @@
     // Save after creating a file (because a snippet can be inserted)
     "save_after_creating": false,
 
-
     "aliases": {
         "st": "$packages",
         "des": "~/Desktop"
     },
 
-    // See https://github.com/math2001/FileManager/wiki/Aliases#watch-out-for-infinite-loops
+    // See https://math2001.github.io/FileManager/aliases/#watch-out-for-infinite-loops
     "open_help_on_alias_infinite_loop": true,
 
     // Once again, to improve your speed, if there is commands
