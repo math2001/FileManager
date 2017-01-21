@@ -1,0 +1,627 @@
+
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Sublime Text 3 Plugin FileManager's documentation">
+      
+      
+      
+        <meta name="author" content="math2001">
+      
+      
+        <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+      
+      <meta name="generator" content="mkdocs+mkdocs-material#1.0.2">
+    
+    
+      
+        <title>Settings - FileManager</title>
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr-facb31f4a3.js"></script>
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application-1b8b9fdf68.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-02ce7adcc2.palette.css">
+      
+      
+    
+    
+  </head>
+  
+  
+  
+  
+    <body data-md-color-primary="red" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="FileManager" class=" md-logo  md-header-nav__button">
+          
+            <img src="../../imgs/FileManager-opposite.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+                <span class="md-header-nav__parent">
+                  References
+                </span>
+              
+            
+            Settings
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search">
+  <div class="md-search__overlay"></div>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" accesskey="s" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+      <label class="md-icon md-search__icon" for="search"></label>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+              
+
+
+  
+
+
+  <a href="https://github.com/math2001/FileManager" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      math2001/FileManager
+    </div>
+  </a>
+
+            
+          </div>
+      </div>
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <i class=" md-logo  md-nav__button">
+      
+        <img src="../../imgs/FileManager-opposite.svg">
+      
+    </i>
+    FileManager
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/math2001/FileManager" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      math2001/FileManager
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  <li class="md-nav__item">
+    
+      <a href="../.." title="Home" class="md-nav__link">
+        Home
+      </a>
+    
+  </li>
+
+    
+      
+      
+  <li class="md-nav__item">
+    
+      <a href="../../getting-started/" title="Getting stated" class="md-nav__link">
+        Getting stated
+      </a>
+    
+  </li>
+
+    
+      
+      
+  <li class="md-nav__item">
+    
+      <a href="../../commands/" title="Commands" class="md-nav__link">
+        Commands
+      </a>
+    
+  </li>
+
+    
+      
+      
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      References
+    </label>
+    <nav class="md-nav" data-md-component="collapsible">
+      <label class="md-nav__title" for="nav-4">
+        References
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+  <li class="md-nav__item">
+    
+      <a href="../auto-completion/" title="Auto Completion" class="md-nav__link">
+        Auto Completion
+      </a>
+    
+  </li>
+
+        
+          
+          
+  <li class="md-nav__item">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Settings
+      </label>
+    
+    <a href="./" title="Settings" class="md-nav__link md-nav__link--active">
+      Settings
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reminder" title="Quick reminder" class="md-nav__link">
+    Quick reminder
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-global-settings-heres-the-hierarchy" title="1: The global settings. Here's the hierarchy:" class="md-nav__link">
+    1: The global settings. Here's the hierarchy:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-packages-settings" title="2: The packages settings." class="md-nav__link">
+    2: The packages settings.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-which-one-are-you-talking-about-then" title="So, which one are you talking about then?" class="md-nav__link">
+    So, which one are you talking about then?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-edit-them" title="How do I edit them?" class="md-nav__link">
+    How do I edit them?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-example-to-make-sure-you-understand" title="An example to make sure you understand..." class="md-nav__link">
+    An example to make sure you understand...
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-few-useful-settings" title="A few useful settings" class="md-nav__link">
+    A few useful settings
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+  <li class="md-nav__item">
+    
+      <a href="../templates/" title="Templates" class="md-nav__link">
+        Templates
+      </a>
+    
+  </li>
+
+        
+          
+          
+  <li class="md-nav__item">
+    
+      <a href="../type-of-path/" title="Type of path" class="md-nav__link">
+        Type of path
+      </a>
+    
+  </li>
+
+        
+          
+          
+  <li class="md-nav__item">
+    
+      <a href="../aliases/" title="Aliases" class="md-nav__link">
+        Aliases
+      </a>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+  <li class="md-nav__item">
+    
+      <a href="../../contributing/" title="Contributing" class="md-nav__link">
+        Contributing
+      </a>
+    
+  </li>
+
+    
+      
+      
+  <li class="md-nav__item">
+    
+      <a href="../../license/" title="License" class="md-nav__link">
+        License
+      </a>
+    
+  </li>
+
+    
+      
+      
+  <li class="md-nav__item">
+    
+      <a href="../../about/" title="About" class="md-nav__link">
+        About
+      </a>
+    
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reminder" title="Quick reminder" class="md-nav__link">
+    Quick reminder
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-global-settings-heres-the-hierarchy" title="1: The global settings. Here's the hierarchy:" class="md-nav__link">
+    1: The global settings. Here's the hierarchy:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-packages-settings" title="2: The packages settings." class="md-nav__link">
+    2: The packages settings.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-which-one-are-you-talking-about-then" title="So, which one are you talking about then?" class="md-nav__link">
+    So, which one are you talking about then?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-edit-them" title="How do I edit them?" class="md-nav__link">
+    How do I edit them?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-example-to-make-sure-you-understand" title="An example to make sure you understand..." class="md-nav__link">
+    An example to make sure you understand...
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-few-useful-settings" title="A few useful settings" class="md-nav__link">
+    A few useful settings
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+               
+              
+                
+                  <h1>Settings</h1>
+                
+                <p>When, in this documentation, I'm talking about settings <em>in general</em>, I'm talking about FileManager's settings.</p>
+<h2 id="quick-reminder">Quick reminder<a class="headerlink" href="#quick-reminder" title="Permanent link">&para;</a></h2>
+<p>There's two "type" of settings.</p>
+<h4 id="1-the-global-settings-heres-the-hierarchy">1: The global settings. Here's the hierarchy:<a class="headerlink" href="#1-the-global-settings-heres-the-hierarchy" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>Below, you can see the order in which Sublime Text would process a hypothetical hierarchy of settings for Python files on Windows:</p>
+<ol>
+<li>Packages/Default/Preferences.sublime-settings</li>
+<li>Packages/Default/Preferences (Windows).sublime-settings</li>
+<li>Packages/AnyOtherPackage/Preferences.sublime-settings</li>
+<li>Packages/AnyOtherPackage/Preferences (Windows).sublime-settings</li>
+<li>Packages/User/Preferences.sublime-settings</li>
+<li>Settings from the current project</li>
+<li>Packages/Python/Python.sublime-settings</li>
+<li>Packages/Python/Python (Windows).sublime-settings</li>
+<li>Packages/User/Python.sublime-settings</li>
+<li>Session data for the current file</li>
+<li>Auto-adjusted settings</li>
+</ol>
+<p><em>– from <a href="http://docs.sublimetext.info/en/latest/customization/settings.html#the-settings-hierarchy">the unofficial docs</a> (Thanks a lot)</em></p>
+</blockquote>
+<h4 id="2-the-packages-settings">2: The packages settings.<a class="headerlink" href="#2-the-packages-settings" title="Permanent link">&para;</a></h4>
+<p>They don't affect anything, except ... the plugin. They have 2 files, with the same name: one in the package folder, the other in you <code class="codehilite">User</code> directory. This is the case for FileManager. And this file is called ... <code class="codehilite">FileManager.sublime-settings</code>. So, the file in the package directory is the default one, and the one in the user directory <strong>overwrites</strong> them.</p>
+<h3 id="so-which-one-are-you-talking-about-then">So, which one are you talking about then?<a class="headerlink" href="#so-which-one-are-you-talking-about-then" title="Permanent link">&para;</a></h3>
+<p>The second one.</p>
+<h3 id="how-do-i-edit-them">How do I edit them?<a class="headerlink" href="#how-do-i-edit-them" title="Permanent link">&para;</a></h3>
+<p>There's a few different ways:</p>
+<ul>
+<li><code class="codehilite">Preferences -&gt; Packages Settings -&gt; FileManager</code></li>
+<li>Open the command palette (<kbd>ctrl+shift+p</kbd>), and find <code class="codehilite"><span class="n">Preferences</span><span class="o">:</span> <span class="n">File</span> <span class="n">Manager</span> <span class="n">Settings</span></code></li>
+</ul>
+<p>The file on the left is the default one (don't edit it, just look at it), and the one on the right is yours, have fun with it!</p>
+<h3 id="an-example-to-make-sure-you-understand">An example to make sure you understand...<a class="headerlink" href="#an-example-to-make-sure-you-understand" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>In your <a href="./">settings</a>, you can specify an option: <code class="codehilite">aliases</code>. It has to be an object.</p>
+</blockquote>
+<p><details>
+    <summary>In this part, I meant...</summary>
+    The FileManager's settings (the second one)
+</details></p>
+<hr />
+<h2 id="a-few-useful-settings">A few useful settings<a class="headerlink" href="#a-few-useful-settings" title="Permanent link">&para;</a></h2>
+<p>This section is going to show you different settings that aren't specific to any command, that's
+why they have they're own.</p>
+<ul>
+<li><code class="codehilite">explicitly_refresh_sidebar</code> Each time you run a command that affects any file, if this option
+is set to true, FileManager will refresh the sidebar for you. Note that you can do this by running
+<code class="codehilite"><span class="n">Project</span><span class="o">:</span> <span class="n">Refresh</span> <span class="n">Folders</span></code> in the command palette.</li>
+<li><code class="codehilite">menu_without_dirstraction</code>  When a FileManager's command is not enabled, it will still appear in
+the sidebar's context menu, except if you set this option to <code class="codehilite">true</code>.</li>
+<li><code class="codehilite">show_*_command</code> Each FileManager's command has a settings starting with <code class="codehilite">show_</code>, the command
+name without the <code class="codehilite">fm_</code> and finishing by <code class="codehilite">_command</code>. If set to <code class="codehilite">false</code>, this command
+will <em>always</em> be hidden (in the command palette, and the context menus)</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To know the command name of a FileManager's command, just refer to the
+<a href="../../commands/">command page</a> page. It's mentioned below each main title.</p>
+</div>
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../auto-completion/" title="Auto Completion" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Auto Completion
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../templates/" title="Templates" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Templates
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/math2001" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/_math2001" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application-16f434a21a.js"></script>
+      <script>var config={url:{base:"../.."}},app=new Application(config);app.initialize()</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

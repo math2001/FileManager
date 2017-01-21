@@ -11,6 +11,14 @@
 
     
     <url>
+     <loc>/getting-started/</loc>
+     <lastmod>2017-01-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
      <loc>/commands/</loc>
      <lastmod>2017-01-21</lastmod>
      <changefreq>daily</changefreq>
@@ -18,43 +26,37 @@
     
 
     
+        
     <url>
-     <loc>/auto-completion/</loc>
+     <loc>/references/auto-completion/</loc>
      <lastmod>2017-01-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/settings/</loc>
+     <loc>/references/settings/</loc>
      <lastmod>2017-01-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/templates/</loc>
+     <loc>/references/templates/</loc>
      <lastmod>2017-01-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/type-of-path/</loc>
+     <loc>/references/type-of-path/</loc>
      <lastmod>2017-01-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/aliases/</loc>
+     <loc>/references/aliases/</loc>
      <lastmod>2017-01-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
     
 
     
