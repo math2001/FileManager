@@ -28,8 +28,15 @@ Here's a little gif to show you:
 
 ![FileManager: auto completion](imgs/auto-completion.gif)
 
+!!! note
+    You might be wondering why I don't need to type the `>` after the index. It simply because I
+    changed this symbol to a space: ` `. You can do this by change the settings
+    `index_folder_separator`. Here's where [it's documented][index_folder_separator]
+
 ### Options
 
 - `case_sensitive`: defines if the completion case sensitive. (default to `false`)
 - `complete_with_files_too`: If you want the auto completion to use complete with files too (default to `true`)
 - `pick_first`: only relevant if `complete_with_files_too` is `true`. Define what to choose first if at least one folder and one file are available for completion. The valid values: `files`, `folders` or `null`. (default to `folders`)
+
+[index_folder_separator]: http://127.0.0.1:8000/commands/#changing-the-symbol
