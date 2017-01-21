@@ -84,7 +84,7 @@ And then, just send a pull request :wink:
 
 ## Convention
 
-To keep this doc enjoyable to edit, here's the convention that this convention should respect:
+To keep this doc enjoyable to edit, here are the conventions that it has to respect:
 
 - keep the line length under 100 chars (`\n` included). I advice you to add this to your project
 settings: `rulers: [99]`. Tables are the only exception. URLs are not, because you can specify
