@@ -48,7 +48,7 @@
   
   
   
-    <body data-md-color-primary="red" data-md-color-accent="indigo">
+    <body data-md-color-primary="red" data-md-color-accent="deep-orange">
   
     <svg class="md-svg">
       <defs>
@@ -66,7 +66,9 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href=".." title="FileManager" class=" md-icon md-icon--home  md-header-nav__button">
+        <a href=".." title="FileManager" class=" md-logo  md-header-nav__button">
+          
+            <img src="../imgs/FileManager-opposite.svg" width="24" height="24">
           
         </a>
       </div>
@@ -142,7 +144,9 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <i class=" md-icon md-icon--home  md-nav__button">
+    <i class=" md-logo  md-nav__button">
+      
+        <img src="../imgs/FileManager-opposite.svg">
       
     </i>
     FileManager
@@ -273,15 +277,53 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-doc-with-mkdoc" title="The doc with... MkDoc" class="md-nav__link">
-    The doc with... MkDoc
+  <a href="#install-mkdocs" title="Install mkdocs" class="md-nav__link">
+    Install mkdocs
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-your-changes" title="Make your changes!" class="md-nav__link">
+    Make your changes!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convention" title="Convention" class="md-nav__link">
+    Convention
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-sublime-project-file" title="Recommended .sublime-project file" class="md-nav__link">
+    Recommended .sublime-project file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
     </ul>
   
 </nav>
+    
+  </li>
+
+    
+      
+      
+  <li class="md-nav__item">
+    
+      <a href="../license/" title="License" class="md-nav__link">
+        License
+      </a>
     
   </li>
 
@@ -316,9 +358,36 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-doc-with-mkdoc" title="The doc with... MkDoc" class="md-nav__link">
-    The doc with... MkDoc
+  <a href="#install-mkdocs" title="Install mkdocs" class="md-nav__link">
+    Install mkdocs
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-your-changes" title="Make your changes!" class="md-nav__link">
+    Make your changes!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convention" title="Convention" class="md-nav__link">
+    Convention
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-sublime-project-file" title="Recommended .sublime-project file" class="md-nav__link">
+    Recommended .sublime-project file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -337,12 +406,27 @@
                 
                   <h1>Contributing</h1>
                 
-                <p>You want to contribute to this Package? Great!</p>
+                <p>You want to contribute to this package? Great!</p>
 <p>If you want to contribute to the documentation, you're at the right place.
 Otherwise, you should have a look <a href="https://github.com/math2001/FileManager#contributing">in the readme</a></p>
-<p>First, you need to fork this repo.</p>
-<h3 id="the-doc-with-mkdoc">The doc with... MkDoc<a class="headerlink" href="#the-doc-with-mkdoc" title="Permanent link">&para;</a></h3>
-<p>I'm using mkdoc to build the documentation. Here's how you can get going:</p>
+<p>The documentation is written using <a href="http://www.mkdocs.org/">mkdocs</a>. So, if you want to just fix a typo for example, you
+might not need to download everything, just edit the corresponding markdown file (it's <em>really</em>
+simple), and if you're a bit careful, it should be all right. But as soon as you start making some
+bigger changes, please do the following to have a preview to know how it's going to look like.</p>
+<p>Whichever option you chose, you first need to fork this repo.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can just raise an issue on the <a href="https://github.com/math2001/FileManager/issues">GitHub issue tracker</a> to request a fix in the docs,
+it's up to you</p>
+</div>
+<h2 id="install-mkdocs">Install <code class="codehilite">mkdocs</code><a class="headerlink" href="#install-mkdocs" title="Permanent link">&para;</a></h2>
+<p>So, you want to make big changes? Or you just want to have the beautiful material theme on your
+computer <img alt="😄" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/1f604.svg" title=":smile:" /></p>
+<p>So, here's how to get going:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll need Python installed on your system. It works with both <code class="codehilite">2</code> and <code class="codehilite">3</code>.</p>
+</div>
 <div class="codehilite"><pre><span></span>$ git clone &lt;your_fork&gt;
 $ <span class="nb">cd</span> FileManager
 $ virtualenv venv
@@ -354,38 +438,83 @@ $ pip install -r requirements.txt
 <blockquote>
 <p>I don't have pip!</p>
 </blockquote>
-<p>Quickly, pip is a package manager for python. You can install it by saving this
-script: <a href="https://bootstrap.pypa.io/get-pip.py">get-pip.py</a> and running it like so</p>
-<div class="codehilite"><pre><span></span>python get-pip.py
+<p>Quickly, pip is a package manager for python. You can install it by saving this script:
+<a href="https://bootstrap.pypa.io/get-pip.py">get-pip.py</a> and running it like so</p>
+<div class="codehilite"><pre><span></span>$ python get-pip.py
 </pre></div>
 
 
 <blockquote>
 <p>I don't have virtualenv!</p>
 </blockquote>
-<p>Well, you install it by using <code class="codehilite">pip</code> like so:</p>
-<div class="codehilite"><pre><span></span>pip install virtualenv
+<p>Well, you can install it by using <code class="codehilite">pip</code> like so:</p>
+<div class="codehilite"><pre><span></span>$ pip install virtualenv
 </pre></div>
 
 
 <p>Once you have this installed, you have access to the command <code class="codehilite">mkdocs</code>.</p>
+<h2 id="make-your-changes">Make your changes!<a class="headerlink" href="#make-your-changes" title="Permanent link">&para;</a></h2>
 <p>Now, you need to create a new branch, with the "name" of what your adding. For
 example:</p>
-<div class="codehilite"><pre><span></span>git checkout -b improve-fm-create-explanation
+<div class="codehilite"><pre><span></span>$ git checkout -b improve-fm-create-explanation
 </pre></div>
 
 
 <p>Make your changes. You can preview them in your browser by running:</p>
-<div class="codehilite"><pre><span></span>mkdocs serve
+<div class="codehilite"><pre><span></span>$ mkdocs serve
 </pre></div>
 
 
 <p>Now, commit your changes, and push them. In this case, it'd be:</p>
-<div class="codehilite"><pre><span></span>git push origin improve-fm-create-explanation
+<div class="codehilite"><pre><span></span>$ git push origin improve-fm-create-explanation
 </pre></div>
 
 
 <p>And then, just send a pull request <img alt="😉" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/svg/1f609.svg" title=":wink:" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you're creating a new page, you'll need to add it the <code class="codehilite">mkdocs.yml</code> <code class="codehilite">pages</code> object.</p>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">pages</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pagename</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">page/path.md</span>
+</pre></div>
+
+
+</div>
+<h2 id="convention">Convention<a class="headerlink" href="#convention" title="Permanent link">&para;</a></h2>
+<p>To keep this doc enjoyable to edit, here's the convention that this convention should respect:</p>
+<ul>
+<li>keep the line length under 100 chars (<code class="codehilite">\n</code> included). I advice you to add this to your project
+settings: <code class="codehilite">rulers: [99]</code>. Tables are the only exception. URLs are not, because you can specify
+them at the bottom of the file — <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#links">more info</a></li>
+<li>prefer <em>files</em> link instead of <em>URL</em> link. You can do this: <code class="codehilite"><span class="p">[</span><span class="n">my</span> <span class="n">link</span><span class="p">](</span><span class="n">relative</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="p">.</span><span class="n">md</span><span class="p">)</span></code>
+Mkdocs will convert it to the valid URL for you</li>
+<li>use <code class="codehilite">!!!</code> block with avidity! Na, not <em>that</em> much, but don't hesitate to use them, it brings
+rhythm to the doc, which make it more enjoyable to read. — <a href="http://squidfunk.github.io/mkdocs-material/extensions/admonition/#usage">more info</a></li>
+<li>use fenced code block: <code>```</code> — <a href="http://squidfunk.github.io/mkdocs-material/extensions/codehilite/#usage">more info</a></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Those convention haven't been respected since the beginning.</p>
+</div>
+<h3 id="recommended-sublime-project-file">Recommended <code class="codehilite"><span class="na">.sublime-project</span></code> file<a class="headerlink" href="#recommended-sublime-project-file" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;folders&quot;</span><span class="p">:</span>
+    <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:\\Users\\math\\AppData\\Roaming\\Sublime Text 3\\Packages\\FileManager&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;folder_exclude_patterns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.sublime&quot;</span><span class="p">,</span> <span class="s2">&quot;FMCommands&quot;</span><span class="p">,</span> <span class="s2">&quot;messages&quot;</span><span class="p">,</span> <span class="s2">&quot;send2trash&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;tests&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;file_exclude_patterns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;messages.json&quot;</span><span class="p">,</span> <span class="s2">&quot;*.py&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;settings&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;save_on_focus_lost&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">&quot;spell_check&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;rulers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">99</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
               
             </article>
           </div>
@@ -413,13 +542,13 @@ example:</p>
           </a>
         
         
-          <a href="../about/" title="About" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../license/" title="License" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                About
+                License
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -48,7 +48,7 @@
   
   
   
-    <body data-md-color-primary="red" data-md-color-accent="indigo">
+    <body data-md-color-primary="red" data-md-color-accent="deep-orange">
   
     <svg class="md-svg">
       <defs>
@@ -66,7 +66,9 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href=".." title="FileManager" class=" md-icon md-icon--home  md-header-nav__button">
+        <a href=".." title="FileManager" class=" md-logo  md-header-nav__button">
+          
+            <img src="../imgs/FileManager-opposite.svg" width="24" height="24">
           
         </a>
       </div>
@@ -142,7 +144,9 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <i class=" md-icon md-icon--home  md-nav__button">
+    <i class=" md-logo  md-nav__button">
+      
+        <img src="../imgs/FileManager-opposite.svg">
       
     </i>
     FileManager
@@ -290,6 +294,17 @@
       
   <li class="md-nav__item">
     
+      <a href="../license/" title="License" class="md-nav__link">
+        License
+      </a>
+    
+  </li>
+
+    
+      
+      
+  <li class="md-nav__item">
+    
       <a href="../about/" title="About" class="md-nav__link">
         About
       </a>
@@ -362,6 +377,12 @@
 <p>If you want to create a new script, you're going to have to type <code class="codehilite">scripts/coffee/mynewscript.coffee</code>. But, if you just type <code class="codehilite">sc</code> and then press <kbd>tab</kbd>, you'll see that <code class="codehilite">scripts/</code> automatically replace the <code class="codehilite">sc</code>, and you can type <code class="codehilite">co</code> press <kbd>tab</kbd>, <code class="codehilite">coffee</code> will replace the <code class="codehilite">co</code>. I say <q>replace</q> because it is case <strong>insensitive</strong>. If you type <code class="codehilite">ST</code>, it will replace it by <code class="codehilite">styles</code> (in lower case).</p>
 <p>Here's a little gif to show you:</p>
 <p><img alt="FileManager: auto completion" src="../imgs/auto-completion.gif" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You might be wondering why I don't need to type the <code class="codehilite">&gt;</code> after the index. It simply because I
+changed this symbol to a space: <code class="codehilite"></code>. You can do this by change the settings
+<code class="codehilite">index_folder_separator</code>. Here's where <a href="http://127.0.0.1:8000/commands/#changing-the-symbol">it's documented</a></p>
+</div>
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code class="codehilite">case_sensitive</code>: defines if the completion case sensitive. (default to <code class="codehilite">false</code>)</li>

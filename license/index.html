@@ -19,7 +19,7 @@
     
     
       
-        <title>Templates - FileManager</title>
+        <title>License - FileManager</title>
       
     
     
@@ -81,7 +81,7 @@
             
               
             
-            Templates
+            License
           
         </span>
       </div>
@@ -224,82 +224,9 @@
       
   <li class="md-nav__item">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
+      <a href="../templates/" title="Templates" class="md-nav__link">
         Templates
-      </label>
-    
-    <a href="./" title="Templates" class="md-nav__link md-nav__link--active">
-      Templates
-    </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-this" title="What is this?" class="md-nav__link">
-    What is this?
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packagesuserfilemanagertemplate" title="${packages}/User/.FileManager/template.*" class="md-nav__link">
-    ${packages}/User/.FileManager/template.*
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#your-template-is-in-fact-snippets" title="Your template is in fact... snippets!" class="md-nav__link">
-    Your template is in fact... snippets!
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#createedit-templates-from-sublime-text" title="Create/edit templates from Sublime Text" class="md-nav__link">
-    Create/edit templates from Sublime Text
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create" title="Create" class="md-nav__link">
-    Create
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#list" title="List" class="md-nav__link">
-    List
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
+      </a>
     
   </li>
 
@@ -341,9 +268,19 @@
       
   <li class="md-nav__item">
     
-      <a href="../license/" title="License" class="md-nav__link">
-        License
-      </a>
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+    <a href="./" title="License" class="md-nav__link md-nav__link--active">
+      License
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+</nav>
     
   </li>
 
@@ -374,65 +311,6 @@
   
   
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-this" title="What is this?" class="md-nav__link">
-    What is this?
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packagesuserfilemanagertemplate" title="${packages}/User/.FileManager/template.*" class="md-nav__link">
-    ${packages}/User/.FileManager/template.*
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#your-template-is-in-fact-snippets" title="Your template is in fact... snippets!" class="md-nav__link">
-    Your template is in fact... snippets!
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#createedit-templates-from-sublime-text" title="Create/edit templates from Sublime Text" class="md-nav__link">
-    Create/edit templates from Sublime Text
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create" title="Create" class="md-nav__link">
-    Create
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#list" title="List" class="md-nav__link">
-    List
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -444,35 +322,17 @@
                
               
                 
-                  <h1>Templates</h1>
+                  <h1>License</h1>
                 
-                <h2 id="what-is-this">What is this?<a class="headerlink" href="#what-is-this" title="Permanent link">&para;</a></h2>
-<p>When you create a new file, a template is inserted. For now, FileManager chooses which template it should insert using the extension. If you're trying to create a <code class="codehilite"><span class="na">.py</span></code> file, it will look for a template that has the extension <code class="codehilite"><span class="na">.py</span></code>.</p>
-<p>You're probably a bit confused right now, so let's clarify this.</p>
-<h4 id="packagesuserfilemanagertemplate"><code class="codehilite"><span class="cp">${</span><span class="n">packages</span><span class="cp">}</span>/User/.FileManager/template.*</code><a class="headerlink" href="#packagesuserfilemanagertemplate" title="Permanent link">&para;</a></h4>
-<p>You're template are stored in the <code class="codehilite"><span class="na">.FileManager</span></code> folder, inside your Sublime Text <code class="codehilite">User</code> directory. If you have a look, it should be empty.</p>
-<p>A template will be a file called <code class="codehilite">template.</code> plus the extension you want it to be active with.</p>
-<p>So, for example, if you create a file called <code class="codehilite">template.py</code> inside the the <code class="codehilite"><span class="na">.FileManager</span></code> directory with this content:</p>
-<div class="codehilite"><pre><span></span><span class="c1"># -*- encoding: utf-8 -*-</span>
-
-<span class="c1"># this is my template</span>
-</pre></div>
-
-
-<p>Each time you're going to create a new python file (with the extension <code class="codehilite"><span class="na">.py</span></code>), this content will be inserted as soon as it is opened.</p>
-<p>Now, some of you might wondering: <em>why don't FileManager write the file with the right content, and <strong>then</strong> open it?</em>. Well, this the good part.</p>
-<h4 id="your-template-is-in-fact-snippets">Your template is in fact... <strong>snippets</strong>!<a class="headerlink" href="#your-template-is-in-fact-snippets" title="Permanent link">&para;</a></h4>
-<p>Yes, they're in fact snippets! If you don't know how to use them, I strongly recommend having a look at <a href="http://docs.sublimetext.info/en/latest/extensibility/snippets.html">the unofficial documentation about snippets</a>.</p>
-<h2 id="createedit-templates-from-sublime-text">Create/edit templates from Sublime Text<a class="headerlink" href="#createedit-templates-from-sublime-text" title="Permanent link">&para;</a></h2>
-<p>You can create and edit your templates from Sublime Text.</p>
-<h4 id="create">Create<a class="headerlink" href="#create" title="Permanent link">&para;</a></h4>
-<p>Open up the command palette, and in there, you should be able to find <code class="codehilite">File Manager: Create Template</code>.</p>
-<p>If you pick this option, an input will appear with the text <code class="codehilite">template.</code>. Add the extension that you want, and it will create the template (if it already exists, it will simply open it)</p>
-<p>Now, just edit the file, and you're done! Your template has been edited.</p>
-<h4 id="list">List<a class="headerlink" href="#list" title="Permanent link">&para;</a></h4>
-<p>Open up the command palette, and in there, you should be able to find <code class="codehilite">File Manager: List Templates</code>.</p>
-<p>It will open up the browser that you can get in the <a href="../Commands#create-fm_create">create</a> command, listing all your templates. Just pick one to edit it.</p>
-<p>Here you go! Hope you enjoy it! If you do, please let others people know about it!</p>
+                <p>This project is published under MIT license.</p>
+<blockquote>
+<p>The MIT License is a permissive license that is short and to the point. It lets people do anything they want with your code as long as they provide attribution back to you and don’t hold you liable.</p>
+<p>— <em>from <a href="http://choosealicense.com">choosealicense.com</a>, by <a href="https://github.com">GitHub</a></em></p>
+</blockquote>
+<p>Copyright 2017 Mathieu PATUREL</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
               
             </article>
           </div>
@@ -485,7 +345,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../settings/" title="Settings" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../contributing/" title="Contributing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -494,19 +354,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Settings
+                Contributing
               </span>
             </div>
           </a>
         
         
-          <a href="../type-of-path/" title="Type of path" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../about/" title="About" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Type of path
+                About
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
