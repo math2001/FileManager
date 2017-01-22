@@ -46,7 +46,7 @@ There is two more options. The first one is `..`, to go up of one folder, and th
 `Create form here`. If you pick this option, it will simply reopen the input panel from your
 position in the browser.
 
-![FileManager the file browser](imgs/browser.png)
+![FileManager the file browser](/imgs/browser.png)
 
 So, again, this is just theory. Read on discover the different commands that uses those features
 (and, of course, add their own :wink:)
@@ -61,7 +61,7 @@ You can access it from 2 different ways:
 
 ### Right click on a file/folder in the side bar and choose `New`
 
-![FileManager::create from sidebar context menu](imgs/create-multi.gif)
+![FileManager::create from sidebar context menu](/imgs/create-multi.gif)
 
 With this option, you will create *from where you click*. If it was a file, you will create from
 its *containing folder*.
@@ -78,7 +78,7 @@ If `file.py` exists, it will open it, otherwise it will create it, and then open
 
 ### With a shortcut `alt+n`
 
-![FileManager::create from shortcut](imgs/relative.gif)
+![FileManager::create from shortcut](/imgs/relative.gif)
 
 When you use a shortcut, the plugin does not explicitly know from where you want to create. Here's
 how it **guesses**:
@@ -206,7 +206,7 @@ selected.
 
 Here's an example:
 
-![FileManager::create_from_selection](imgs/create_from_selection.png)
+![FileManager::create_from_selection](/imgs/create_from_selection.png)
 
 *Font: Droid Sans Mono; Theme: Boxy; Color Scheme: Boxy Yesterday*
 

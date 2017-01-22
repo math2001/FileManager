@@ -127,7 +127,7 @@ For example, if you run the `fm_create` command (<kbd>alt+n</kbd>):
 $packages/FileManager/FMcommands
 ```
 
-It will open the ["browser"](Commands#the-browser) listing all the commands of FileManager,
+It will open the ["browser"](../commands.md#the-browser) listing all the commands of FileManager,
 (because each of them are in a separated file).
 
 ## Custom aliases

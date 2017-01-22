@@ -1,7 +1,7 @@
 You want to contribute to this package? Great!
 
 If you want to contribute to the documentation, you're at the right place.
-Otherwise, you should have a look [in the readme][0]
+Otherwise, you should have a look at [the readme][0]
 
 The documentation is written using [mkdocs][]. So, if you want to just fix a typo for example, you
 might not need to download everything, just edit the corresponding markdown file (it's *really*

@@ -6,7 +6,7 @@
 FileManager is a plugin for [Sublime Text 3][st3] that helps you manage your files and folders
 *from* Sublime Text.
 
-Let's [get started](getting-started.md)
+Let's [get started](getting-started.md)!
 
 !!! warning
     This documentation is still a work in progress, but you can find a significant amount of

@@ -26,7 +26,7 @@ If you want to create a new script, you're going to have to type `scripts/coffee
 
 Here's a little gif to show you:
 
-![FileManager: auto completion](imgs/auto-completion.gif)
+![FileManager: auto completion](/imgs/auto-completion.gif)
 
 !!! note
     You might be wondering why I don't need to type the `>` after the index. It simply because I
