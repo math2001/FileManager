@@ -182,6 +182,9 @@ Command: `fm_duplicate`
 
 You can duplicate folders and files, but, once again, one at a time.
 
+!!! note
+    If you're duplicating a folder, you *must* create a new folder.
+
 ## Delete
 
 Command: `fm_delete`
