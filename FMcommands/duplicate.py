@@ -47,7 +47,8 @@ class FmDuplicateCommand(AppCommand):
                 shutil.copytree(self.origin, dst)
             else:
                 sublime.error_message('This path already exists!')
-                raise ValueError('Cannot move the directory {0!r} because it already exists {1!r}'.format(self.origin, dst))
+                raise ValueError('Cannot move the directory {0!r} because it already exists '
+                                 '{1!r}'.format(self.origin, dst))
         else:
             if not os.path.exists(dst):
                 with open(dst, 'w') as fp:
@@ -70,11 +71,13 @@ class FmDuplicateCommand(AppCommand):
                 def open_file():
                     return self.window.open_file(dst)
 
-                yes_no_cancel_panel(message=['This file already exists. Overwrite?', user_friendly_path],
+                yes_no_cancel_panel(message=['This file already exists. Overwrite?',
+                                             user_friendly_path],
                                     yes=overwrite,
                                     no=open_file,
                                     cancel=None,
-                                    yes_text=['Yes. Overwrite', user_friendly_path, 'will be sent to the trash, and then written'],
+                                    yes_text=['Yes. Overwrite', user_friendly_path, 'will be sent '
+                                    'to the trash, and then written'],
                                     no_text=['Just open the target file', user_friendly_path],
                                     cancel_text=["No, don't do anything"])
 

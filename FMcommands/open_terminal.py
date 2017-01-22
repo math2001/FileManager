@@ -12,7 +12,7 @@ class FmOpenTerminalCommand(AppCommand):
 
         for j, bit in enumerate(cmd):
             cmd[j] = bit.replace('$cwd', cwd)
-        sm('Opening "{0}" at {1}'.format(name, user_friendly(cwd)))
+        sublime.status_message('Opening "{0}" at {1}'.format(name, user_friendly(cwd)))
         return subprocess.Popen(cmd, cwd=cwd)
 
     def run(self, paths=None):
@@ -37,7 +37,8 @@ class FmOpenTerminalCommand(AppCommand):
         if len(self.terminals) == 1:
             open_terminal_callback(0)
         else:
-            self.window.show_quick_panel([terminal_options['name'] for terminal_options in self.terminals], open_terminal_callback)
+            self.window.show_quick_panel([term_infos['name'] for term_infos in self.terminals],
+                                         open_terminal_callback)
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1

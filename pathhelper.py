@@ -26,7 +26,8 @@ def commonpath(paths):
     curdir = '.'
 
     try:
-        drivesplits = [os.path.splitdrive(p.replace(altsep, sep).lower()) for p in paths]
+        drivesplits = [os.path.splitdrive(
+                        p.replace(altsep,sep).lower()) for p in paths]
         split_paths = [p.split(sep) for d, p in drivesplits]
 
         try:
@@ -34,9 +35,9 @@ def commonpath(paths):
         except ValueError:
             raise ValueError("Can't mix absolute and relative paths")
 
-        # Check that all drive letters or UNC paths match. The check is made only
-        # now otherwise type errors for mixing strings and bytes would not be
-        # caught.
+        # Check that all drive letters or UNC paths match. The check is made
+        # only now otherwise type errors for mixing strings and bytes would not
+        # be caught.
         if len(set(d for d, p in drivesplits)) != 1:
             raise ValueError("Paths don't have the same drive")
 
@@ -44,7 +45,8 @@ def commonpath(paths):
         common = path.split(sep)
         common = [c for c in common if c and c != curdir]
 
-        split_paths = [[c for c in s if c and c != curdir] for s in split_paths]
+        split_paths = [[c for c in s if c and c != curdir]
+                                                          for s in split_paths]
         s1 = min(split_paths)
         s2 = max(split_paths)
         for i, c in enumerate(s1):

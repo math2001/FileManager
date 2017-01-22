@@ -21,9 +21,7 @@ class FmRenameCommand(AppCommand):
 
         self.input = InputForPath(caption='Rename to: ',
                                 initial_text='{0}{1}'.format(filename, ext),
-                                on_done=self.rename,
-                                on_change=None,
-                                on_cancel=None,
+                                on_done=self.rename, on_change=None, on_cancel=None,
                                 create_from=os.path.dirname(self.origin),
                                 with_files=self.settings.get('complete_with_files_too'),
                                 pick_first=self.settings.get('pick_first'),

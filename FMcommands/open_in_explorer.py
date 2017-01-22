@@ -14,9 +14,10 @@ class FmOpenInExplorerCommand(AppCommand):
 
         for path in paths:
             if os.path.isdir(path):
-                self.window.run_command('open_dir', { 'dir': path })
+                self.window.run_command('open_dir', {'dir': path})
             else:
-                self.window.run_command("open_dir", { "dir": os.path.dirname(path), "file": os.path.basename(path) })
+                self.window.run_command("open_dir", {"dir": os.path.dirname(path),
+                                                     "file": os.path.basename(path)})
 
     def is_visisble(self, **args):
         return True
