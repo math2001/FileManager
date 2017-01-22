@@ -19,17 +19,20 @@ class FmDuplicateCommand(AppCommand):
 
         initial_path = user_friendly(self.origin)
 
-        self.input = InputForPath(caption='Duplicate to: ',
-                                  initial_text=initial_path,
-                                  on_done=self.duplicate,
-                                  on_change=None,
-                                  on_cancel=None,
-                                  create_from='',
-                                  with_files=False,
-                                  pick_first=self.settings.get('pick_first'),
-                                  case_sensitive=self.settings.get('case_sensitive'),
-                                  log_in_status_bar=self.settings.get('log_in_status_bar'),
-                                  log_template='Duplicating at {0}')
+        args = {}
+        args['caption'] = 'Duplicate to: '
+        args['initial_text'] = initial_path
+        args['on_done'] = self.duplicate
+        args['on_change'] = None
+        args['on_cancel'] = None
+        args['create_from'] = ''
+        args['with_files'] = False
+        args['pick_first'] = self.settings.get('pick_first')
+        args['case_sensitive'] = self.settings.get('case_sensitive')
+        args['log_in_status_bar'] = self.settings.get('log_in_status_bar')
+        args['log_template'] = 'Duplicating at {0}'
+
+        self.input = InputForPath(**args)
 
         head = len(os.path.dirname(initial_path)) + 1
         filename = len(os.path.splitext(os.path.basename(initial_path))[0])
