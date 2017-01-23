@@ -2,7 +2,6 @@ Plugin:
 
   ☐ move/rename: save cursor position
   ☐ settings per command (move: complete with files)
-  ☐ browser: open in transient mode when 'hovering'
   ☐ log in status bar: path to file exists, files already exists, etc
   ☐ specify snippet **file** to use as a template
   ☐ fix status message bar when creating
@@ -23,6 +22,7 @@ Docs:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ browser: open in transient mode when 'hovering' @done Mon 23 Jan 2017 at 10:55 @project(Plugin)
  ✔ autocompletion: shift+tab -> prev completion @done Fri 06 Jan 2017 at 14:32 @project(Plugin)
  ✘ autocompletion: complete with aliases too @cancelled Fri 06 Jan 2017 at 11:13 @project(Plugin)
  ✔ Fix case in Sidebar::copy @done Thu 05 Jan 2017 at 19:22 @project(Plugin)

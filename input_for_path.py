@@ -321,9 +321,21 @@ class InputForPath(object):
             self.user_on_done(computer_path, input_path)
 
     def input_on_cancel(self):
+        active_view = self.window.active_view()
+        if active_view.file_name() in [os.path.join(self.browser.path, item)
+                                       for item in self.browser.items]:
+            active_view.close()
         set_status(self.view, self.STATUS_KEY, '')
         if self.user_on_cancel:
             self.user_on_cancel()
+
+    def open_in_transient(self, index):
+        if self.no_browser_action is False and index < 2:
+            return
+        if not os.path.isfile(os.path.join(self.browser.path, self.browser.items[index])):
+            return
+        self.window.open_file(os.path.join(self.browser.path, self.browser.items[index]),
+                              sublime.TRANSIENT)
 
     def browsing_on_done(self, index=None):
         if index == -1:
@@ -376,4 +388,4 @@ class InputForPath(object):
             index = 2
 
         self.window.show_quick_panel(self.browser.items, self.browsing_on_done,
-                                     sublime.KEEP_OPEN_ON_FOCUS_LOST, index)
+                                     sublime.KEEP_OPEN_ON_FOCUS_LOST, index, self.open_in_transient)
