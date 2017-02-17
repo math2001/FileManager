@@ -10,6 +10,7 @@ Plugin:
   ☐ cycle through the auto completion
   ☐ add global settings: `fm_use_terminal`
   ☐ improve duplicating
+  ☐ support symbol in browser (@)
 
   add settings:
     ☐ ignore patterns in auto completion (maybe use settings for the side bar)
