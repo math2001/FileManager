@@ -85,6 +85,10 @@
     "show_open_in_explorer_command": true,
     "show_open_in_browser_command": true,
     "show_open_terminal_command": true,
-    "show_rename_command": true
+    "show_rename_command": true,
+
+    // Enables key bindings
+
+    "key_binding_create": true
 
 }

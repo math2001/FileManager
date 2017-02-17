@@ -1,6 +1,9 @@
 [
     {
         "keys": ["alt+n"],
-        "command": "fm_create"
+        "command": "fm_create",
+        "context": [
+            { "key": "package_setting.FileManager.key_binding_create" }
+        ]
     }
 ]
