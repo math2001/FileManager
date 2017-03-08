@@ -22,7 +22,6 @@ from .FMcommands.rename import FmRenameCommand
 
 BASE_NAME = os.path.dirname(__file__)
 
-
 def _reload(file):
     if file.endswith('.pyc'):
         file = file[:-1]

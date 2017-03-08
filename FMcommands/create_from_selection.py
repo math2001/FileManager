@@ -24,7 +24,7 @@ def move_until(view, stop_char, increment, start):
 
 class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
-    CONTEXT_MAX_LENGTH = 30
+    CONTEXT_MAX_LENGTH = 50
     MATCH_SOURCE_ATTR = re_comp(r'(src|href) *= *$')
     MATCH_JS_REQUIRE = re_comp(r'require\(\s*$')
     MATCH_RUBY_REQUIRE = re_comp(r'require_relative\s*\(?\s*$')
@@ -110,11 +110,12 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
             file_name = file_name[1:]
         if file_name[-1] in ('"', "'"):
             file_name = file_name[:-1]
-            
+
         return os.path.dirname(self.view.file_name()), file_name
 
     def description(self, event):
         base, file_name = self.get_path(event, True)
+        keyword = 'Open' if os.path.isfile(os.path.join(base, file_name)) else 'Create'
         while file_name.startswith('../'):
             file_name = file_name[3:]
             base = os.path.dirname(base)
@@ -125,7 +126,7 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
             path += '.../' + file_name
         else:
             path = base + '/' + file_name
-        return "Create " + path
+        return keyword + ' ' + path
 
     def is_visible(self, event=None):
         if event is None: return False
