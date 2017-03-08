@@ -188,6 +188,7 @@ class InputForPath(object):
 
         vars = self.window.extract_variables()
         vars.update(get_settings().get('aliases'))
+        vars['here'] = os.path.dirname(self.view.file_name())
 
         inifinite_loop_counter = 0
         while has_unescaped_dollar(string):
