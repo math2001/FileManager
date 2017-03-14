@@ -62,7 +62,8 @@
 
     "aliases": {
         "st": "$packages",
-        "des": "~/Desktop"
+        "des": "~/Desktop",
+        "here": "$file_path"
     },
 
     // See https://math2001.github.io/FileManager/aliases/#watch-out-for-infinite-loops
