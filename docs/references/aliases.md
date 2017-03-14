@@ -1,6 +1,6 @@
 ## Why should you use aliases?
 
-For example, if you'd like to create file in the Sublime Text packages directory, on window, 
+For example, if you'd like to create file in the Sublime Text `Packages` directory, on Windows,
 you'd have to type `~/AppData/Roaming/Sublime Text 3/Packages` and then, the name/path of your
 file. Because you have access to those aliases
 
@@ -20,11 +20,11 @@ file. Because you have access to those aliases
 | `project`           | `C:\Users\math\AppData\Roaming\Sublime Text 3\Packages\User\Projects\FileManagerDocs.sublime-project` |
 | `platform`          | `Windows`                                                                                             |
 
-Here, the values are the ones I get when, as you can see, I'm editing this page (`Aliases.md`), 
-I'm on Windows, the project name is `FileManagerDocs.sublime-project` etc...
+You can just type `$packages` and it's the *exact* same. Sounds good? Then keep reading
 
-So, in my case I could just type `$packages/` and it'd be replaced by 
-`C:\Users\math\AppData\Roaming\Sublime Text 3\Packages`! Sounds good? Then keep reading!
+!!! note
+    The values are the ones I get when, as you can see, I'm editing this page (`Aliases.md`), 
+    I'm on Windows, the project name is `FileManagerDocs.sublime-project` etc...
 
 So, the table above shows all the aliases you have access to by default when you use any input
 shown by FileManager.
