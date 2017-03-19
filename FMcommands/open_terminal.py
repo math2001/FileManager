@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import subprocess
+import sys
 from ..sublimefunctions import *
 from .appcommand import AppCommand
 
@@ -13,6 +14,9 @@ class FmOpenTerminalCommand(AppCommand):
         for j, bit in enumerate(cmd):
             cmd[j] = bit.replace('$cwd', cwd)
         sublime.status_message('Opening "{0}" at {1}'.format(name, user_friendly(cwd)))
+
+        if sys.platform == 'darwin':
+            cmd.append(cwd)
         return subprocess.Popen(cmd, cwd=cwd)
 
     def run(self, paths=None):
