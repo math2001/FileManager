@@ -297,7 +297,7 @@ You can add a setting called `terminals`. Here's the format:
 In the `cmd` key, you have one variable: `$cwd`. It'll be replaced by the *current working dir*
 (the folder from which the command will be run).
 
-So, for example, on Windows, here's what you could do:
+### Windows example
 
 ```json
 {
@@ -317,26 +317,22 @@ So, for example, on Windows, here's what you could do:
 If you don't know what [Cmder](http://cmder.net) is, I recommend having a look, it's pretty cool.
 (for Windows user)
 
-#### On other platform
-
-If you're on Mac, it might be a bit harder. Why? Because I don't have a Mac, so I cannot try to see
-if what I'm going to tell you is *actually* working. Here's what I found:
-
-`open -a Terminal` should open a new terminal. So, here's the config I'd recommend using:
+### macOS example
 
 ```json
 {
-    "terminals": [
+"terminals": [
+        {
+            "name": "iTerm",
+            "cmd": ["open", "-a", "iTerm", "$cwd"]
+        },
         {
             "name": "Terminal",
-            "cmd": ["open", "-a", "Terminal"]
+            "cmd": ["open", "-a", "Terminal", "$cwd"]
         }
-    ]
+    ],  
 }
 ```
-
-If it does, doesn't and you have a solution, or needs improvement, please let me know by
-[raising an issue][new-issue]
 
 !!! Tip
     If none of these works for you, and you don't know how to configure this, you can always use
