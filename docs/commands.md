@@ -298,7 +298,6 @@ You can add a setting called `terminals`. Here's the format:
 In the `cmd` key, you have one variable: `$cwd`. It'll be replaced by the *current working dir*
 (the folder from which the command will be run).
 
-<<<<<<< HEAD
 The `platform` is used to limit allow the terminal to work only one specific platform(s). If it is
 omitted, it'll work on every platform. The valid values are `windows`, `linux` and `osx`.
 
@@ -307,10 +306,7 @@ omitted, it'll work on every platform. The valid values are `windows`, `linux` a
     `windows osx`
 
 
-So, for example, on Windows, here's what you could do:
-=======
 ### Windows example
->>>>>>> Add macOS example for opening terminal
 
 ```json
 {
@@ -332,11 +328,11 @@ So, for example, on Windows, here's what you could do:
 If you don't know what [Cmder](http://cmder.net) is, you might want to have a look (for Windows
 user). [Hyper](https://hyper.is) is also pretty cool, since it's a web based terminal.
 
-### macOS example
+### MacOS example
 
 ```json
 {
-"terminals": [
+    "terminals": [
         {
             "name": "iTerm",
             "platform": "osx",
@@ -347,13 +343,12 @@ user). [Hyper](https://hyper.is) is also pretty cool, since it's a web based ter
             "platform": "osx",
             "cmd": ["open", "-a", "Terminal", "$cwd"]
         }
-    ],  
+    ]
 }
 ```
 
 If it does, doesn't and you have a solution, or needs improvement, please let me know by
 [raising an issue][new-issue].
-
 
 !!! Tip
     If none of these works for you, and you don't know how to configure this, you can always use
