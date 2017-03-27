@@ -321,7 +321,7 @@ If you don't know what [Cmder](http://cmder.net) is, I recommend having a look, 
 
 ```json
 {
-"terminals": [
+    "terminals": [
         {
             "name": "iTerm",
             "cmd": ["open", "-a", "iTerm", "$cwd"]
@@ -330,7 +330,7 @@ If you don't know what [Cmder](http://cmder.net) is, I recommend having a look, 
             "name": "Terminal",
             "cmd": ["open", "-a", "Terminal", "$cwd"]
         }
-    ],  
+    ]
 }
 ```
 
