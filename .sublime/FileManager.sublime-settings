@@ -86,6 +86,9 @@
     "show_open_in_explorer_command": true,
     "show_open_in_browser_command": true,
     "show_open_terminal_command": true,
-    "show_rename_command": true
+    "show_rename_command": true,
+
+    // Set to false to disable the default alt+n key binding
+    "create_keybinding_enabled": true
 
 }
