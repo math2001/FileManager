@@ -37,7 +37,13 @@
     "terminals": [
         {
             "name": "CMD",
-            "cmd": ["cmd"]
+            "cmd": ["cmd"],
+            "platform": "windows"
+        },
+        {
+            "name": "Terminal",
+            "cmd": ["open", "-a", "Terminal"],
+            "platform": "osx"
         }
     ],
 

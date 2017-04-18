@@ -15,12 +15,24 @@ class FmOpenTerminalCommand(AppCommand):
         sublime.status_message('Opening "{0}" at {1}'.format(name, user_friendly(cwd)))
         return subprocess.Popen(cmd, cwd=cwd)
 
-    def run(self, paths=None):
+    def is_available(self, terminal, current_platform):
+        try:
+            terminal['platform']
+        except KeyError:
+            return True
+        if not isinstance(terminal['platform'], str):
+            return False
 
+        platforms = terminal['platform'].lower().split(' ')
+        return current_platform in platforms
+
+    def run(self, paths=None):
         self.settings = get_settings()
         self.window = get_window()
         self.view = self.window.active_view()
-        self.terminals = self.settings.get('terminals')
+        current_platform = sublime.platform()
+        self.terminals = [terminal for terminal in self.settings.get('terminals')
+                            if self.is_available(terminal, current_platform)]
 
         if paths is not None:
             cwd = paths[0]
