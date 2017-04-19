@@ -15,7 +15,7 @@
       
         <link rel="shortcut icon" href="../../assets/images/favicon.ico">
       
-      <meta name="generator" content="mkdocs+mkdocs-material#1.0.2">
+      <meta name="generator" content="mkdocs+mkdocs-material#1.0.3">
     
     
       
@@ -36,7 +36,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application-1b8b9fdf68.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application-f3ab63f78a.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-02ce7adcc2.palette.css">
       
@@ -565,7 +565,7 @@
                   <h1>Aliases</h1>
                 
                 <h2 id="why-should-you-use-aliases">Why should you use aliases?<a class="headerlink" href="#why-should-you-use-aliases" title="Permanent link">&para;</a></h2>
-<p>For example, if you'd like to create file in the Sublime Text packages directory, on window, 
+<p>For example, if you'd like to create file in the Sublime Text <code class="codehilite">Packages</code> directory, on Windows,
 you'd have to type <code class="codehilite">~/AppData/Roaming/Sublime Text 3/Packages</code> and then, the name/path of your
 file. Because you have access to those aliases</p>
 <table>
@@ -630,14 +630,16 @@ file. Because you have access to those aliases</p>
 </tr>
 </tbody>
 </table>
-<p>Here, the values are the ones I get when, as you can see, I'm editing this page (<code class="codehilite">Aliases.md</code>), 
+<p>You can just type <code class="codehilite">$packages</code> and it's the <em>exact</em> same. Sounds good? Then keep reading</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The values are the ones I get when, as you can see, I'm editing this page (<code class="codehilite">Aliases.md</code>), 
 I'm on Windows, the project name is <code class="codehilite">FileManagerDocs.sublime-project</code> etc...</p>
-<p>So, in my case I could just type <code class="codehilite"><span class="p">$</span><span class="nv">packages</span><span class="x">/</span></code> and it'd be replaced by 
-<code class="codehilite">C:\Users\math\AppData\Roaming\Sublime Text 3\Packages</code>! Sounds good? Then keep reading!</p>
+</div>
 <p>So, the table above shows all the aliases you have access to by default when you use any input
 shown by FileManager.</p>
-<p>When you want to use those prefixes, you have to prefix them with a <code class="codehilite">$</code>, like so: <code class="codehilite"><span class="p">$</span><span class="nv">packages</span><span class="x"></span></code>, 
-<code class="codehilite"><span class="p">$</span><span class="nv">project_base_name</span><span class="x"></span></code>, etc.</p>
+<p>When you want to use those prefixes, you have to prefix them with a <code class="codehilite">$</code>, like so: <code class="codehilite">$packages</code>, 
+<code class="codehilite">$project_base_name</code>, etc.</p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -693,10 +695,10 @@ result: &quot;hello and some text&quot;
 <p>What if I want to use a <strong>literal</strong> <code class="codehilite">$</code>?</p>
 </blockquote>
 <p>Just prefix it by an other <code class="codehilite">$</code>!</p>
-<div class="codehilite"><pre><span></span><span class="x">string: &quot;Hello </span><span class="p">$$</span><span class="nv">var</span><span class="x">&quot;</span>
-<span class="x">aliases:</span>
-<span class="x">    - var: &quot;it doesn&#39;t matter&quot;</span>
-<span class="x">result: &quot;Hello </span><span class="p">$$</span><span class="nv">var</span><span class="x">&quot;</span>
+<div class="codehilite"><pre><span></span>string: &quot;Hello $$var&quot;
+aliases:
+    - var: &quot;it doesn&#39;t matter&quot;
+result: &quot;Hello $$var&quot;
 </pre></div>
 
 
@@ -715,11 +717,11 @@ I just wanted to mention it because it's useful for the snippets. You can find m
 on <a href="http://docs.sublimetext.info/en/latest/extensibility/snippets.html#substitutions">the community powered unofficial documentation</a></p>
 <h2 id="real-example">Real example<a class="headerlink" href="#real-example" title="Permanent link">&para;</a></h2>
 <p>For example, if you run the <code class="codehilite">fm_create</code> command (<kbd>alt+n</kbd>):</p>
-<div class="codehilite"><pre><span></span><span class="p">$</span><span class="nv">packages</span><span class="x">/FileManager/FMcommands</span>
+<div class="codehilite"><pre><span></span>$packages/FileManager/FMcommands
 </pre></div>
 
 
-<p>It will open the <a href="../Commands#the-browser">"browser"</a> listing all the commands of FileManager,
+<p>It will open the <a href="../../commands/#the-browser">"browser"</a> listing all the commands of FileManager,
 (because each of them are in a separated file).</p>
 <h2 id="custom-aliases">Custom aliases<a class="headerlink" href="#custom-aliases" title="Permanent link">&para;</a></h2>
 <p>This is the good part. In your <a href="../settings/">settings</a>, you can specify an option: <code class="codehilite">aliases</code>. It
@@ -850,7 +852,7 @@ But here's a not-so-well-intentioned one:</p>
       
     </div>
     
-      <script src="../../assets/javascripts/application-16f434a21a.js"></script>
+      <script src="../../assets/javascripts/application-2afe21e0b2.js"></script>
       <script>var config={url:{base:"../.."}},app=new Application(config);app.initialize()</script>
       
     

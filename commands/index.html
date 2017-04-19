@@ -15,7 +15,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.ico">
       
-      <meta name="generator" content="mkdocs+mkdocs-material#1.0.2">
+      <meta name="generator" content="mkdocs+mkdocs-material#1.0.3">
     
     
       
@@ -36,7 +36,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-1b8b9fdf68.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-f3ab63f78a.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-02ce7adcc2.palette.css">
       
@@ -886,6 +886,10 @@ file/folder</p>
 <h2 id="duplicate">Duplicate<a class="headerlink" href="#duplicate" title="Permanent link">&para;</a></h2>
 <p>Command: <code class="codehilite">fm_duplicate</code></p>
 <p>You can duplicate folders and files, but, once again, one at a time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you're duplicating a folder, you <em>must</em> create a new folder.</p>
+</div>
 <h2 id="delete">Delete<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h2>
 <p>Command: <code class="codehilite">fm_delete</code></p>
 <p>File Manager doesn't delete permanently your files/folders, it only throws them to the trash.</p>
@@ -965,7 +969,8 @@ from the command palette). You can configure what's happening in your FileManage
     <span class="nt">&quot;terminals&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;terminal name&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;command&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;open&quot;</span><span class="p">]</span>
+            <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;command&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;open&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;platform&quot;</span><span class="p">:</span> <span class="s2">&quot;first second&quot;</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;An other Terminal&quot;</span><span class="p">,</span>
@@ -976,26 +981,35 @@ from the command palette). You can configure what's happening in your FileManage
 </pre></div>
 
 
-<p>In the <code class="codehilite">cmd</code> key, you have one variable: <code class="codehilite"><span class="p">$</span><span class="nv">cwd</span><span class="x"></span></code>. It'll be replaced by the <em>current working dir</em>
+<p>In the <code class="codehilite">cmd</code> key, you have one variable: <code class="codehilite">$cwd</code>. It'll be replaced by the <em>current working dir</em>
 (the folder from which the command will be run).</p>
+<p>The <code class="codehilite">platform</code> is used to limit allow the terminal to work only one specific platform(s). If it is
+omitted, it'll work on every platform. The valid values are <code class="codehilite">windows</code>, <code class="codehilite">linux</code> and <code class="codehilite">osx</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can limit a terminal to work on multiple platform by seperating them with a space, like so:
+<code class="codehilite">windows osx</code></p>
+</div>
 <p>So, for example, on Windows, here's what you could do:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;terminals&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Cmder&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;C:/cmder/cmder.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;/SINGLE&quot;</span><span class="p">,</span> <span class="s2">&quot;$cwd&quot;</span><span class="p">]</span>
+            <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;C:/cmder/cmder.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;/SINGLE&quot;</span><span class="p">,</span> <span class="s2">&quot;$cwd&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;platform&quot;</span><span class="p">:</span> <span class="s2">&quot;windows&quot;</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CMD&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;cmd&quot;</span><span class="p">]</span>
+            <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;cmd&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;platform&quot;</span><span class="p">:</span> <span class="s2">&quot;windows&quot;</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<p>If you don't know what <a href="http://cmder.net">Cmder</a> is, I recommend having a look, it's pretty cool.
-(for Windows user)</p>
+<p>If you don't know what <a href="http://cmder.net">Cmder</a> is, you might want to have a look (for Windows
+user). <a href="https://hyper.is">Hyper</a> is also pretty cool, since it's a web based terminal.</p>
 <h4 id="on-other-platform">On other platform<a class="headerlink" href="#on-other-platform" title="Permanent link">&para;</a></h4>
 <p>If you're on Mac, it might be a bit harder. Why? Because I don't have a Mac, so I cannot try to see
 if what I'm going to tell you is <em>actually</em> working. Here's what I found:</p>
@@ -1004,7 +1018,8 @@ if what I'm going to tell you is <em>actually</em> working. Here's what I found:
     <span class="nt">&quot;terminals&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Terminal&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;-a&quot;</span><span class="p">,</span> <span class="s2">&quot;Terminal&quot;</span><span class="p">]</span>
+            <span class="nt">&quot;cmd&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;-a&quot;</span><span class="p">,</span> <span class="s2">&quot;Terminal&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;platform&quot;</span><span class="p">:</span> <span class="s2">&quot;osx&quot;</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -1012,7 +1027,7 @@ if what I'm going to tell you is <em>actually</em> working. Here's what I found:
 
 
 <p>If it does, doesn't and you have a solution, or needs improvement, please let me know by
-<a href="https://github.com/math2001/FileManager/issues/new">raising an issue</a></p>
+<a href="https://github.com/math2001/FileManager/issues/new">raising an issue</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If none of these works for you, and you don't know how to configure this, you can always use
@@ -1095,7 +1110,7 @@ It'll open the current file if it's run from the command palette.</p>
       
     </div>
     
-      <script src="../assets/javascripts/application-16f434a21a.js"></script>
+      <script src="../assets/javascripts/application-2afe21e0b2.js"></script>
       <script>var config={url:{base:".."}},app=new Application(config);app.initialize()</script>
       
     

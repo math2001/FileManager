@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +12,7 @@
     
     <url>
      <loc>/getting-started/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,7 +20,7 @@
     
     <url>
      <loc>/commands/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -29,31 +29,31 @@
         
     <url>
      <loc>/references/auto-completion/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/references/settings/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/references/templates/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/references/type-of-path/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/references/aliases/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -62,7 +62,7 @@
     
     <url>
      <loc>/contributing/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -70,7 +70,7 @@
     
     <url>
      <loc>/license/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -78,7 +78,7 @@
     
     <url>
      <loc>/about/</loc>
-     <lastmod>2017-01-21</lastmod>
+     <lastmod>2017-04-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
