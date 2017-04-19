@@ -1,0 +1,15 @@
+______ _ _     ___  ___
+|  ___(_) |    |  \/  |
+| |_   _| | ___| .  . | __ _ _ __   __ _  __ _  ___ _ __
+|  _| | | |/ _ \ |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
+| |   | | |  __/ |  | | (_| | | | | (_| | (_| |  __/ |
+\_|   |_|_|\___\_|  |_/\__,_|_| |_|\__,_|\__, |\___|_|
+                                          __/ |
+                                         |___/
+
+Support the 'platform' key for terminals in your settings. Have a look at the
+documentation for more information:
+
+https://math2001.github.io/FileManager/commands/#open-terminal-here
+
+That's it!
