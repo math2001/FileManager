@@ -32,7 +32,7 @@
 
     // { "name": "Cmder", "cmd": ["C:/cmder/cmder.exe", "/SINGLE", "$cwd"] }
 
-    // $cwd will be replaced by what the Current Working Directory
+    // $cwd will be replaced by the current working directory
 
     "terminals": [
         {

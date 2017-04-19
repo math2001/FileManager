@@ -284,7 +284,8 @@ You can add a setting called `terminals`. Here's the format:
     "terminals": [
         {
             "name": "terminal name",
-            "cmd": ["the", "command", "to", "open"]
+            "cmd": ["the", "command", "to", "open"],
+            "platform": "first second"
         },
         {
             "name": "An other Terminal",
@@ -297,6 +298,14 @@ You can add a setting called `terminals`. Here's the format:
 In the `cmd` key, you have one variable: `$cwd`. It'll be replaced by the *current working dir*
 (the folder from which the command will be run).
 
+The `platform` is used to limit allow the terminal to work only one specific platform(s). If it is
+omitted, it'll work on every platform. The valid values are `windows`, `linux` and `osx`.
+
+!!! tip
+    You can limit a terminal to work on multiple platform by seperating them with a space, like so:
+    `windows osx`
+
+
 So, for example, on Windows, here's what you could do:
 
 ```json
@@ -304,18 +313,20 @@ So, for example, on Windows, here's what you could do:
     "terminals": [
         {
             "name": "Cmder",
-            "cmd": ["C:/cmder/cmder.exe", "/SINGLE", "$cwd"]
+            "cmd": ["C:/cmder/cmder.exe", "/SINGLE", "$cwd"],
+            "platform": "windows"
         },
         {
             "name": "CMD",
-            "cmd": ["cmd"]
+            "cmd": ["cmd"],
+            "platform": "windows"
         }
     ]
 }
 ```
 
-If you don't know what [Cmder](http://cmder.net) is, I recommend having a look, it's pretty cool.
-(for Windows user)
+If you don't know what [Cmder](http://cmder.net) is, you might want to have a look (for Windows
+user). [Hyper](https://hyper.is) is also pretty cool, since it's a web based terminal.
 
 #### On other platform
 
@@ -329,14 +340,15 @@ if what I'm going to tell you is *actually* working. Here's what I found:
     "terminals": [
         {
             "name": "Terminal",
-            "cmd": ["open", "-a", "Terminal"]
+            "cmd": ["open", "-a", "Terminal"],
+            "platform": "osx"
         }
     ]
 }
 ```
 
 If it does, doesn't and you have a solution, or needs improvement, please let me know by
-[raising an issue][new-issue]
+[raising an issue][new-issue].
 
 !!! Tip
     If none of these works for you, and you don't know how to configure this, you can always use
