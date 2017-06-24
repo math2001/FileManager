@@ -130,4 +130,4 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
     def is_visible(self, event=None):
         if event is None: return False
-        return self.view.file_name() is not None and self.get_path(event) is not None
+        return get_settings().get('show_create_from_command') and self.view.file_name() is not None and self.get_path(event) is not None
