@@ -9,8 +9,11 @@ With this package, you can create, rename, move, duplicate and delete files or f
 <!-- MarkdownTOC -->
 
 - ["Spirit"](#spirit)
+    - [The idea is to make you save time, not to propose you features you're never going to use.](#the-idea-is-to-make-you-save-time-not-to-propose-you-features-youre-never-going-to-use)
 - [Docs](#docs)
 - [Installation](#installation)
+    - [Using package control](#using-package-control)
+    - [Using the command line](#using-the-command-line)
 - [How to open the `README`](#how-to-open-the-readme)
 - [Contributing](#contributing)
 
