@@ -40,8 +40,6 @@ class FmMoveCommand(AppCommand):
         for origin in self.origins:
             view = self.window.find_open_file(origin)
             new_name = os.path.join(path, os.path.basename(origin))
-            if view:
-                close_view(view)
             try:
                 os.rename(origin, new_name)
             except Exception as e:
@@ -50,5 +48,6 @@ class FmMoveCommand(AppCommand):
                 raise OSError('An error occured while moving the file {0!r} '
                               'to {1!r}'.format(origin, new_name))
             if view:
-                self.window.open_file(new_name)
+                view.retarget(new_name)
+
         refresh_sidebar(self.settings, self.window)

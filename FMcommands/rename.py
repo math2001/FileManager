@@ -38,9 +38,7 @@ class FmRenameCommand(AppCommand):
             os.rename(self.origin, dst)
             view = self.window.find_open_file(self.origin)
             if view:
-                close_view(view)
-            if os.path.isfile(dst):
-                self.window.open_file(dst)
+                view.retarget(dst)
 
 
         if os.path.exists(dst):
