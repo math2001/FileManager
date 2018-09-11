@@ -3,6 +3,7 @@ import shutil
 from ..sublimefunctions import *
 from ..input_for_path import InputForPath
 from .appcommand import AppCommand
+from ..send2trash import send2trash
 
 
 class FmDuplicateCommand(AppCommand):
