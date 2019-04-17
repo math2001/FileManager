@@ -26,6 +26,6 @@ class FmDeleteCommand(AppCommand):
 
         self.paths = paths or [self.view.file_name()]
         self.window.show_quick_panel([
-            ['Send item {0} to trash'.format(('s' if len(self.paths) > 1 else ''))] + self.paths,
+            ['Send item{0} to trash'.format(('s' if len(self.paths) > 1 else ''))] + self.paths,
             'Cancel'
         ], self.delete)
