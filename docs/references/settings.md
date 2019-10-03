@@ -58,7 +58,7 @@ why they have they're own.
 - `explicitly_refresh_sidebar` Each time you run a command that affects any file, if this option
 is set to true, FileManager will refresh the sidebar for you. Note that you can do this by running
 `Project: Refresh Folders` in the command palette.
-- `menu_without_dirstraction`  When a FileManager's command is not enabled, it will still appear in
+- `menu_without_distraction`  When a FileManager's command is not enabled, it will still appear in
 the sidebar's context menu, except if you set this option to `true`.
 - `show_*_command` Each FileManager's command has a settings starting with `show_`, the command
 name without the `fm_` and finishing by `_command`. If set to `false`, this command
