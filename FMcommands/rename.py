@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import uuid
 from ..send2trash import send2trash
 from ..sublimefunctions import *
 from .appcommand import AppCommand
@@ -33,15 +34,25 @@ class FmRenameCommand(AppCommand):
 
     def rename(self, dst, input_dst):
 
+        def is_windows_same_filesystem_name():
+            return sublime.platform() == 'windows' and self.origin.lower() == dst.lower()
+
         def rename():
-            makedirs(os.path.dirname(dst), exist_ok=True)
-            os.rename(self.origin, dst)
+            dst_dir = os.path.dirname(dst)
+            makedirs(dst_dir, exist_ok=True)
+
+            if is_windows_same_filesystem_name() and self.origin != dst:
+                dst_tmp = os.path.join(dst_dir, str(uuid.uuid4()))
+                os.rename(self.origin, dst_tmp)
+                os.rename(dst_tmp, dst)
+            else:
+                os.rename(self.origin, dst)
+
             view = self.window.find_open_file(self.origin)
             if view:
                 view.retarget(dst)
 
-
-        if os.path.exists(dst):
+        if os.path.exists(dst) and not is_windows_same_filesystem_name():
 
             def open_file(self):
                 return self.window.open_file(dst)
