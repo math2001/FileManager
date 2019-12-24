@@ -21,13 +21,11 @@ def commonpath(paths):
     if not paths:
         raise ValueError('commonpath() arg is an empty sequence')
 
-    sep = '\\'
-    altsep = '/'
+    sep = os.path.sep
     curdir = '.'
 
     try:
-        drivesplits = [os.path.splitdrive(
-                        p.replace(altsep,sep).lower()) for p in paths]
+        drivesplits = [os.path.splitdrive(p.lower()) for p in paths]
         split_paths = [p.split(sep) for d, p in drivesplits]
 
         try:
@@ -41,7 +39,7 @@ def commonpath(paths):
         if len(set(d for d, p in drivesplits)) != 1:
             raise ValueError("Paths don't have the same drive")
 
-        drive, path = os.path.splitdrive(paths[0].replace(altsep, sep))
+        drive, path = os.path.splitdrive(paths[0])
         common = path.split(sep)
         common = [c for c in common if c and c != curdir]
 
