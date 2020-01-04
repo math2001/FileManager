@@ -42,7 +42,12 @@
         },
         {
             "name": "Terminal",
-            "cmd": ["open", "-a", "Terminal"],
+            "cmd": ["open", "-a", "Terminal", "$cwd"],
+            "platform": "osx"
+        },
+        {
+            "name": "iTerm",
+            "cmd": ["open", "-a", "iTerm", "$cwd"],
             "platform": "osx"
         },
         {
