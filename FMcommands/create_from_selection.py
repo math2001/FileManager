@@ -47,6 +47,8 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
         region = self.view.sel()[0]
         if not region.empty():
             file_name = self.view.substr(region)
+            if "\n" in file_name:
+                return
         else:
             syntax = self.view.settings().get("syntax").lower()
             call_pos = self.view.window_to_text((event["x"], event["y"]))
@@ -106,6 +108,7 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
                 if not file_name.endswith(".rb"):
                     file_name += ".rb"
             else:
+                # unknown syntax
                 return
 
         if file_name[0] in ('"', "'"):
