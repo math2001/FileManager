@@ -156,7 +156,7 @@ class InputForPath(object):
         for i, item in enumerate(items):
             if not case_sensitive:
                 item = item.lower()
-            if item.startswith(prefix) and item != prefix:
+            if item.startswith(prefix):
                 # I add items[i] because it's case is never changed
                 items_with_right_prefix.append(
                     [items[i], os.path.isdir(os.path.join(load_items_from, items[i]))]
@@ -167,6 +167,7 @@ class InputForPath(object):
         )
         if can_add_slash:
             folders = [folder + "/" for folder in folders]
+
         if with_files:
             if pick_first == "folders":
                 return prefix, folders + files
