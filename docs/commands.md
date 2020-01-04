@@ -306,7 +306,7 @@ omitted, it'll work on every platform. The valid values are `windows`, `linux` a
     `windows osx`
 
 
-So, for example, on Windows, here's what you could do:
+### Windows example
 
 ```json
 {
@@ -328,20 +328,20 @@ So, for example, on Windows, here's what you could do:
 If you don't know what [Cmder](http://cmder.net) is, you might want to have a look (for Windows
 user). [Hyper](https://hyper.is) is also pretty cool, since it's a web based terminal.
 
-#### On other platform
-
-If you're on Mac, it might be a bit harder. Why? Because I don't have a Mac, so I cannot try to see
-if what I'm going to tell you is *actually* working. Here's what I found:
-
-`open -a Terminal` should open a new terminal. So, here's the config I'd recommend using:
+### MacOS example
 
 ```json
 {
     "terminals": [
         {
+            "name": "iTerm",
+            "platform": "osx",
+            "cmd": ["open", "-a", "iTerm", "$cwd"]
+        },
+        {
             "name": "Terminal",
-            "cmd": ["open", "-a", "Terminal"],
-            "platform": "osx"
+            "platform": "osx",
+            "cmd": ["open", "-a", "Terminal", "$cwd"]
         }
     ]
 }
