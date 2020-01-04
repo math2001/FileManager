@@ -236,7 +236,9 @@ class InputForPath(object):
 
         if self.log_in_status_bar:
             path = computer_friendly(
-                os.path.normpath(self.create_from + os.path.sep + self.input_path)
+                os.path.normpath(
+                    os.path.join(self.create_from, computer_friendly(self.input_path))
+                )
             )
             if self.input_path != "" and self.input_path[-1] == "/":
                 path += os.path.sep
