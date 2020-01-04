@@ -187,54 +187,11 @@ class InputForPath(object):
         else:
             return prefix, folders
 
-    def transform_aliases(self, string):
-        """Transform aliases using the settings and the default variables
-        It's recursive, so you can use aliases *in* your aliases' values
-        """
-
-        def has_unescaped_dollar(string):
-            start = 0
-            while True:
-                index = string.find("$", start)
-                if index < 0:
-                    return False
-                elif string[index - 1] == "\\":
-                    start = index + 1
-                else:
-                    return True
-
-        string = string.replace("$$", "\\$")
-
-        vars = self.window.extract_variables()
-        vars.update(get_settings().get("aliases"))
-
-        inifinite_loop_counter = 0
-        while has_unescaped_dollar(string):
-            inifinite_loop_counter += 1
-            if inifinite_loop_counter > 100:
-                sublime.error_message(
-                    "Infinite loop: you better check your "
-                    "aliases, they're calling each other "
-                    "over and over again."
-                )
-                if get_settings().get("open_help_on_alias_infinite_loop", True) is True:
-
-                    sublime.run_command(
-                        "open_url",
-                        {
-                            "url": "https://github.com/math2001/ "
-                            "FileManager/wiki/Aliases "
-                            "#watch-out-for-infinite-loops"
-                        },
-                    )
-                return string
-            string = sublime.expand_variables(string, vars)
-
-        return string
-
     def input_on_change(self, input_path):
+
         self.input_path = user_friendly(input_path)
-        self.input_path = self.transform_aliases(self.input_path)
+
+        self.input_path = transform_aliases(self.window, self.input_path)
         # get changed inputs and create_from from the on_change user function
         if self.user_on_change:
             new_values = self.user_on_change(

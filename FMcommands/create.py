@@ -55,6 +55,9 @@ class FmCreateCommand(AppCommand):
         if paths is not None:
             # creating from the sidebar
             create_from = paths[0].replace("${packages}", sublime.packages_path())
+
+            create_from = transform_aliases(self.window, create_from)
+
             # you can right-click on a file, and run `New...`
             if os.path.isfile(create_from):
                 create_from = os.path.dirname(create_from)
