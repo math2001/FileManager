@@ -20,7 +20,7 @@ class FmMoveCommand(AppCommand):
             initial_text = commonpath(self.origins)
         else:
             initial_text = os.path.dirname(self.origins[0])
-        initial_text = user_friendly(initial_text) + '/'
+        initial_text = user_friendly(initial_text) + os.sep
 
         ipt = \
         InputForPath(caption='Move to', initial_text=initial_text,
