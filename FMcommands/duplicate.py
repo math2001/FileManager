@@ -7,7 +7,6 @@ from ..send2trash import send2trash
 
 
 class FmDuplicateCommand(AppCommand):
-
     def run(self, paths=None):
         self.settings = get_settings()
 
@@ -21,17 +20,17 @@ class FmDuplicateCommand(AppCommand):
         initial_path = user_friendly(self.origin)
 
         args = {}
-        args['caption'] = 'Duplicate to: '
-        args['initial_text'] = initial_path
-        args['on_done'] = self.duplicate
-        args['on_change'] = None
-        args['on_cancel'] = None
-        args['create_from'] = ''
-        args['with_files'] = False
-        args['pick_first'] = self.settings.get('pick_first')
-        args['case_sensitive'] = self.settings.get('case_sensitive')
-        args['log_in_status_bar'] = self.settings.get('log_in_status_bar')
-        args['log_template'] = 'Duplicating at {0}'
+        args["caption"] = "Duplicate to: "
+        args["initial_text"] = initial_path
+        args["on_done"] = self.duplicate
+        args["on_change"] = None
+        args["on_cancel"] = None
+        args["create_from"] = ""
+        args["with_files"] = False
+        args["pick_first"] = self.settings.get("pick_first")
+        args["case_sensitive"] = self.settings.get("case_sensitive")
+        args["log_in_status_bar"] = self.settings.get("log_in_status_bar")
+        args["log_template"] = "Duplicating at {0}"
 
         self.input = InputForPath(**args)
 
@@ -47,40 +46,52 @@ class FmDuplicateCommand(AppCommand):
             if not os.path.exists(dst):
                 shutil.copytree(self.origin, dst)
             else:
-                sublime.error_message('This path already exists!')
-                raise ValueError('Cannot move the directory {0!r} because it already exists '
-                                 '{1!r}'.format(self.origin, dst))
+                sublime.error_message("This path already exists!")
+                raise ValueError(
+                    "Cannot move the directory {0!r} because it already exists "
+                    "{1!r}".format(self.origin, dst)
+                )
         else:
             if not os.path.exists(dst):
-                with open(dst, 'w') as fp:
-                    with open(self.origin, 'r') as fpread:
+                with open(dst, "w") as fp:
+                    with open(self.origin, "r") as fpread:
                         fp.write(fpread.read())
                 self.window.open_file(dst)
             else:
+
                 def overwrite():
                     try:
                         send2trash(dst)
                     except OSError as e:
-                        sublime.error_message('Unable to send to trash: {}'.format(e))
-                        raise OSError('Unable to send to the trash the item {0}'.format(e))
+                        sublime.error_message("Unable to send to trash: {}".format(e))
+                        raise OSError(
+                            "Unable to send to the trash the item {0}".format(e)
+                        )
 
-                    with open(dst, 'w') as fp:
-                        with open(self.origin, 'r') as fpread:
+                    with open(dst, "w") as fp:
+                        with open(self.origin, "r") as fpread:
                             fp.write(fpread.read())
                     self.window.open_file(dst)
 
                 def open_file():
                     return self.window.open_file(dst)
 
-                yes_no_cancel_panel(message=['This file already exists. Overwrite?',
-                                             user_friendly_path],
-                                    yes=overwrite,
-                                    no=open_file,
-                                    cancel=None,
-                                    yes_text=['Yes. Overwrite', user_friendly_path, 'will be sent '
-                                    'to the trash, and then written'],
-                                    no_text=['Just open the target file', user_friendly_path],
-                                    cancel_text=["No, don't do anything"])
+                yes_no_cancel_panel(
+                    message=[
+                        "This file already exists. Overwrite?",
+                        user_friendly_path,
+                    ],
+                    yes=overwrite,
+                    no=open_file,
+                    cancel=None,
+                    yes_text=[
+                        "Yes. Overwrite",
+                        user_friendly_path,
+                        "will be sent " "to the trash, and then written",
+                    ],
+                    no_text=["Just open the target file", user_friendly_path],
+                    cancel_text=["No, don't do anything"],
+                )
 
         refresh_sidebar(self.settings, self.window)
         return

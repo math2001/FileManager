@@ -3,8 +3,8 @@
 from ..sublimefunctions import *
 from .appcommand import AppCommand
 
-class FmEditToTheRightCommand(AppCommand):
 
+class FmEditToTheRightCommand(AppCommand):
     def run(self, files=None):
         v = get_view()
         w = get_window()
@@ -12,11 +12,13 @@ class FmEditToTheRightCommand(AppCommand):
         if files is None:
             files = [v.file_name()]
 
-        w.set_layout({
-            "cols": [0.0, 0.5, 1.0],
-            "rows": [0.0, 1.0],
-            "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
-        })
+        w.set_layout(
+            {
+                "cols": [0.0, 0.5, 1.0],
+                "rows": [0.0, 1.0],
+                "cells": [[0, 0, 1, 1], [1, 0, 2, 1]],
+            }
+        )
         for i, file in enumerate(files, 1):
             w.set_view_index(w.open_file(file), 1, 0)
         w.focus_group(1)
@@ -26,7 +28,6 @@ class FmEditToTheRightCommand(AppCommand):
 
 
 class FmEditToTheLeftCommand(AppCommand):
-
     def run(self, files=None):
         v = get_view()
         w = get_window()
@@ -34,11 +35,13 @@ class FmEditToTheLeftCommand(AppCommand):
         if files is None:
             files = [v.file_name()]
 
-        w.set_layout({
-            "cols": [0.0, 0.5, 1.0],
-            "rows": [0.0, 1.0],
-            "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
-        })
+        w.set_layout(
+            {
+                "cols": [0.0, 0.5, 1.0],
+                "rows": [0.0, 1.0],
+                "cells": [[0, 0, 1, 1], [1, 0, 2, 1]],
+            }
+        )
         for file in files:
             w.set_view_index(w.open_file(file), 0, 0)
 

@@ -14,7 +14,7 @@
 # For external volumes this implementation will raise an exception if it can't
 # find or create the user's trash directory.
 
-#import sys
+# import sys
 import os
 import os.path as op
 from datetime import datetime
@@ -22,25 +22,28 @@ import stat
 import shutil
 from urllib.parse import quote
 
-FILES_DIR = 'files'
-INFO_DIR = 'info'
-INFO_SUFFIX = '.trashinfo'
+FILES_DIR = "files"
+INFO_DIR = "info"
+INFO_SUFFIX = ".trashinfo"
 
 # Default of ~/.local/share [3]
-XDG_DATA_HOME = op.expanduser(os.environ.get('XDG_DATA_HOME', '~/.local/share'))
-HOMETRASH = op.join(XDG_DATA_HOME, 'Trash')
+XDG_DATA_HOME = op.expanduser(os.environ.get("XDG_DATA_HOME", "~/.local/share"))
+HOMETRASH = op.join(XDG_DATA_HOME, "Trash")
 
 uid = os.getuid()
-TOPDIR_TRASH = '.Trash'
-TOPDIR_FALLBACK = '.Trash-' + str(uid)
+TOPDIR_TRASH = ".Trash"
+TOPDIR_FALLBACK = ".Trash-" + str(uid)
+
 
 def is_parent(parent, path):
-    path = op.realpath(path) # In case it's a symlink
+    path = op.realpath(path)  # In case it's a symlink
     parent = op.realpath(parent)
     return path.startswith(parent)
 
+
 def format_date(date):
     return date.strftime("%Y-%m-%dT%H:%M:%S")
+
 
 def info_for(src, topdir):
     # ...it MUST not include a ".."" directory, and for files not "under" that
@@ -50,15 +53,17 @@ def info_for(src, topdir):
     else:
         src = op.relpath(src, topdir)
 
-    info  = "[Trash Info]\n"
+    info = "[Trash Info]\n"
     info += "Path=" + quote(src) + "\n"
     info += "DeletionDate=" + format_date(datetime.now()) + "\n"
     return info
+
 
 def check_create(dir):
     # use 0700 for paths [3]
     if not op.exists(dir):
         os.makedirs(dir, 0o700)
+
 
 def trash_move(src, dst, topdir=None):
     filename = op.basename(src)
@@ -68,9 +73,11 @@ def trash_move(src, dst, topdir=None):
 
     counter = 0
     destname = filename
-    while op.exists(op.join(filespath, destname)) or op.exists(op.join(infopath, destname + INFO_SUFFIX)):
+    while op.exists(op.join(filespath, destname)) or op.exists(
+        op.join(infopath, destname + INFO_SUFFIX)
+    ):
         counter += 1
-        destname = '%s %s%s' % (base_name, counter, ext)
+        destname = "%s %s%s" % (base_name, counter, ext)
 
     check_create(filespath)
     check_create(infopath)
@@ -78,17 +85,19 @@ def trash_move(src, dst, topdir=None):
         os.rename(src, op.join(filespath, destname))
     except:
         shutil.move(src, op.join(filespath, destname))
-    f = open(op.join(infopath, destname + INFO_SUFFIX), 'w')
+    f = open(op.join(infopath, destname + INFO_SUFFIX), "w")
     f.write(info_for(src, topdir))
     f.close()
+
 
 def find_mount_point(path):
     # Even if something's wrong, "/" is a mount point, so the loop will exit.
     # Use realpath in case it's a symlink
-    path = op.realpath(path) # Required to avoid infinite loop
+    path = op.realpath(path)  # Required to avoid infinite loop
     while not op.ismount(path):
         path = op.split(path)[0]
     return path
+
 
 def find_ext_volume_global_trash(volume_root):
     # from [2] Trash directories (1) check for a .Trash dir with the right
@@ -110,6 +119,7 @@ def find_ext_volume_global_trash(volume_root):
         return None
     return trash_dir
 
+
 def find_ext_volume_fallback_trash(volume_root):
     # from [2] Trash directories (1) create a .Trash-$uid dir.
     trash_dir = op.join(volume_root, TOPDIR_FALLBACK)
@@ -118,24 +128,27 @@ def find_ext_volume_fallback_trash(volume_root):
     check_create(trash_dir)
     return trash_dir
 
+
 def find_ext_volume_trash(volume_root):
     trash_dir = find_ext_volume_global_trash(volume_root)
     if trash_dir is None:
         trash_dir = find_ext_volume_fallback_trash(volume_root)
     return trash_dir
 
+
 # Pull this out so it's easy to stub (to avoid stubbing lstat itself)
 def get_dev(path):
     return os.lstat(path).st_dev
 
+
 def send2trash(path):
-    #if not isinstance(path, str):
+    # if not isinstance(path, str):
     #    path = str(path, sys.getfilesystemencoding())
-    #if not op.exists(path):
+    # if not op.exists(path):
     #    raise OSError("File not found: %s" % path)
     # ...should check whether the user has the necessary permissions to delete
     # it, before starting the trashing operation itself. [2]
-    #if not os.access(path, os.W_OK):
+    # if not os.access(path, os.W_OK):
     #    raise OSError("Permission denied: %s" % path)
     # if the file to be trashed is on the same device as HOMETRASH we
     # want to move it there.
@@ -143,9 +156,11 @@ def send2trash(path):
 
     # If XDG_DATA_HOME or HOMETRASH do not yet exist we need to stat the
     # home directory, and these paths will be created further on if needed.
-    trash_dev = get_dev(op.expanduser('~'))
+    trash_dev = get_dev(op.expanduser("~"))
 
-    if path_dev == trash_dev or ( os.path.exists(XDG_DATA_HOME) and os.path.exists(HOMETRASH) ):
+    if path_dev == trash_dev or (
+        os.path.exists(XDG_DATA_HOME) and os.path.exists(HOMETRASH)
+    ):
         topdir = XDG_DATA_HOME
         dest_trash = HOMETRASH
     else:

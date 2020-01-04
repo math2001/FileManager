@@ -6,10 +6,12 @@
 
 from ctypes import windll, Structure, byref, c_uint
 from ctypes.wintypes import HWND, UINT, LPCWSTR, BOOL
-#import os.path as op
+
+# import os.path as op
 
 shell32 = windll.shell32
 SHFileOperationW = shell32.SHFileOperationW
+
 
 class SHFILEOPSTRUCTW(Structure):
     _fields_ = [
@@ -21,7 +23,8 @@ class SHFILEOPSTRUCTW(Structure):
         ("fAnyOperationsAborted", BOOL),
         ("hNameMappings", c_uint),
         ("lpszProgressTitle", LPCWSTR),
-        ]
+    ]
+
 
 FO_MOVE = 1
 FO_COPY = 2
@@ -34,16 +37,17 @@ FOF_NOCONFIRMATION = 16
 FOF_ALLOWUNDO = 64
 FOF_NOERRORUI = 1024
 
+
 def send2trash(path):
-		#
-    #if not isinstance(path, str):
+    #
+    # if not isinstance(path, str):
     #    path = str(path, 'mbcs')
-    #if not op.isabs(path):
+    # if not op.isabs(path):
     #    path = op.abspath(path)
     fileop = SHFILEOPSTRUCTW()
     fileop.hwnd = 0
     fileop.wFunc = FO_DELETE
-    fileop.pFrom = LPCWSTR(path + '\0')
+    fileop.pFrom = LPCWSTR(path + "\0")
     fileop.pTo = None
     fileop.fFlags = FOF_ALLOWUNDO | FOF_NOCONFIRMATION | FOF_NOERRORUI | FOF_SILENT
     fileop.fAnyOperationsAborted = 0
@@ -53,4 +57,3 @@ def send2trash(path):
     if result:
         msg = "Couldn't perform operation. Error code: %d" % result
         raise OSError(msg)
-

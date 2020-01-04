@@ -7,8 +7,8 @@
 from ctypes import cdll, byref, Structure, c_char, c_char_p
 from ctypes.util import find_library
 
-Foundation = cdll.LoadLibrary(find_library('Foundation'))
-CoreServices = cdll.LoadLibrary(find_library('CoreServices'))
+Foundation = cdll.LoadLibrary(find_library("Foundation"))
+CoreServices = cdll.LoadLibrary(find_library("CoreServices"))
 
 GetMacOSStatusCommentString = Foundation.GetMacOSStatusCommentString
 GetMacOSStatusCommentString.restype = c_char_p
@@ -24,17 +24,20 @@ kFSFileOperationSkipSourcePermissionErrors = 0x02
 kFSFileOperationDoNotMoveAcrossVolumes = 0x04
 kFSFileOperationSkipPreflight = 0x08
 
+
 class FSRef(Structure):
-    _fields_ = [('hidden', c_char * 80)]
+    _fields_ = [("hidden", c_char * 80)]
+
 
 def check_op_result(op_result):
     if op_result:
-        msg = GetMacOSStatusCommentString(op_result).decode('utf-8')
+        msg = GetMacOSStatusCommentString(op_result).decode("utf-8")
         raise OSError(msg)
+
 
 def send2trash(path):
     if not isinstance(path, bytes):
-        path = path.encode('utf-8')
+        path = path.encode("utf-8")
     fp = FSRef()
     opts = kFSPathMakeRefDoNotFollowLeafSymlink
     op_result = FSPathMakeRefWithOptions(path, opts, byref(fp), None)
