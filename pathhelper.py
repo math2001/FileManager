@@ -21,13 +21,13 @@ def commonpath(paths):
     if not paths:
         raise ValueError('commonpath() arg is an empty sequence')
 
-    sep = '\\'
+    sep = os.sep
     altsep = '/'
     curdir = '.'
 
     try:
         drivesplits = [os.path.splitdrive(
-                        p.replace(altsep,sep).lower()) for p in paths]
+                        p.replace(altsep, sep).lower()) for p in paths]
         split_paths = [p.split(sep) for d, p in drivesplits]
 
         try:
