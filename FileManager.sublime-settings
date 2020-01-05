@@ -1,4 +1,12 @@
 {
+
+    // when deleting files/folders, the user will be asked for
+    // confirmation, and then the items will be sent to the trash.
+    // set to false to remove the confirmation dialog, and send the
+    // items to the trash straight away.
+    "ask_for_confirmation_on_delete": true,
+
+
     // auto complete with files
     "complete_with_files_too": true,
 

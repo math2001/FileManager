@@ -24,11 +24,20 @@ class FmDeleteCommand(AppCommand):
         self.view = get_view()
 
         self.paths = paths or [self.view.file_name()]
-        self.window.show_quick_panel(
-            [
-                ["Send item{0} to trash".format(("s" if len(self.paths) > 1 else ""))]
-                + self.paths,
-                "Cancel",
-            ],
-            self.delete,
-        )
+        if get_settings().get("ask_for_confirmation_on_delete") is not False:
+            self.window.show_quick_panel(
+                [
+                    [
+                        "Send item{0} to trash".format(
+                            ("s" if len(self.paths) > 1 else "")
+                        )
+                    ]
+                    + self.paths,
+                    "Cancel",
+                ],
+                self.delete,
+            )
+        else:
+            # index 0 is like clicking on the first option of the panel
+            # ie. confirming the deletion
+            self.delete(index=0)
