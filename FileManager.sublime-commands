@@ -78,7 +78,7 @@
         "caption": "Preferences: File Manager Settings",
         "command": "edit_settings",
         "args": {
-            "base_file": "${packages}/FileManager/.sublime/FileManager.sublime-settings",
+            "base_file": "${packages}/FileManager/FileManager.sublime-settings",
             "default": "// Your settings for FileManager. See the default file to see the different options. \n{\n\t$0\n}\n"
         }
     },
