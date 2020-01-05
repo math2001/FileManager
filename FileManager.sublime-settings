@@ -61,7 +61,8 @@
     // will be hidden
     "menu_without_distraction": true,
 
-    // no need to comment anything on that one I guess :)
+    // when you close the last file of a group (ie. there will be no files left
+    // after this files is closed), FileManager will automatically close the group
     "auto_close_empty_groups": false,
 
     // auto refresh the side bar when you run any action that might affect it

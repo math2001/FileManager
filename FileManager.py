@@ -68,22 +68,17 @@ class FmEditReplace(sublime_plugin.TextCommand):
 
 class FmListener(sublime_plugin.EventListener):
     def on_close(self, view):
-        if view.settings().get("auto_close_empty_groups") is not True:
+        if get_settings().get("auto_close_empty_groups") is not True:
             return
 
-        def run():
-            w = get_window()
-            reset_layouts = False
-            for group in range(w.num_groups()):
-                if len(w.views_in_group(group)) == 0:
-                    reset_layouts = True
+        window = get_window()
+        reset_layouts = False
+        for group in range(window.num_groups()):
+            if len(window.views_in_group(group)) == 0:
+                reset_layouts = True
 
-            if reset_layouts:
-                w.set_layout(
-                    {"cols": [0.0, 1.0], "rows": [0.0, 1.0], "cells": [[0, 0, 1, 1]]}
-                )
-
-        sublime.set_timeout(run, 50)
+        if reset_layouts:
+            window.run_command("close_pane")
 
     def on_load(self, view):
         settings = view.settings()
