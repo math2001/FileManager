@@ -19,6 +19,7 @@ from .FMcommands.open_in_explorer import FmOpenInExplorerCommand
 from .FMcommands.open_in_browser import FmOpenInBrowserCommand
 from .FMcommands.open_terminal import FmOpenTerminalCommand
 from .FMcommands.rename import FmRenameCommand
+from .FMcommands.open_all import FmOpenAllCommand
 
 BASE_NAME = os.path.dirname(__file__)
 

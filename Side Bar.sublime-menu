@@ -8,6 +8,14 @@
         }
     },
     {
+        "caption": "Open All",
+        "command": "fm_open_all",
+        "mnemonic": "A",
+        "args": {
+            "files": []
+        }
+    },
+    {
         "caption": "Edit to Right",
         "command": "fm_edit_to_the_right",
         "mnemonic": "R",
