@@ -63,22 +63,30 @@ class FmEditReplace(sublime_plugin.TextCommand):
         )
 
 
-# --- Listener --- (pathetic, right?) :D
-
-
 class FmListener(sublime_plugin.EventListener):
+    def on_pre_close(self, view):
+        # a hack to detect tabless views, see comment below
+        # press alt+shift+2. Do you see the empty view on the right? That's
+        # what I call a tabless view.
+        # It doesn't have a tab, but ST still sees it as a view
+        if view not in view.window().views():
+            view.settings().set("auto_close_empty_group_is_tabless_view", True)
+
     def on_close(self, view):
         if get_settings().get("auto_close_empty_groups") is not True:
             return
 
+        # A closed even is triggered for tabless views when an actual file
+        # is opened. Without this check, the pane that the edit_settings
+        # command created was automatically closed
+        if view.settings().get("auto_close_empty_group_is_tabless_view") is True:
+            return
+
         window = get_window()
-        reset_layouts = False
         for group in range(window.num_groups()):
             if len(window.views_in_group(group)) == 0:
-                reset_layouts = True
-
-        if reset_layouts:
-            window.run_command("close_pane")
+                window.run_command("close_pane")
+                return
 
     def on_load(self, view):
         settings = view.settings()
