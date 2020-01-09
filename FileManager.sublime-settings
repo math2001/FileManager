@@ -69,10 +69,6 @@
     // will be hidden
     "menu_without_distraction": true,
 
-    // when you close the last file of a group (ie. there will be no files left
-    // after this files is closed), FileManager will automatically close the group
-    "auto_close_empty_groups": false,
-
     // auto refresh the side bar when you run any action that might affect it
     // by default, sublime text would do it by itself, but if this is
     // set to true, then it will be explicitly refreshed

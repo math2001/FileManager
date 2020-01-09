@@ -52,17 +52,18 @@ The ASCII FileManager has been generated using the ASCII Decorator.
 https://github.com/viisual/ASCII-Decorator
 
 Tip of the day: You can bind commands to modifiers-free key combination:
-                {
-                    "keys": ["-", ">"],
-                    "command": "insert_snippet",
-                    "args": {
-                        "contents": "→ "
-                    }
-                }
 
-                Once set, each time you'll type '->', it'll insert this '→ '
+    {
+        "keys": ["-", ">"],
+        "command": "insert_snippet",
+        "args": {
+            "contents": "→ "
+        }
+    }
 
-                If you don't know how to set up shortcuts, don't worry, it's
-                explained here:
+Once set, each time you'll type '->', it'll insert this '→ '
 
-                http://docs.sublimetext.info/en/latest/reference/key_bindings.html
+If you don't know how to set up shortcuts, don't worry, it's
+explained here:
+
+http://docs.sublimetext.info/en/latest/reference/key_bindings.html

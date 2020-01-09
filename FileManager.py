@@ -36,6 +36,28 @@ def _reload(file):
 # auto reload sub files - for dev
 
 
+def plugin_loaded():
+    settings = get_settings()
+    # this use to be a supported setting, but we dropped it. (see #27)
+    if settings.get("auto_close_empty_groups") is not None:
+        # we could remove the setting automatically, and install the
+        # package if it was set to true, but it'd be an extra source
+        # of bugs, and it doesn't take that much effort (it's a one
+        # time thing, so it doesn't need to be automated)
+        sublime.error_message(
+            "FileManager\n\n"
+            "auto_close_empty_groups is set, but this setting is no longer "
+            "supported.\n\n"
+            "Auto closing empty groups (in the layout) use to be a feature "
+            "of FileManager, but it has now moved to it's own package.\n\n"
+            "If you still want this behaviour, you can install "
+            "AutoCloseEmptyGroup, it's available on package control.\n\n"
+            "To disable this warning, unset the setting "
+            "auto_close_empty_groups in FileManager.sublime-settings (search "
+            "for Preferences: FileManager Settings in the command palette)"
+        )
+
+
 class FmDevListener(sublime_plugin.EventListener):
     def on_post_save(self, view):
         """Reload FileManager
