@@ -135,6 +135,14 @@
                 }
             },
             {
+                "caption": "Path from root",
+                "command": "fm_copy",
+                "args": {
+                    "which": "path from root",
+                    "paths": []
+                }
+            },
+            {
                 "caption": "Relative Path",
                 "command": "fm_copy",
                 "args": {
