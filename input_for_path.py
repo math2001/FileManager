@@ -375,7 +375,11 @@ class InputForPath(object):
         if self.browser_index is not None:
             index = self.browser_index
         elif self.no_browser_action:
-            index = 1
+            index = 0
+        elif len(folders) + len(files) == 0:
+            # browser actions are enabled, but there just aren't any folder or
+            # files
+            index = 0
         else:
             index = 2
 
