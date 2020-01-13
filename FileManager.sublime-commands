@@ -57,6 +57,13 @@
         }
     },
     {
+        "caption": "File Manager: Copy Path From Root",
+        "command": "fm_copy",
+        "args": {
+            "which": "path from root"
+        }
+    },
+    {
         "caption": "File Manager: Create Template",
         "command": "fm_create",
         "args": {
