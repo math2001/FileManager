@@ -10,16 +10,33 @@ class FmCreaterCommand(AppCommand):
     final ones if it doesn't exists. Finaly, opens the file"""
 
     def run(self, abspath, input_path):
+        regex_file_extentions = r"\{(.*?)\}"
         input_path = user_friendly(input_path)
         if input_path[-1] == "/":
             return makedirs(abspath, exist_ok=True)
         if not os.path.isfile(abspath):
-            makedirs(os.path.dirname(abspath), exist_ok=True)
-            with open(abspath, "w") as fp:
-                pass
-            template = get_template(abspath)
+            file_extensions = re.findall(regex_file_extentions, abspath)
+            if len(file_extensions) != 0:
+                abspath = abspath.split("{")[0]
+                if abspath[-1] != ".":
+                    abspath = abspath + "."
+
+                file_extensions = file_extensions[0].split(",")
+                for file_ext in file_extensions:
+                    file_path = abspath + file_ext
+                    makedirs(os.path.dirname(file_path), exist_ok=True)
+                    with open(file_path, "w") as fp:
+                        pass
+                    template = get_template(file_path)
+                abspath = abspath + file_extensions[0]
+            else:
+                makedirs(os.path.dirname(abspath), exist_ok=True)
+                with open(abspath, "w") as fp:
+                    pass
+                template = get_template(abspath)
         else:
             template = None
+
         window = get_window()
         view = window.open_file(abspath)
         settings = view.settings()
