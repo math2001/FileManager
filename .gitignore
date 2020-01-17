@@ -3,5 +3,5 @@ test.py
 __pycache__/
 Thumbs.db
 .DS_STORE
-*.sublime-project
-*.sublime-workspace
+*sublime-project
+*sublime-workspace

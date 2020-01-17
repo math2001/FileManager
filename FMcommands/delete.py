@@ -18,6 +18,18 @@ class FmDeleteCommand(AppCommand):
                         "Unable to send to trash: {}".format(e))
                     raise OSError(
                         "Unable to send {0!r} to trash: {1}".format(path, e))
+        if index > 1:
+            view = self.window.find_open_file(self.paths[index - 2])
+            if view is not None:
+                close_view(view)
+
+            # We substract two, because 0, 1 are populated by Confirm, Cancel
+            self.paths.remove(self.paths[index - 2])
+
+            if self.paths:
+                refresh_sidebar(self.settings, self.window)
+                self.run(self.paths)
+
         refresh_sidebar(self.settings, self.window)
 
     def run(self, paths=None, *args, **kwargs):
@@ -45,7 +57,8 @@ class FmDeleteCommand(AppCommand):
             ]
 
             for path in paths:
-                paths_to_display.append([path.split(os.path.sep)[-1], path])
+                paths_to_display.append(
+                    [path.split(os.path.sep)[-1], path])
 
             self.window.show_quick_panel(
                 paths_to_display,
