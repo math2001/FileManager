@@ -1,15 +1,11 @@
-import sublime
 import os
 import sys
 
+import sublime
+
 from .pathhelper import *
 
-
-def plugin_loaded():
-    global TEMPLATE_FOLDER
-    TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), "User", ".FileManager")
-    if not os.path.exists(TEMPLATE_FOLDER):
-        makedirs(TEMPLATE_FOLDER)
+TEMPLATE_FOLDER = None
 
 
 def md(*t, **kwargs):
@@ -77,6 +73,12 @@ def file_get_content(path):
 
 def get_template(created_file):
     """Return the right template for the create file"""
+    global TEMPLATE_FOLDER
+
+    if TEMPLATE_FOLDER is None:
+        TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), "User", ".FileManager")
+        makedirs(TEMPLATE_FOLDER, exist_ok=True)
+
     template_files = os.listdir(TEMPLATE_FOLDER)
     for item in template_files:
         if (
