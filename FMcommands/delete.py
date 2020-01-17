@@ -14,8 +14,10 @@ class FmDeleteCommand(AppCommand):
                 try:
                     send2trash(path)
                 except OSError as e:
-                    sublime.error_message("Unable to send to trash: {}".format(e))
-                    raise OSError("Unable to send {0!r} to trash: {1}".format(path, e))
+                    sublime.error_message(
+                        "Unable to send to trash: {}".format(e))
+                    raise OSError(
+                        "Unable to send {0!r} to trash: {1}".format(path, e))
         refresh_sidebar(self.settings, self.window)
 
     def run(self, paths=None, *args, **kwargs):
@@ -25,16 +27,28 @@ class FmDeleteCommand(AppCommand):
 
         self.paths = paths or [self.view.file_name()]
         if get_settings().get("ask_for_confirmation_on_delete") is not False:
+            confirm_text = "Send {0}item{1} to trash".format(
+                ("{0} ".format(
+                    len(self.paths)) if len(self.paths) > 1 else ""),
+                ("s" if len(
+                    self.paths) > 1 else "")
+            )
+            cancel_text = "Cancel deletion of {0}file{1}".format(
+                ("{0} ".format(
+                    len(self.paths)) if len(self.paths) > 1 else ""),
+                ("s" if len(
+                    self.paths) > 1 else "")
+            )
+            paths_to_display = [
+                ["Confirm", confirm_text],
+                ["Cancel", cancel_text]
+            ]
+
+            for path in paths:
+                paths_to_display.append([path.split(os.path.sep)[-1], path])
+
             self.window.show_quick_panel(
-                [
-                    [
-                        "Send item{0} to trash".format(
-                            ("s" if len(self.paths) > 1 else "")
-                        )
-                    ]
-                    + self.paths,
-                    "Cancel",
-                ],
+                paths_to_display,
                 self.delete,
             )
         else:

@@ -1,0 +1,454 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pa",
+				"paths"
+			],
+			[
+				"p",
+				"path"
+			],
+			[
+				"path",
+				"paths_to_display"
+			],
+			[
+				"input",
+				"input_from_user"
+			],
+			[
+				"Pac",
+				"Packages"
+			],
+			[
+				"Mod",
+				"ModCmd"
+			],
+			[
+				"Print",
+				"Println()"
+			],
+			[
+				"ru",
+				"Run()"
+			],
+			[
+				"HandleB",
+				"HandleBeautifyXML"
+			],
+			[
+				"Ha",
+				"HandleBeautifyHTML"
+			],
+			[
+				"HandleRem",
+				"HandleRemoveNonAscii"
+			],
+			[
+				"hash",
+				"hashCmd"
+			],
+			[
+				"P",
+				"PersistentFlags"
+			],
+			[
+				"Hand",
+				"HandleBinary"
+			],
+			[
+				"B",
+				"Base64"
+			],
+			[
+				"O",
+				"Order"
+			],
+			[
+				"es",
+				"escape_regex"
+			],
+			[
+				"comment",
+				"comment_delimiter"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "FMcommands/delete.py",
+			"settings":
+			{
+				"buffer_size": 2068,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pep",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"ena",
+				"Package Control: Enable Package"
+			],
+			[
+				"dis",
+				"Package Control: Disable Package"
+			],
+			[
+				"syntax pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"lsp",
+				"LSP: Enable Language Server in Project"
+			],
+			[
+				"LSP",
+				"LSP: Enable Language Server in Project"
+			],
+			[
+				"l",
+				"LSP: Enable Language Server in Project"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"new",
+				"Sudoku: New Game"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"sud",
+				"Sudoku: New Game"
+			],
+			[
+				"an",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"prefe",
+				"Preferences: Settings"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ui",
+				"UI: Select Color Scheme"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"form",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"th",
+				"UI: Select Theme"
+			],
+			[
+				"ins",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 333.0,
+		"history":
+		[
+			"print(os.environ)",
+			"import os, sys",
+			"view.run_command('comment_highlighter')",
+			"view.scope_name(view.sel()[0].begin())",
+			"view.run_command('comment_highlighter')",
+			"view.scope_name(view.sel()[0].begin())",
+			"view.run_command('comment_highlighter')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/zacharyschulze/Documents/Projects/FileManager/delete-confirm-update",
+		"/Users/zacharyschulze/Documents/Projects/FileManager/delete-confirm-update/FMcommands"
+	],
+	"file_history":
+	[
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/FileManager/FMcommands/delete.py",
+		"/Users/zacharyschulze/.Trash/delete.py",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/FileManager/FMcommands/rename.py",
+		"/Users/zacharyschulze/.Trash/duplicate.py",
+		"/Users/zacharyschulze/.Trash/editto.py",
+		"/Users/zacharyschulze/.Trash/find_in_files.py",
+		"/Users/zacharyschulze/.Trash/move.py",
+		"/Users/zacharyschulze/.Trash/open_all.py",
+		"/Users/zacharyschulze/.Trash/open_in_browser.py",
+		"/Users/zacharyschulze/.Trash/open_in_explorer.py",
+		"/Users/zacharyschulze/Documents/Projects/FileManager/.gitignore",
+		"/Users/zacharyschulze/Downloads/temp/test.py",
+		"/Users/zacharyschulze/Documents/Business Related/Projects/Active/FusionStorm/MacOS/Mac 1/automactc-output,MAC-C02V50M3HV29.local,172.22.221.62,2020-01-15T23_35_00Z,runtime.log",
+		"/Users/zacharyschulze/Documents/Projects/Alfred-Man/alfred-man.sublime-project",
+		"/Users/zacharyschulze/Documents/Projects/Alfred-Man/src/cmd/root.go",
+		"/Users/zacharyschulze/Documents/Projects/Alfred-Man/src/man/generate.go",
+		"/Users/zacharyschulze/Documents/Projects/Alfred-Man/src/cmd/html.go",
+		"/Users/zacharyschulze/Documents/Projects/Alfred-Man/src/cmd/pdf.go",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/src/cli/cmd/search.go",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/src/",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/src/cli/cmd/local.go",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/LICENSE",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/.gitignore",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/src/cli/cmd/hash.go",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/src/packagecontrol/package-control.go",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/cli/cmd/search.go",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/packagecontrol/package-control.go",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/cli/cmd/get.go",
+		"/Users/zacharyschulze/Documents/Projects/packagecontrol/README.md",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/src/manipulator/manipulator.go",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/src/cli/cmd/beautify.go",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/src/cli/cmd/encode.go",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/src/cli/cmd/case.go",
+		"/Users/zacharyschulze/.go/src/github.com/theseceng/gomanipulator/src/cli/cmd/encode.go",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/src/cli/cmd/root.go",
+		"/Users/zacharyschulze/.go/src/github.com/theseceng/gomanipulator/src/internal/util/case.go",
+		"/Users/zacharyschulze/.go/src/github.com/theseceng/gomanipulator/src/internal/util/md5.go",
+		"/Users/zacharyschulze/.go/src/github.com/theseceng/gomanipulator/src/internal/util/sha.go",
+		"/Users/zacharyschulze/.go/src/github.com/theseceng/gomanipulator/src/internal/util/base64.go",
+		"/Users/zacharyschulze/.go/src/github.com/theseceng/gomanipulator/src/internal/util/hex.go",
+		"/Users/zacharyschulze/.go/src/github.com/theseceng/gomanipulator/src/internal/util/html.go",
+		"/Users/zacharyschulze/.go/src/github.com/theseceng/gomanipulator/src/internal/util/url.go",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/src/main.go",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/manipulator.sublime-project",
+		"/Users/zacharyschulze/Documents/Projects/manipulator/.gitignore",
+		"/Users/zacharyschulze/Documents/Projects/Icebreaker/icebreaker.sublime-project",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/zzz A File Icon zzz/patches/general/multi/Adaptive.sublime-theme",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/zzz A File Icon zzz/aliases/YAML (Docker).sublime-syntax",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/zzz A File Icon zzz/aliases/Shell Script (Docker).sublime-syntax",
+		"/Users/zacharyschulze/Documents/Projects/Icebreaker/.gitignore",
+		"/Users/zacharyschulze/Documents/Projects/Icebreaker/apps/api/models/scan_request.go",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Merge/Packages/User/Preferences.sublime-settings",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/CommentHighlighter/resources/CommentHighlighter.sublime-syntax",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/CommentHighlighter/CommentHighlighter.sublime-syntax",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/Sudoku/resources/Monokai.sublime-color-scheme",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/Sudoku/resources/syntax/Sudoku.sublime-syntax",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/Sudoku/sudoku.py",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/User/comment_highlighter.sublime-color-scheme",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/User/comment_highlighter.py",
+		"/Users/zacharyschulze/Documents/Projects/Icebreaker/apps/api/api.go",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/User/_*.sublime-color-scheme",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/Godef/Godef.sublime-settings",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/User/Gofmt.sublime-settings",
+		"/Users/zacharyschulze/Library/Application Support/Sublime Text/Packages/Gofmt/Gofmt.sublime-settings"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 102.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "FMcommands/delete.py",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2068,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2067,
+								2067
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.diagnostics":
+	{
+		"height": 115.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.gofmt":
+	{
+		"height": 0.0
+	},
+	"output.language servers":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "FM-delete-confirm-update.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 361.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
