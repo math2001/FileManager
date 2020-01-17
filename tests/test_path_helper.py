@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-import unittest
-import sys
 import os
+import sys
+import unittest
 
-from FileManager.pathhelper import computer_friendly, user_friendly
+from FileManager.libs.pathhelper import computer_friendly, user_friendly
 
 
 class PathHelperTest(unittest.TestCase):
