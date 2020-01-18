@@ -1,10 +1,19 @@
 # -*- encoding: utf-8 -*-
 import os
-import imp
 import sys
 
 import sublime
 import sublime_plugin
+
+# Clear module cache to force reloading all modules of this package.
+prefix = __package__ + "."  # don't clear the base package
+for module_name in [
+    module_name
+    for module_name in sys.modules
+    if module_name.startswith(prefix) and module_name != __name__
+]:
+    del sys.modules[module_name]
+prefix = None
 
 from .libs.sublimefunctions import *
 from .commands.copy import FmCopyCommand
@@ -20,20 +29,6 @@ from .commands.open_in_browser import FmOpenInBrowserCommand
 from .commands.open_in_explorer import FmOpenInExplorerCommand
 from .commands.open_terminal import FmOpenTerminalCommand
 from .commands.rename import FmRenameCommand, FmRenamePathCommand
-
-BASE_NAME = os.path.dirname(__file__)
-
-
-def _reload(file):
-    if file.endswith(".pyc"):
-        file = file[:-1]
-    file = file[:-3]
-    module = sys.modules.get(file.replace(os.path.sep, "."))
-    if module:
-        imp.reload(module)
-
-
-# auto reload sub files - for dev
 
 
 def plugin_loaded():
@@ -55,21 +50,6 @@ def plugin_loaded():
             "To disable this warning, unset the setting "
             "auto_close_empty_groups in FileManager.sublime-settings (search "
             "for Preferences: FileManager Settings in the command palette)"
-        )
-
-
-class FmDevListener(sublime_plugin.EventListener):
-    def on_post_save(self, view):
-        """Reload FileManager
-        To use this, you need to have this plugin:
-        https://github.com/math2001/sublime-plugin-reloader"""
-        if not (
-            os.path.dirname(__file__) in view.file_name()
-            and view.file_name().endswith(".py")
-        ):
-            return
-        sublime.run_command(
-            "reload_plugin", {"main": __file__, "folders": ["commands", "libs"],},
         )
 
 
