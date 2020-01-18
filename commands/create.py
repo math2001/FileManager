@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 import os.path
-from ..sublimefunctions import *
+from ..libs.input_for_path import InputForPath
+from ..libs.sublimefunctions import *
 from .appcommand import AppCommand
-from ..input_for_path import InputForPath
 
 
 class FmCreaterCommand(AppCommand):

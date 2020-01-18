@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 import uuid
-from ..send2trash import send2trash
-from ..sublimefunctions import *
+from ..libs.input_for_path import InputForPath
+from ..libs.sublimefunctions import *
+from ..libs.send2trash import send2trash
 from .appcommand import AppCommand
-from ..input_for_path import InputForPath
 
 
 class FmRenameCommand(AppCommand):

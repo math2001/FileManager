@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
-import sublime
-import sublime_plugin
 import os
 from re import compile as re_comp
-from ..sublimefunctions import *
+
+import sublime
+import sublime_plugin
+
+from ..libs.sublimefunctions import *
 
 """ This command has been inspired at 90% by the open_url_context command
 AND the vintage open_file_under_selection. Thanks John!"""
