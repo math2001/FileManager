@@ -19,7 +19,7 @@ from .commands.open_all import FmOpenAllCommand
 from .commands.open_in_browser import FmOpenInBrowserCommand
 from .commands.open_in_explorer import FmOpenInExplorerCommand
 from .commands.open_terminal import FmOpenTerminalCommand
-from .commands.rename import FmRenameCommand
+from .commands.rename import FmRenameCommand, FmRenamePathCommand
 
 BASE_NAME = os.path.dirname(__file__)
 
@@ -69,12 +69,7 @@ class FmDevListener(sublime_plugin.EventListener):
         ):
             return
         sublime.run_command(
-            "reload_plugin",
-            {
-                "main": __file__,
-                "folders": ["FMcommands"],
-                "scripts": ["input_for_path", "sublimefunctions", "pathhelper"],
-            },
+            "reload_plugin", {"main": __file__, "folders": ["commands", "libs"],},
         )
 
 
