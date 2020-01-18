@@ -108,6 +108,7 @@
     "show_open_in_browser_command": true,
     "show_open_terminal_command": true,
     "show_rename_command": true,
+    "show_rename_path_command": true,
     "show_create_from_selection_command": true,
     "show_open_all_command": true,
 

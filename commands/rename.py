@@ -6,8 +6,19 @@ from ..libs.send2trash import send2trash
 from .appcommand import AppCommand
 
 
+class FmRenamePathCommand(AppCommand):
+    def run(self, paths):
+        sublime.active_window().run_command("rename_path", {"paths": paths})
+
+
 class FmRenameCommand(AppCommand):
     def run(self, paths=None):
+        print(
+            "fm_rename has been deprecated. It doesn't provide any more useful feature "
+            "than the default command. You should use rename_path (for a "
+            "file or a folder) or rename_file (for a file) instead."
+        )
+        sublime.status_message("fm_rename has been deprecated (see console)")
         self.settings = get_settings()
         self.window = get_window()
         self.view = self.window.active_view()

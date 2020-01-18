@@ -4,10 +4,6 @@
         "command": "fm_create"
     },
     {
-        "caption": "File Manager: Rename",
-        "command": "fm_rename"
-    },
-    {
         "caption": "File Manager: Move",
         "command": "fm_move"
     },

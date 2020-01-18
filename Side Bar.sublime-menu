@@ -34,7 +34,7 @@
     {
         "caption": "Rename...",
         "mnemonic": "R",
-        "command": "fm_rename",
+        "command": "fm_rename_path",
         "args": {
             "paths": []
         }
