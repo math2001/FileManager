@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 import sublime_plugin
-from ..sublimefunctions import get_settings, to_snake_case
+from ..libs.sublimefunctions import get_settings, to_snake_case
 
 
 class AppCommand(sublime_plugin.ApplicationCommand):

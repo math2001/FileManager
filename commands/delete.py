@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
-from ..sublimefunctions import *
+from ..libs.sublimefunctions import *
+from ..libs.send2trash import send2trash
 from .appcommand import AppCommand
-from ..send2trash import send2trash
 
 
 class FmDeleteCommand(AppCommand):
