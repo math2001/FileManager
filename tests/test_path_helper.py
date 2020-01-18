@@ -1,12 +1,9 @@
 # -*- encoding: utf-8 -*-
-import unittest
-import sys
 import os
+import sys
+import unittest
 
-sys.path.append("C:/Users/math/AppData/Roaming/Sublime Text 3/Packages/FileManager")
-from pathhelper import *
-
-sys.path.pop()
+from FileManager.libs.pathhelper import computer_friendly, user_friendly
 
 
 class PathHelperTest(unittest.TestCase):
@@ -47,6 +44,3 @@ class PathHelperTest(unittest.TestCase):
             if result is None:
                 result = base
             self.assertEqual(user_friendly(base), result)
-
-
-unittest.main()

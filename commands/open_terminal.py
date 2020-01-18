@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import subprocess
-from ..sublimefunctions import *
+from ..libs.sublimefunctions import *
 from .appcommand import AppCommand
 
 

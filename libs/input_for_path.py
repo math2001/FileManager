@@ -1,5 +1,6 @@
-import sublime
 import os
+
+import sublime
 
 from .pathhelper import *
 from .sublimefunctions import *

@@ -1,25 +1,25 @@
 # -*- encoding: utf-8 -*-
-import sublime
-import sublime_plugin
 import os
-
 import imp
 import sys
 
-from .sublimefunctions import *
-from .FMcommands.copy import FmCopyCommand
-from .FMcommands.create import FmCreaterCommand, FmCreateCommand
-from .FMcommands.create_from_selection import FmCreateFileFromSelectionCommand
-from .FMcommands.delete import FmDeleteCommand
-from .FMcommands.duplicate import FmDuplicateCommand
-from .FMcommands.editto import FmEditToTheLeftCommand, FmEditToTheRightCommand
-from .FMcommands.find_in_files import FmFindInFilesCommand
-from .FMcommands.move import FmMoveCommand
-from .FMcommands.open_in_explorer import FmOpenInExplorerCommand
-from .FMcommands.open_in_browser import FmOpenInBrowserCommand
-from .FMcommands.open_terminal import FmOpenTerminalCommand
-from .FMcommands.rename import FmRenameCommand
-from .FMcommands.open_all import FmOpenAllCommand
+import sublime
+import sublime_plugin
+
+from .libs.sublimefunctions import *
+from .commands.copy import FmCopyCommand
+from .commands.create import FmCreaterCommand, FmCreateCommand
+from .commands.create_from_selection import FmCreateFileFromSelectionCommand
+from .commands.delete import FmDeleteCommand
+from .commands.duplicate import FmDuplicateCommand
+from .commands.editto import FmEditToTheLeftCommand, FmEditToTheRightCommand
+from .commands.find_in_files import FmFindInFilesCommand
+from .commands.move import FmMoveCommand
+from .commands.open_all import FmOpenAllCommand
+from .commands.open_in_browser import FmOpenInBrowserCommand
+from .commands.open_in_explorer import FmOpenInExplorerCommand
+from .commands.open_terminal import FmOpenTerminalCommand
+from .commands.rename import FmRenameCommand, FmRenamePathCommand
 
 BASE_NAME = os.path.dirname(__file__)
 
@@ -69,12 +69,7 @@ class FmDevListener(sublime_plugin.EventListener):
         ):
             return
         sublime.run_command(
-            "reload_plugin",
-            {
-                "main": __file__,
-                "folders": ["FMcommands"],
-                "scripts": ["input_for_path", "sublimefunctions", "pathhelper"],
-            },
+            "reload_plugin", {"main": __file__, "folders": ["commands", "libs"],},
         )
 
 

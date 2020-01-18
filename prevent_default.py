@@ -1,4 +1,5 @@
 import sublime_plugin
+from Default.side_bar import RenamePathCommand
 
 
 class NewFileAtCommand(sublime_plugin.WindowCommand):
@@ -33,11 +34,8 @@ class DeleteFolderCommand(sublime_plugin.WindowCommand):
         return False
 
 
-class RenamePathCommand(sublime_plugin.WindowCommand):
+class RenamePathCommand(RenamePathCommand):
     def is_visible(self):
-        return False
-
-    def is_enabled(self):
         return False
 
 
