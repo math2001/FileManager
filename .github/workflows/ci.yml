@@ -14,5 +14,5 @@ jobs:
     - name: Install black
       run: pip install black
     - name: Check formating
-      run: black --check .
+      run: black --check --exclude "/(\.git(hub)?|\.mypy_cache|\.nox|\.tox|\.venv|libs/send2trash)/" .
 
