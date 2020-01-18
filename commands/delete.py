@@ -42,7 +42,7 @@ class FmDeleteCommand(AppCommand):
 
             confirm_title = "Confirm"
             confirm_subtitle = "Send {}item{} to trash".format(nitems, extras)
-            cancel_title = "Cancel All (Select an individual file to remove it from the deletion list)"
+            cancel_title = "Cancel All (Select an individual item to remove it from the deletion list)"
             cancel_subtitle = "Cancel deletion of {}item{}".format(nitems, extras)
 
             paths_to_display = [
