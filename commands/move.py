@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 from ..libs.input_for_path import InputForPath
 from ..libs.sublimefunctions import *
 from .appcommand import AppCommand
