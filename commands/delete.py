@@ -49,7 +49,7 @@ class FmDeleteCommand(AppCommand):
                 [confirm_title, confirm_subtitle],
                 [cancel_title, cancel_subtitle],
             ]
-            for path in paths:
+            for path in self.paths:
                 paths_to_display.append([os.path.basename(path), path])
 
             self.window.show_quick_panel(
