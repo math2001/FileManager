@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 from ..libs.sublimefunctions import *
 from .appcommand import AppCommand
 
