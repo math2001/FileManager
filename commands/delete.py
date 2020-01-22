@@ -12,19 +12,21 @@ class FmDeleteCommand(AppCommand):
 
         self.paths = paths or [self.view.file_name()]
         if get_settings().get("ask_for_confirmation_on_delete"):
-            num_paths = len(self.paths)
-            nitems = "{0} ".format(num_paths) if num_paths > 1 else ""
-            extras = "s" if num_paths > 1 else ""
-
-            confirm_title = "Confirm"
-            confirm_subtitle = "Send {}item{} to trash".format(nitems, extras)
-            cancel_title = "Cancel All (Select an individual item to remove it from the deletion list)"
-            cancel_subtitle = "Cancel deletion of {}item{}".format(nitems, extras)
-
             paths_to_display = [
-                [confirm_title, confirm_subtitle],
-                [cancel_title, cancel_subtitle],
-            ] + [[os.path.basename(path), path] for path in self.paths]
+                [
+                    "Confirm",
+                    "Send {0} items to trash".format(len(self.paths))
+                    if len(self.paths) > 1
+                    else "Send item to trash",
+                ],
+                [
+                    "Cancel All",
+                    "Select an individual item to remove it from the deletion list",
+                ],
+            ]
+            paths_to_display.extend(
+                [os.path.basename(path), path] for path in self.paths
+            )
 
             self.window.show_quick_panel(paths_to_display, self.delete)
 
