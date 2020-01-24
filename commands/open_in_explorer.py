@@ -1,22 +1,24 @@
 # -*- encoding: utf-8 -*-
-from ..libs.sublimefunctions import *
+import sublime
+import os.path
 from .appcommand import AppCommand
 
 
 class FmOpenInExplorerCommand(AppCommand):
     def run(self, visible_on_platforms, paths=None):
         # visible_on_platforms is just used by is_visible
-        self.window = get_window()
-        self.view = get_view()
+
+        window = sublime.active_window()
+        view = window.active_view()
 
         if paths is None:
-            paths = [self.view.file_name()]
+            paths = [view.file_name()]
 
         for path in paths:
             if os.path.isdir(path):
-                self.window.run_command("open_dir", {"dir": path})
+                window.run_command("open_dir", {"dir": path})
             else:
-                self.window.run_command(
+                window.run_command(
                     "open_dir",
                     {"dir": os.path.dirname(path), "file": os.path.basename(path)},
                 )
