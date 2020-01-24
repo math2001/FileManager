@@ -29,7 +29,7 @@ def get_settings():
 
 def refresh_sidebar(settings=None, window=None):
     if window is None:
-        window = active_window()
+        window = sublime.active_window()
     if settings is None:
         settings = window.active_view().settings()
     if settings.get("explicitly_refresh_sidebar") is True:

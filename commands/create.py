@@ -1,6 +1,10 @@
 # -*- encoding: utf-8 -*-
+import os
+import sublime
 from ..libs.input_for_path import InputForPath
-from ..libs.sublimefunctions import *
+from .libs.pathhelper import user_friendly
+from .libs.sublimefunctions import get_template, refresh_sidebar, transform_aliases
+from .libs.constants import SETTINGS
 from .appcommand import AppCommand
 
 
@@ -11,21 +15,21 @@ class FmCreaterCommand(AppCommand):
     def run(self, abspath, input_path):
         input_path = user_friendly(input_path)
         if input_path[-1] == "/":
-            return makedirs(abspath, exist_ok=True)
+            return os.makedirs(abspath, exist_ok=True)
         if not os.path.isfile(abspath):
-            makedirs(os.path.dirname(abspath), exist_ok=True)
+            os.makedirs(os.path.dirname(abspath), exist_ok=True)
             with open(abspath, "w") as fp:
                 pass
             template = get_template(abspath)
         else:
             template = None
-        window = get_window()
+        window = sublime.active_window()
         view = window.open_file(abspath)
         settings = view.settings()
         if template:
             settings.set("fm_insert_snippet_on_load", template)
         refresh_sidebar(settings, window)
-        if get_settings().get("reveal_in_sidebar"):
+        if sublime.load_settings(SETTINGS.file).get("reveal_in_sidebar"):
             settings.set("fm_reveal_in_sidebar", True)
             sublime.set_timeout_async(
                 lambda: window.run_command("reveal_in_side_bar"), 500
@@ -40,14 +44,14 @@ class FmCreateCommand(AppCommand):
         start_with_browser=False,
         no_browser_action=False,
     ):
-        self.settings = get_settings()
+        self.settings = sublime.load_settings(SETTINGS.file)
         self.window = sublime.active_window()
         self.index_folder_separator = self.settings.get("index_folder_" + "separator")
         self.default_index = self.settings.get("default_index")
 
         self.folders = self.window.folders()
 
-        self.view = get_view()
+        self.view = sublime.active_window().active_view()
 
         self.know_where_to_create_from = paths is not None
 
@@ -97,7 +101,7 @@ class FmCreateCommand(AppCommand):
             splited_input = input_path.split(self.index_folder_separator, 1)
             if len(splited_input) == 1:
                 index = self.default_index
-            elif isdigit(splited_input[0]):
+            elif splited_input[0].isdigit():
                 index = int(splited_input[0])
             else:
                 return None, input_path
