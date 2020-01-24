@@ -160,11 +160,6 @@ def to_snake_case(camelCaseString):
     return snake
 
 
-def StdClass(name="Unknown"):
-    # add the str() function because of the unicode in Python 2
-    return type(str(name).title(), (), {})
-
-
 def transform_aliases(window, string):
     """Transform aliases using the settings and the default variables
     It's recursive, so you can use aliases *in* your aliases' values
