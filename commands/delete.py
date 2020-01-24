@@ -38,9 +38,11 @@ class FmDeleteCommand(AppCommand):
     def delete(self, index):
         if index == 0:
             for path in self.paths:
-                view = self.window.find_open_file(path)
-                if view is not None:
-                    close_view(view)
+                for window in sublime.windows():
+                    view = window.find_open_file(path)
+                    while view is not None:
+                        close_view(view, dont_prompt_save=True)
+                        view = window.find_open_file(path)
 
                 try:
                     send2trash(path)
