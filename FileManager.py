@@ -14,7 +14,8 @@ for module_name in [
     del sys.modules[module_name]
 prefix = None
 
-from .libs.sublimefunctions import *
+from .libs.constants import SETTINGS, VIEW_SETTINGS
+
 from .commands.copy import FmCopyCommand
 from .commands.create import FmCreaterCommand, FmCreateCommand
 from .commands.create_from_selection import FmCreateFileFromSelectionCommand
@@ -31,9 +32,8 @@ from .commands.rename import FmRenameCommand, FmRenamePathCommand
 
 
 def plugin_loaded():
-    settings = get_settings()
     # this use to be a supported setting, but we dropped it. (see #27)
-    if settings.get("auto_close_empty_groups") is not None:
+    if sublime.load_settings(SETTINGS.file).get("auto_close_empty_groups") is not None:
         # we could remove the setting automatically, and install the
         # package if it was set to true, but it'd be an extra source
         # of bugs, and it doesn't take that much effort (it's a one
@@ -62,13 +62,13 @@ class FmEditReplace(sublime_plugin.TextCommand):
 class FmListener(sublime_plugin.EventListener):
     def on_load(self, view):
         settings = view.settings()
-        snippet = settings.get("fm_insert_snippet_on_load", None)
+        snippet = settings.get(VIEW_SETTINGS.insert_snippet_on_load, None)
         if snippet:
             view.run_command("insert_snippet", {"contents": snippet})
-            settings.erase("fm_insert_snippet_on_load")
-            if get_settings().get("save_after_creating"):
+            settings.erase(VIEW_SETTINGS.insert_snippet_on_load)
+            if sublime.load_settins(SETTINGS.File).get(SETTINGS.save_after_creating):
                 view.run_command("save")
-            if settings.get("fm_reveal_in_sidebar"):
+            if settings.get(VIEW_SETTINGS.reveal_in_sidebar):
                 view.window().run_command("reveal_in_side_bar")
 
     def on_text_command(self, view, command, args):
