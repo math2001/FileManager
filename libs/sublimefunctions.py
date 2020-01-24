@@ -136,7 +136,9 @@ def yes_no_cancel_panel(
     window.show_quick_panel(items, on_done, 0, 1)
 
 
-def close_view(view_to_close):
+def close_view(view_to_close, dont_prompt_save=False):
+    if dont_prompt_save:
+        view_to_close.set_scratch(True)
     if isST3():
         view_to_close.close()
         return
