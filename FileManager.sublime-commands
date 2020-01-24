@@ -17,7 +17,17 @@
     },
     {
         "caption": "File Manager: Open In Explorer",
-        "command": "fm_open_in_explorer"
+        "command": "fm_open_in_explorer",
+        "args": {
+            "visible_on_platforms": ["windows", "linux"]
+        }
+    },
+    {
+        "caption": "File Manager: Open In Finder",
+        "command": "fm_open_in_explorer",
+        "args": {
+            "visible_on_platforms": ["osx"]
+        }
     },
     {
         "caption": "File Manager: Open In Browser",

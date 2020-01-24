@@ -4,7 +4,8 @@ from .appcommand import AppCommand
 
 
 class FmOpenInExplorerCommand(AppCommand):
-    def run(self, paths=None, *args, **kwargs):
+    def run(self, visible_on_platforms, paths=None):
+        # visible_on_platforms is just used by is_visible
         self.window = get_window()
         self.view = get_view()
 
@@ -20,5 +21,5 @@ class FmOpenInExplorerCommand(AppCommand):
                     {"dir": os.path.dirname(path), "file": os.path.basename(path)},
                 )
 
-    def is_visisble(self, **args):
-        return True
+    def is_visible(self, visible_on_platforms, paths=None):
+        return sublime.platform() in visible_on_platforms and super().is_visible()
