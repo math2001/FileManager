@@ -1,27 +1,24 @@
 # -*- encoding: utf-8 -*-
-from ..libs.sublimefunctions import *
-from .appcommand import AppCommand
+import os
+
+import sublime
+
+from .fmcommand import FmWindowCommand
 
 
-class FmOpenInExplorerCommand(AppCommand):
+class FmOpenInExplorerCommand(FmWindowCommand):
     def run(self, visible_on_platforms=None, paths=None):
         # visible_on_platforms is just used by is_visible
-        self.window = get_window()
-        self.view = get_view()
-
-        if paths is None:
-            paths = [self.view.file_name()]
-
-        for path in paths:
+        for path in paths or [self.window.active_view().file_name()]:
             if os.path.isdir(path):
                 self.window.run_command("open_dir", {"dir": path})
             else:
+                dirname, basename = os.path.splitext(path)
                 self.window.run_command(
-                    "open_dir",
-                    {"dir": os.path.dirname(path), "file": os.path.basename(path)},
+                    "open_dir", {"dir": dirname, "file": basename},
                 )
 
     def is_visible(self, visible_on_platforms=None, paths=None):
-        return super().is_visible() and (
+        return (
             visible_on_platforms is None or sublime.platform() in visible_on_platforms
-        )
+        ) and super().is_visible()

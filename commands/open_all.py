@@ -1,13 +1,11 @@
 # -*- encoding: utf-8 -*-
-from ..libs.sublimefunctions import *
-from .appcommand import AppCommand
+from .fmcommand import FmWindowCommand
 
 
-class FmOpenAllCommand(AppCommand):
-    def run(self, files=None):
-        assert files is not None, "fm_open_all called without any files (files=None)"
+class FmOpenAllCommand(FmWindowCommand):
+    def run(self, files=[]):
         for file in files:
-            get_window().open_file(file)
+            self.window.open_file(file)
 
-    def is_enabled(self, **kwargs):
-        return len(kwargs["files"]) > 1
+    def is_enabled(self, files=[]):
+        return len(files) > 1

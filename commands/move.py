@@ -1,19 +1,17 @@
 # -*- encoding: utf-8 -*-
+import os
+
+import sublime
+
 from ..libs.input_for_path import InputForPath
-from ..libs.sublimefunctions import *
-from .appcommand import AppCommand
+from ..libs.pathhelper import commonpath, user_friendly
+from ..libs.sublimefunctions import refresh_sidebar
+from .fmcommand import FmWindowCommand
 
 
-class FmMoveCommand(AppCommand):
+class FmMoveCommand(FmWindowCommand):
     def run(self, paths=None):
-        self.settings = get_settings()
-        self.window = get_window()
-        self.view = self.window.active_view()
-
-        if paths is not None:
-            self.origins = paths
-        else:
-            self.origins = [self.view.file_name()]
+        self.origins = paths or [self.window.active_view().file_name()]
 
         if len(self.origins) > 1:
             initial_text = commonpath(self.origins)
@@ -21,7 +19,7 @@ class FmMoveCommand(AppCommand):
             initial_text = os.path.dirname(self.origins[0])
         initial_text = user_friendly(initial_text) + "/"
 
-        ipt = InputForPath(
+        InputForPath(
             caption="Move to",
             initial_text=initial_text,
             on_done=self.move,
@@ -38,7 +36,7 @@ class FmMoveCommand(AppCommand):
         )
 
     def move(self, path, input_path):
-        makedirs(path, exist_ok=True)
+        os.makedirs(path, exist_ok=True)
         for origin in self.origins:
             view = self.window.find_open_file(origin)
             new_name = os.path.join(path, os.path.basename(origin))

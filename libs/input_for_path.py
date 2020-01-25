@@ -2,17 +2,8 @@ import os
 
 import sublime
 
-from .pathhelper import *
-from .sublimefunctions import *
-
-
-def isdigit(string):
-    try:
-        int(string)
-    except ValueError:
-        return False
-    else:
-        return True
+from .pathhelper import computer_friendly, user_friendly
+from .sublimefunctions import sm, transform_aliases
 
 
 def set_status(view, key, value):
@@ -24,6 +15,11 @@ def set_status(view, key, value):
 
 def get_entire_text(view):
     return view.substr(sublime.Region(0, view.size()))
+
+
+def StdClass(name="Unknown"):
+    # add the str() function because of the unicode in Python 2
+    return type(str(name).title(), (), {})
 
 
 class InputForPath(object):
@@ -120,8 +116,6 @@ class InputForPath(object):
         self.input.view.set_name("FileManager::input-for-path")
         self.input.settings = self.input.view.settings()
         self.input.settings.set("tab_completion", False)
-        if not isST3():
-            self.input.view.selection = self.input.view.sel()
 
     def __get_completion_for(
         self, abspath, with_files, pick_first, case_sensitive, can_add_slash

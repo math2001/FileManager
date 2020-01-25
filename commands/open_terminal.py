@@ -1,34 +1,15 @@
 # -*- encoding: utf-8 -*-
+import os
 import subprocess
-from ..libs.sublimefunctions import *
-from .appcommand import AppCommand
+
+import sublime
+
+from ..libs.pathhelper import user_friendly
+from .fmcommand import FmWindowCommand
 
 
-class FmOpenTerminalCommand(AppCommand):
-    def open_terminal(self, cmd, cwd, name):
-        if os.path.isfile(cwd):
-            cwd = os.path.dirname(cwd)
-
-        for j, bit in enumerate(cmd):
-            cmd[j] = bit.replace("$cwd", cwd)
-        sublime.status_message('Opening "{0}" at {1}'.format(name, user_friendly(cwd)))
-        return subprocess.Popen(cmd, cwd=cwd)
-
-    def is_available(self, terminal, current_platform):
-        try:
-            terminal["platform"]
-        except KeyError:
-            return True
-        if not isinstance(terminal["platform"], str):
-            return False
-
-        platforms = terminal["platform"].lower().split(" ")
-        return current_platform in platforms
-
+class FmOpenTerminalCommand(FmWindowCommand):
     def run(self, paths=None):
-        self.settings = get_settings()
-        self.window = get_window()
-        self.view = self.window.active_view()
         current_platform = sublime.platform()
         self.terminals = [
             terminal
@@ -41,7 +22,7 @@ class FmOpenTerminalCommand(AppCommand):
         elif self.window.folders() != []:
             cwd = self.window.folders()[0]
         else:
-            cwd = self.view.file_name()
+            cwd = self.window.active_view().file_name()
 
         def open_terminal_callback(index):
             if index == -1:
@@ -60,3 +41,23 @@ class FmOpenTerminalCommand(AppCommand):
 
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
+
+    def is_available(self, terminal, current_platform):
+        try:
+            terminal["platform"]
+        except KeyError:
+            return True
+        if not isinstance(terminal["platform"], str):
+            return False
+
+        platforms = terminal["platform"].lower().split(" ")
+        return current_platform in platforms
+
+    def open_terminal(self, cmd, cwd, name):
+        if os.path.isfile(cwd):
+            cwd = os.path.dirname(cwd)
+
+        for j, bit in enumerate(cmd):
+            cmd[j] = bit.replace("$cwd", cwd)
+        sublime.status_message('Opening "{0}" at {1}'.format(name, user_friendly(cwd)))
+        return subprocess.Popen(cmd, cwd=cwd)

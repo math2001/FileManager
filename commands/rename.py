@@ -1,17 +1,22 @@
 # -*- encoding: utf-8 -*-
+import os
 import uuid
+
+import sublime
+
 from ..libs.input_for_path import InputForPath
-from ..libs.sublimefunctions import *
+from ..libs.pathhelper import user_friendly
+from ..libs.sublimefunctions import yes_no_cancel_panel, refresh_sidebar
 from ..libs.send2trash import send2trash
-from .appcommand import AppCommand
+from .fmcommand import FmWindowCommand
 
 
-class FmRenamePathCommand(AppCommand):
+class FmRenamePathCommand(FmWindowCommand):
     def run(self, paths):
-        sublime.active_window().run_command("rename_path", {"paths": paths})
+        self.window.run_command("rename_path", {"paths": paths})
 
 
-class FmRenameCommand(AppCommand):
+class FmRenameCommand(FmWindowCommand):
     def run(self, paths=None):
         print(
             "fm_rename has been deprecated. It doesn't provide any more useful feature "
@@ -19,12 +24,9 @@ class FmRenameCommand(AppCommand):
             "file or a folder) or rename_file (for a file) instead."
         )
         sublime.status_message("fm_rename has been deprecated (see console)")
-        self.settings = get_settings()
-        self.window = get_window()
-        self.view = self.window.active_view()
 
         if paths is None:
-            self.origin = self.view.file_name()
+            self.origin = self.window.active_view().file_name()
         else:
             self.origin = paths[0]
 
@@ -54,7 +56,7 @@ class FmRenameCommand(AppCommand):
 
         def rename():
             dst_dir = os.path.dirname(dst)
-            makedirs(dst_dir, exist_ok=True)
+            os.makedirs(dst_dir, exist_ok=True)
 
             if is_windows_same_filesystem_name() and self.origin != dst:
                 dst_tmp = os.path.join(dst_dir, str(uuid.uuid4()))

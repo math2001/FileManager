@@ -1,17 +1,18 @@
 # -*- encoding: utf-8 -*-
-from ..libs.sublimefunctions import *
+import os
+
+import sublime
+
+from ..libs.sublimefunctions import refresh_sidebar
 from ..libs.send2trash import send2trash
-from .appcommand import AppCommand
+from .fmcommand import FmWindowCommand
 
 
-class FmDeleteCommand(AppCommand):
-    def run(self, paths=None, *args, **kwargs):
-        self.settings = get_settings()
-        self.window = get_window()
-        self.view = get_view()
+class FmDeleteCommand(FmWindowCommand):
+    def run(self, paths=None):
+        self.paths = paths or [self.window.active_view().file_name()]
 
-        self.paths = paths or [self.view.file_name()]
-        if get_settings().get("ask_for_confirmation_on_delete"):
+        if self.settings.get("ask_for_confirmation_on_delete"):
             paths_to_display = [
                 [
                     "Confirm",
@@ -41,7 +42,8 @@ class FmDeleteCommand(AppCommand):
                 for window in sublime.windows():
                     view = window.find_open_file(path)
                     while view is not None:
-                        close_view(view, dont_prompt_save=True)
+                        view.set_scratch(True)
+                        view.close()
                         view = window.find_open_file(path)
 
                 try:

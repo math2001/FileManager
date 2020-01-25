@@ -1,20 +1,17 @@
 # -*- encoding: utf-8 -*-
-from ..libs.sublimefunctions import *
-from .appcommand import AppCommand
+import os
+
+import sublime
+
+from .fmcommand import FmWindowCommand
 
 
-class FmCopyCommand(AppCommand):
+class FmCopyCommand(FmWindowCommand):
     def run(self, which, paths=None):
-        self.view = get_view()
-        self.window = get_window()
-
-        if paths is None:
-            paths = [self.view.file_name()]
-
         text = []
         folders = self.window.folders()
 
-        for path in paths:
+        for path in paths or [self.window.active_view().file_name()]:
             if which == "name":
                 text.append(os.path.basename(path))
             elif which == "absolute path":
@@ -30,4 +27,4 @@ class FmCopyCommand(AppCommand):
                         text[-1] = text[-1][1:]
                     break
 
-        copy("\n".join(bit.replace(os.path.sep, "/") for bit in text))
+        sublime.set_clipboard("\n".join(bit.replace(os.path.sep, "/") for bit in text))

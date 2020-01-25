@@ -1,50 +1,38 @@
 # -*- encoding: utf-8 -*-
-from ..libs.sublimefunctions import *
-from .appcommand import AppCommand
+from .fmcommand import FmWindowCommand
 
 
-class FmEditToTheRightCommand(AppCommand):
+class FmEditToTheRightCommand(FmWindowCommand):
     def run(self, files=None):
-        v = get_view()
-        w = get_window()
-
-        if files is None:
-            files = [v.file_name()]
-
-        w.set_layout(
+        self.window.set_layout(
             {
                 "cols": [0.0, 0.5, 1.0],
                 "rows": [0.0, 1.0],
                 "cells": [[0, 0, 1, 1], [1, 0, 2, 1]],
             }
         )
-        for i, file in enumerate(files, 1):
-            w.set_view_index(w.open_file(file), 1, 0)
-        w.focus_group(1)
+        for file in files or [self.window.active_view().file_name()]:
+            self.window.set_view_index(self.window.open_file(file), 1, 0)
+
+        self.window.focus_group(1)
 
     def is_enabled(self, files=None):
-        return (files is None or len(files) >= 1) and get_window().active_group() != 1
+        return (files is None or len(files) >= 1) and self.window.active_group() != 1
 
 
-class FmEditToTheLeftCommand(AppCommand):
+class FmEditToTheLeftCommand(FmWindowCommand):
     def run(self, files=None):
-        v = get_view()
-        w = get_window()
-
-        if files is None:
-            files = [v.file_name()]
-
-        w.set_layout(
+        self.window.set_layout(
             {
                 "cols": [0.0, 0.5, 1.0],
                 "rows": [0.0, 1.0],
                 "cells": [[0, 0, 1, 1], [1, 0, 2, 1]],
             }
         )
-        for file in files:
-            w.set_view_index(w.open_file(file), 0, 0)
+        for file in files or [self.window.active_view().file_name()]:
+            self.window.set_view_index(self.window.open_file(file), 0, 0)
 
-        w.focus_group(0)
+        self.window.focus_group(0)
 
     def is_enabled(self, files=None):
-        return (files is None or len(files) >= 1) and get_window().active_group() != 0
+        return (files is None or len(files) >= 1) and self.window.active_group() != 1

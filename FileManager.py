@@ -14,7 +14,6 @@ for module_name in [
     del sys.modules[module_name]
 prefix = None
 
-from .libs.sublimefunctions import *
 from .commands.copy import FmCopyCommand
 from .commands.create import FmCreaterCommand, FmCreateCommand
 from .commands.create_from_selection import FmCreateFileFromSelectionCommand
@@ -31,7 +30,7 @@ from .commands.rename import FmRenameCommand, FmRenamePathCommand
 
 
 def plugin_loaded():
-    settings = get_settings()
+    settings = sublime.load_settings("FileManager.sublime-settings")
     # this use to be a supported setting, but we dropped it. (see #27)
     if settings.get("auto_close_empty_groups") is not None:
         # we could remove the setting automatically, and install the
@@ -66,7 +65,9 @@ class FmListener(sublime_plugin.EventListener):
         if snippet:
             view.run_command("insert_snippet", {"contents": snippet})
             settings.erase("fm_insert_snippet_on_load")
-            if get_settings().get("save_after_creating"):
+            if sublime.load_settings("FileManager.sublime-settings").get(
+                "save_after_creating"
+            ):
                 view.run_command("save")
             if settings.get("fm_reveal_in_sidebar"):
                 view.window().run_command("reveal_in_side_bar")

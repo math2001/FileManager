@@ -1,17 +1,18 @@
 # -*- encoding: utf-8 -*-
+import os
 import shutil
+
+import sublime
+
 from ..libs.input_for_path import InputForPath
-from ..libs.sublimefunctions import *
+from ..libs.sublimefunctions import refresh_sidebar, yes_no_cancel_panel
+from ..libs.pathhelper import user_friendly
 from ..libs.send2trash import send2trash
-from .appcommand import AppCommand
+from .fmcommand import FmWindowCommand
 
 
-class FmDuplicateCommand(AppCommand):
+class FmDuplicateCommand(FmWindowCommand):
     def run(self, paths=None):
-        self.settings = get_settings()
-
-        self.window = get_window()
-
         if paths is None:
             self.origin = self.window.active_view().file_name()
         else:
@@ -19,20 +20,19 @@ class FmDuplicateCommand(AppCommand):
 
         initial_path = user_friendly(self.origin)
 
-        args = {}
-        args["caption"] = "Duplicate to: "
-        args["initial_text"] = initial_path
-        args["on_done"] = self.duplicate
-        args["on_change"] = None
-        args["on_cancel"] = None
-        args["create_from"] = ""
-        args["with_files"] = False
-        args["pick_first"] = self.settings.get("pick_first")
-        args["case_sensitive"] = self.settings.get("case_sensitive")
-        args["log_in_status_bar"] = self.settings.get("log_in_status_bar")
-        args["log_template"] = "Duplicating at {0}"
-
-        self.input = InputForPath(**args)
+        self.input = InputForPath(
+            caption="Duplicate to: ",
+            initial_text=initial_path,
+            on_done=self.duplicate,
+            on_change=None,
+            on_cancel=None,
+            create_from="",
+            with_files=False,
+            pick_first=self.settings.get("pick_first"),
+            case_sensitive=self.settings.get("case_sensitive"),
+            log_in_status_bar=self.settings.get("log_in_status_bar"),
+            log_template="Duplicating at {0}",
+        )
 
         head = len(os.path.dirname(initial_path)) + 1
         filename = len(os.path.splitext(os.path.basename(initial_path))[0])

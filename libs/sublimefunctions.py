@@ -2,8 +2,6 @@ import os
 
 import sublime
 
-from .pathhelper import *
-
 TEMPLATE_FOLDER = None
 
 
@@ -29,45 +27,11 @@ def get_settings():
 
 def refresh_sidebar(settings=None, window=None):
     if window is None:
-        window = active_window()
+        window = sublime.active_window()
     if settings is None:
         settings = window.active_view().settings()
     if settings.get("explicitly_refresh_sidebar") is True:
         window.run_command("refresh_folder_list")
-
-
-def makedirs(path, exist_ok=True):
-    if exist_ok is False:
-        os.makedirs(path)
-    else:
-        try:
-            os.makedirs(path)
-        except OSError:
-            pass
-
-
-def quote(s):
-    return '"{0}"'.format(s)
-
-
-def get_window():
-    return sublime.active_window()
-
-
-def get_view():
-    window = get_window()
-    if not window:
-        return
-    return window.active_view()
-
-
-def copy(el):
-    return sublime.set_clipboard(el)
-
-
-def file_get_content(path):
-    with open(path, "r") as fp:
-        return fp.read()
 
 
 def get_template(created_file):
@@ -76,7 +40,7 @@ def get_template(created_file):
 
     if TEMPLATE_FOLDER is None:
         TEMPLATE_FOLDER = os.path.join(sublime.packages_path(), "User", ".FileManager")
-        makedirs(TEMPLATE_FOLDER, exist_ok=True)
+        os.makedirs(TEMPLATE_FOLDER, exist_ok=True)
 
     template_files = os.listdir(TEMPLATE_FOLDER)
     for item in template_files:
@@ -84,17 +48,9 @@ def get_template(created_file):
             os.path.splitext(item)[0] == "template"
             and os.path.splitext(item)[1] == os.path.splitext(created_file)[1]
         ):
-            return file_get_content(os.path.join(TEMPLATE_FOLDER, item))
+            with open(os.path.join(TEMPLATE_FOLDER, item)) as fp:
+                return fp.read()
     return ""
-
-
-def isdigit(string):
-    try:
-        int(string)
-    except ValueError:
-        return False
-    else:
-        return True
 
 
 def yes_no_cancel_panel(
@@ -132,37 +88,8 @@ def yes_no_cancel_panel(
         elif index == 0:
             return yes_no_cancel_panel(**loc)
 
-    window = get_window()
+    window = sublime.active_window()
     window.show_quick_panel(items, on_done, 0, 1)
-
-
-def close_view(view_to_close, dont_prompt_save=False):
-    if dont_prompt_save:
-        view_to_close.set_scratch(True)
-    if isST3():
-        view_to_close.close()
-        return
-    window = view_to_close.window()
-    window.focus_view(view_to_close)
-    window.run_command("close")
-
-
-def to_snake_case(camelCaseString):
-    snake = ""
-    for char in camelCaseString:
-        if char.isupper():
-            if snake == "":
-                snake += char.lower()
-            else:
-                snake += "_" + char.lower()
-        else:
-            snake += char
-    return snake
-
-
-def StdClass(name="Unknown"):
-    # add the str() function because of the unicode in Python 2
-    return type(str(name).title(), (), {})
 
 
 def transform_aliases(window, string):

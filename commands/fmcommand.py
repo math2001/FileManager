@@ -1,13 +1,15 @@
 # -*- encoding: utf-8 -*-
+import sublime
 import sublime_plugin
-from ..libs.sublimefunctions import get_settings, to_snake_case
 
 
-class AppCommand(sublime_plugin.ApplicationCommand):
+class FmWindowCommand(sublime_plugin.WindowCommand):
+
+    settings = sublime.load_settings("FileManager.sublime-settings")
+
     def is_visible(self, *args, **kwargs):
-        settings = get_settings()
-        show = settings.get(
-            "show_" + to_snake_case(type(self).__name__.replace("Fm", ""))
+        show = self.settings.get(
+            "show_{}_command".format(self.name().replace("fm_", ""))
         )
         if show is None:
             # this should never happen, this is an error
@@ -25,7 +27,7 @@ class AppCommand(sublime_plugin.ApplicationCommand):
         return bool(
             show
             and (
-                not settings.get("menu_without_distraction")
+                not self.settings.get("menu_without_distraction")
                 or self.is_enabled(*args, **kwargs)
             )
         )

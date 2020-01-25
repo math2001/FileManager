@@ -1,38 +1,48 @@
 # -*- encoding: utf-8 -*-
+import os
+
+import sublime
+
 from ..libs.input_for_path import InputForPath
-from ..libs.sublimefunctions import *
-from .appcommand import AppCommand
+from ..libs.sublimefunctions import (
+    get_template,
+    refresh_sidebar,
+    transform_aliases,
+)
+from ..libs.pathhelper import user_friendly
+from .fmcommand import FmWindowCommand
 
 
-class FmCreaterCommand(AppCommand):
+class FmCreaterCommand(FmWindowCommand):
     """Create folder(s)/files that might be required and the
     final ones if it doesn't exists. Finaly, opens the file"""
 
     def run(self, abspath, input_path):
         input_path = user_friendly(input_path)
         if input_path[-1] == "/":
-            return makedirs(abspath, exist_ok=True)
+            return os.makedirs(abspath, exist_ok=True)
         if not os.path.isfile(abspath):
-            makedirs(os.path.dirname(abspath), exist_ok=True)
+            os.makedirs(os.path.dirname(abspath), exist_ok=True)
             with open(abspath, "w") as fp:
                 pass
             template = get_template(abspath)
         else:
             template = None
-        window = get_window()
-        view = window.open_file(abspath)
-        settings = view.settings()
+
+        settings = self.window.open_file(abspath).settings()
         if template:
             settings.set("fm_insert_snippet_on_load", template)
-        refresh_sidebar(settings, window)
-        if get_settings().get("reveal_in_sidebar"):
+
+        refresh_sidebar(settings, self.window)
+
+        if self.settings.get("reveal_in_sidebar"):
             settings.set("fm_reveal_in_sidebar", True)
-            sublime.set_timeout_async(
-                lambda: window.run_command("reveal_in_side_bar"), 500
+            sublime.set_timeout(
+                lambda: self.window.run_command("reveal_in_side_bar"), 500
             )
 
 
-class FmCreateCommand(AppCommand):
+class FmCreateCommand(FmWindowCommand):
     def run(
         self,
         paths=None,
@@ -40,14 +50,12 @@ class FmCreateCommand(AppCommand):
         start_with_browser=False,
         no_browser_action=False,
     ):
-        self.settings = get_settings()
-        self.window = sublime.active_window()
+        view = self.window.active_view()
+
         self.index_folder_separator = self.settings.get("index_folder_" + "separator")
         self.default_index = self.settings.get("default_index")
 
         self.folders = self.window.folders()
-
-        self.view = get_view()
 
         self.know_where_to_create_from = paths is not None
 
@@ -64,8 +72,8 @@ class FmCreateCommand(AppCommand):
             # it is going to be interactive, so it'll be
             # understood from the input itself
             create_from = None
-        elif self.view.file_name() is not None:
-            create_from = os.path.dirname(self.view.file_name())
+        elif view.file_name() is not None:
+            create_from = os.path.dirname(view.file_name())
             self.know_where_to_create_from = True
         else:
             # from home
@@ -97,10 +105,12 @@ class FmCreateCommand(AppCommand):
             splited_input = input_path.split(self.index_folder_separator, 1)
             if len(splited_input) == 1:
                 index = self.default_index
-            elif isdigit(splited_input[0]):
-                index = int(splited_input[0])
             else:
-                return None, input_path
+                try:
+                    index = int(splited_input[0])
+                except ValueError:
+                    return None, input_path
+
             return self.folders[index], splited_input[-1]
         return "~", input_path
 
