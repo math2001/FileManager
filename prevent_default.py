@@ -61,3 +61,8 @@ class OpenInBrowserCommand(sublime_plugin.TextCommand):
 
     def is_enabled(self):
         return False
+
+
+class CopyPathCommand(sublime_plugin.TextCommand):
+    def is_visible(self):
+        return False
