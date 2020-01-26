@@ -12,8 +12,10 @@ from .fmcommand import FmWindowCommand
 
 
 class FmRenamePathCommand(FmWindowCommand):
-    def run(self, paths):
-        self.window.run_command("rename_path", {"paths": paths})
+    def run(self, paths=None):
+        self.window.run_command(
+            "rename_path", {"paths": paths or [self.window.active_view().file_name()]}
+        )
 
 
 class FmRenameCommand(FmWindowCommand):
