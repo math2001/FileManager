@@ -16,18 +16,8 @@
         "command": "fm_delete"
     },
     {
-        "caption": "File Manager: Open In Explorer",
+        "caption": "File Manager: Open Containing Folder…",
         "command": "fm_open_in_explorer",
-        "args": {
-            "visible_on_platforms": ["windows", "linux"]
-        }
-    },
-    {
-        "caption": "File Manager: Open In Finder",
-        "command": "fm_open_in_explorer",
-        "args": {
-            "visible_on_platforms": ["osx"]
-        }
     },
     {
         "caption": "File Manager: Open In Browser",
