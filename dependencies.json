@@ -1,7 +1,8 @@
 {
     "*": {
         "*": [
-            "package_setting_context"
+            "package_setting_context",
+            "bracex"
         ]
     }
 }

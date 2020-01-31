@@ -3,6 +3,7 @@ import os.path
 from ..libs.input_for_path import InputForPath
 from ..libs.sublimefunctions import *
 from .appcommand import AppCommand
+import bracex
 
 
 class FmCreaterCommand(AppCommand):
@@ -10,44 +11,31 @@ class FmCreaterCommand(AppCommand):
     final ones if it doesn't exists. Finaly, opens the file"""
 
     def run(self, abspath, input_path):
-        regex_file_extentions = r"\{(.*?)\}"
         input_path = user_friendly(input_path)
         if input_path[-1] == "/":
             return makedirs(abspath, exist_ok=True)
-        if not os.path.isfile(abspath):
-            file_extensions = re.findall(regex_file_extentions, abspath)
-            if len(file_extensions) != 0:
-                abspath = abspath.split("{")[0]
-                if abspath[-1] != ".":
-                    abspath = abspath + "."
 
-                file_extensions = file_extensions[0].split(",")
-                for file_ext in file_extensions:
-                    file_path = abspath + file_ext
-                    makedirs(os.path.dirname(file_path), exist_ok=True)
-                    with open(file_path, "w") as fp:
-                        pass
-                    template = get_template(file_path)
-                abspath = abspath + file_extensions[0]
-            else:
-                makedirs(os.path.dirname(abspath), exist_ok=True)
-                with open(abspath, "w") as fp:
+        files_to_create = bracex.expand(abspath)
+        for file in files_to_create:
+            if not os.path.isfile(file):
+                makedirs(os.path.dirname(file), exist_ok=True)
+                with open(file, "w") as fp:
                     pass
-                template = get_template(abspath)
-        else:
-            template = None
+                template = get_template(file)
+            else:
+                template = None
 
-        window = get_window()
-        view = window.open_file(abspath)
-        settings = view.settings()
-        if template:
-            settings.set("fm_insert_snippet_on_load", template)
-        refresh_sidebar(settings, window)
-        if get_settings().get("reveal_in_sidebar"):
-            settings.set("fm_reveal_in_sidebar", True)
-            sublime.set_timeout_async(
-                lambda: window.run_command("reveal_in_side_bar"), 500
-            )
+            window = get_window()
+            view = window.open_file(file)
+            settings = view.settings()
+            if template:
+                settings.set("fm_insert_snippet_on_load", template)
+            refresh_sidebar(settings, window)
+            if get_settings().get("reveal_in_sidebar"):
+                settings.set("fm_reveal_in_sidebar", True)
+                sublime.set_timeout_async(
+                    lambda: window.run_command("reveal_in_side_bar"), 500
+                )
 
 
 class FmCreateCommand(AppCommand):
