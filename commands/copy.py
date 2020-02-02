@@ -18,16 +18,17 @@ class FmCopyCommand(AppCommand):
             if which == "name":
                 text.append(os.path.basename(path))
             elif which == "absolute path":
-                text.append(path)
-            elif which in ("path from root", "relative path"):
+                text.append(os.path.abspath(path))
+            elif which == "relative path":
                 for folder in folders:
-                    if folder not in path:
-                        continue
+                    if folder in path:
+                        text.append(os.path.relpath(path, folder))
+                        break
+            elif which == "path from root":
+                for folder in folders:
+                    if folder in path:
+                        norm_path = os.path.relpath(path, folder)
+                        text.append("/" + norm_path.replace(os.path.sep, "/"))
+                        break
 
-                    text.append(os.path.join("/", path.replace(folder, "")))
-                    if which == "relative path":
-                        # remove the initial /
-                        text[-1] = text[-1][1:]
-                    break
-
-        copy("\n".join(bit.replace(os.path.sep, "/") for bit in text))
+        sublime.set_clipboard("\n".join(text))
