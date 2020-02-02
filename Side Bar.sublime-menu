@@ -1,6 +1,6 @@
 [
     {
-        "caption": "New...",
+        "caption": "New…",
         "command": "fm_create",
         "mnemonic": "N",
         "args": {
@@ -32,7 +32,7 @@
         }
     },
     {
-        "caption": "Rename...",
+        "caption": "Rename…",
         "mnemonic": "R",
         "command": "fm_rename_path",
         "args": {
@@ -40,7 +40,7 @@
         }
     },
     {
-        "caption": "Move...",
+        "caption": "Move…",
         "command": "fm_move",
         "mnemonic": "M",
         "args": {
@@ -48,7 +48,7 @@
         }
     },
     {
-        "caption": "Duplicate...",
+        "caption": "Duplicate…",
         "command": "fm_duplicate",
         "mnemonic": "D",
         "args": {
@@ -56,7 +56,7 @@
         }
     },
     {
-        "caption": "Delete",
+        "caption": "Delete…",
         "command": "fm_delete",
         "mnemonic": "e",
         "args": {
@@ -67,12 +67,42 @@
         "caption": "-"
     },
     {
-        "mnemonic": "F",
-        "caption": "Find in Files",
-        "command": "fm_find_in_files",
-        "args": {
-            "paths": []
-        }
+        "mnemonic": "C",
+        "caption": "Copy…",
+        "children": [
+            {
+                "caption": "Name",
+                "command": "fm_copy",
+                "args": {
+                    "which": "name",
+                    "paths": []
+                }
+            },
+            {
+                "caption": "Absolute Path",
+                "command": "fm_copy",
+                "args": {
+                    "which": "absolute path",
+                    "paths": []
+                }
+            },
+            {
+                "caption": "Path From Root",
+                "command": "fm_copy",
+                "args": {
+                    "which": "path from root",
+                    "paths": []
+                }
+            },
+            {
+                "caption": "Relative Path",
+                "command": "fm_copy",
+                "args": {
+                    "which": "relative path",
+                    "paths": []
+                }
+            }
+        ]
     },
     {
         "caption": "-"
@@ -112,45 +142,15 @@
         }
     },
     {
-        "caption": "-"
+        "caption": "-",
+        "id": "folder_commands",
     },
     {
-        "mnemonic": "C",
-        "caption": "Copy",
-        "children": [
-            {
-                "caption": "Name",
-                "command": "fm_copy",
-                "args": {
-                    "which": "name",
-                    "paths": []
-                }
-            },
-            {
-                "caption": "Absolute Path",
-                "command": "fm_copy",
-                "args": {
-                    "which": "absolute path",
-                    "paths": []
-                }
-            },
-            {
-                "caption": "Path from root",
-                "command": "fm_copy",
-                "args": {
-                    "which": "path from root",
-                    "paths": []
-                }
-            },
-            {
-                "caption": "Relative Path",
-                "command": "fm_copy",
-                "args": {
-                    "which": "relative path",
-                    "paths": []
-                }
-            }
-        ]
-    }
-
+        "mnemonic": "F",
+        "caption": "Find in Files",
+        "command": "fm_find_in_files",
+        "args": {
+            "paths": []
+        }
+    },
 ]
