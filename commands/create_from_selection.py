@@ -31,6 +31,14 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
     MATCH_JS_REQUIRE = re_comp(r"require\(\s*$")
     MATCH_RUBY_REQUIRE = re_comp(r"require_relative\s*\(?\s*$")
 
+    @property
+    def settings(cls):
+        try:
+            return cls.settings_
+        except AttributeError:
+            cls.settings_ = sublime.load_settings("FileManager.sublime-settings")
+            return cls.settings_
+
     def run(self, edit, event):
         base_path, input_path = self.get_path(event)
         abspath = computer_friendly(os.path.join(base_path, input_path))
@@ -139,7 +147,7 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
         if event is None:
             return False
         return (
-            self.settings.get("show_create_from_selection_command")
+            self.settings.get("show_create_from_selection_command") is True
             and self.view.file_name() is not None
             and self.get_path(event) is not None
         )

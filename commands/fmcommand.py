@@ -5,12 +5,17 @@ import sublime_plugin
 
 class FmWindowCommand(sublime_plugin.WindowCommand):
 
-    settings = sublime.load_settings("FileManager.sublime-settings")
+    @property
+    def settings(cls):
+        try:
+            return cls.settings_
+        except AttributeError:
+            cls.settings_ = sublime.load_settings("FileManager.sublime-settings")
+            return cls.settings_
 
     def is_visible(self, *args, **kwargs):
-        show = self.settings.get(
-            "show_{}_command".format(self.name().replace("fm_", ""))
-        )
+        name = "show_{}_command".format(self.name().replace("fm_", ""))
+        show = self.settings.get(name)
         if show is None:
             # this should never happen, this is an error
             # we could nag the user to get him to report that issue,
