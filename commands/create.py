@@ -23,7 +23,7 @@ class FmCreaterCommand(FmWindowCommand):
             return os.makedirs(abspath, exist_ok=True)
         if not os.path.isfile(abspath):
             os.makedirs(os.path.dirname(abspath), exist_ok=True)
-            with open(abspath, "w") as fp:
+            with open(abspath, "w"):
                 pass
             template = get_template(abspath)
         else:
@@ -118,6 +118,6 @@ class FmCreateCommand(FmWindowCommand):
         return paths is None or len(paths) == 1
 
     def on_done(self, abspath, input_path):
-        sublime.run_command(
+        self.window.run_command(
             "fm_creater", {"abspath": abspath, "input_path": input_path}
         )
