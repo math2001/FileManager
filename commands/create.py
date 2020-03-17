@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
 import os.path
+
+import bracex
+
 from ..libs.input_for_path import InputForPath
 from ..libs.sublimefunctions import *
 from .appcommand import AppCommand
-import bracex
 
 
 class FmCreaterCommand(AppCommand):
