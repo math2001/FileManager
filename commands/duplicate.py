@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 import shutil
+
 from ..libs.input_for_path import InputForPath
-from ..libs.sublimefunctions import *
 from ..libs.send2trash import send2trash
+from ..libs.sublimefunctions import *
 from .appcommand import AppCommand
 
 
@@ -53,9 +54,7 @@ class FmDuplicateCommand(AppCommand):
                 )
         else:
             if not os.path.exists(dst):
-                with open(dst, "w") as fp:
-                    with open(self.origin, "r") as fpread:
-                        fp.write(fpread.read())
+                shutil.copyfile(self.origin, dst)
                 self.window.open_file(dst)
             else:
 
@@ -68,9 +67,7 @@ class FmDuplicateCommand(AppCommand):
                             "Unable to send to the trash the item {0}".format(e)
                         )
 
-                    with open(dst, "w") as fp:
-                        with open(self.origin, "r") as fpread:
-                            fp.write(fpread.read())
+                    shutil.copyfile(self.origin, dst)
                     self.window.open_file(dst)
 
                 def open_file():
