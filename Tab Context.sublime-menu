@@ -2,7 +2,7 @@
     { "caption": "-", "id": "file" },
     { "caption": "Open In Browser", "command": "fm_open_in_browser" },
     { "caption": "-", "id": "file_manager" },
-    { "caption": "Rename...", "command": "fm_rename_path", },
+    { "caption": "Rename...", "command": "fm_rename_path" },
     { "caption": "Move...", "command": "fm_move" },
     { "caption": "Duplicate...", "command": "fm_duplicate" },
     { "caption": "Delete", "command": "fm_delete" },
@@ -31,5 +31,5 @@
                 "args": { "which": "relative path" }
             }
         ]
-    },
+    }
 ]
