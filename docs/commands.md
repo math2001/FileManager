@@ -73,8 +73,12 @@ will create it for you. You can use what I call [user friendly path](references/
 
 `folder/file.py`
 
-If `folder` does not exists, then it will create it for you.
+If `folder` does not exists, then it will create it for you.  
 If `file.py` exists, it will open it, otherwise it will create it, and then open it.
+
+Note: To create an empty folder, append `/` at the end of name. Otherwise, it will create only file.    
+for folder - `folder/`  
+for file   - `file.py` or `folder/file.py`  
 
 ### With a shortcut `alt+n`
 
