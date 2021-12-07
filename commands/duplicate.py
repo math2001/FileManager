@@ -53,9 +53,7 @@ class FmDuplicateCommand(AppCommand):
                 )
         else:
             if not os.path.exists(dst):
-                with open(dst, "w") as fp:
-                    with open(self.origin, "r") as fpread:
-                        fp.write(fpread.read())
+                shutil.copy2(self.origin, dst)
                 self.window.open_file(dst)
             else:
 
