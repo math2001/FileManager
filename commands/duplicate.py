@@ -42,7 +42,7 @@ class FmDuplicateCommand(AppCommand):
     def duplicate(self, dst, input_path):
         user_friendly_path = user_friendly(dst)
 
-        if  os.path.abspath(self.origin) == os.path.abspath(dst):
+        if os.path.abspath(self.origin) == os.path.abspath(dst):
             sublime.error_message("Destination is the same with the source.")
             return
 
