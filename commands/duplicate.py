@@ -42,6 +42,10 @@ class FmDuplicateCommand(AppCommand):
     def duplicate(self, dst, input_path):
         user_friendly_path = user_friendly(dst)
 
+        if os.path.abspath(self.origin) == os.path.abspath(dst):
+            sublime.error_message("Destination is the same with the source.")
+            return
+
         if os.path.isdir(self.origin):
             if not os.path.exists(dst):
                 shutil.copytree(self.origin, dst)
@@ -53,9 +57,7 @@ class FmDuplicateCommand(AppCommand):
                 )
         else:
             if not os.path.exists(dst):
-                with open(dst, "w") as fp:
-                    with open(self.origin, "r") as fpread:
-                        fp.write(fpread.read())
+                shutil.copy2(self.origin, dst)
                 self.window.open_file(dst)
             else:
 
@@ -68,9 +70,7 @@ class FmDuplicateCommand(AppCommand):
                             "Unable to send to the trash the item {0}".format(e)
                         )
 
-                    with open(dst, "w") as fp:
-                        with open(self.origin, "r") as fpread:
-                            fp.write(fpread.read())
+                    shutil.copy2(self.origin, dst)
                     self.window.open_file(dst)
 
                 def open_file():

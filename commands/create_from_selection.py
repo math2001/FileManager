@@ -43,7 +43,7 @@ class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
 
     def get_path(self, event, for_context_menu=False):
         """
-            @return (base_path: str, relative_path: str)
+        @return (base_path: str, relative_path: str)
         """
         file_name = None
         region = self.view.sel()[0]
