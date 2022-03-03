@@ -79,19 +79,19 @@
     },
     {
         "caption": "Open in Explorer",
-        "platform": "!OSX",
         "command": "fm_open_in_explorer",
         "mnemonic": "O",
         "args": {
+            "visible_on_platforms": ["windows", "linux"],
             "paths": []
         }
     },
     {
         "caption": "Open in Finder",
-        "platform": "OSX",
         "command": "fm_open_in_explorer",
         "mnemonic": "O",
         "args": {
+            "visible_on_platforms": ["osx"],
             "paths": []
         }
     },
