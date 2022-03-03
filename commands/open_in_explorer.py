@@ -22,4 +22,6 @@ class FmOpenInExplorerCommand(AppCommand):
                 )
 
     def is_visible(self, visible_on_platforms=None, paths=None):
-        return super().is_visible() and (visible_on_platforms is None or sublime.platform() in visible_on_platforms)
+        return super().is_visible() and (
+            visible_on_platforms is None or sublime.platform() in visible_on_platforms
+        )
