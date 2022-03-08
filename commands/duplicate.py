@@ -46,6 +46,12 @@ class FmDuplicateCommand(AppCommand):
             sublime.error_message("Destination is the same with the source.")
             return
 
+        # remove right trailing slashes, because os.path.dirname('foo/bar/')
+        # returns foo/bar rather foo/
+        dst = dst.rstrip("/")
+
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+
         if os.path.isdir(self.origin):
             if not os.path.exists(dst):
                 shutil.copytree(self.origin, dst)
