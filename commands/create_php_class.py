@@ -10,7 +10,16 @@ def getComposerJson(path):
     path = path.replace(r"\/$", "") + "/"
 
     try:
-        return json.load(open(path + "composer.json", "r"))
+        with open(path + "composer.json", "r") as file:
+            content = file.read().replace('\t','')
+            content = content.replace('\n','')
+            content = content.replace(',}','}')
+            content = content.replace(',]',']')
+
+            composerJson = json.loads(content)
+        file.close()
+
+        return composerJson
     except Exception as e:
         return False
 
@@ -24,17 +33,18 @@ def getNamespaceByFolder(namespaces, folder, path):
     # remove folder path from path
     #
     # keep path from folder where file will be created
-    path = re.sub(r'\/[A-z_\-0-9]+\.php$', "", path.replace(folder, ""))
+    path = re.sub(r"\/[A-z_\-0-9]+\.php$", "", path.replace(folder, ""))
 
     # loop trough all namespaces
-    for key in namespaces:
+    for namespace in namespaces:
         # get namespace path
-        value = [namespaces[key]][0]
+        # src/ | ./src/ | ./src
+        namespacePath = [namespaces[namespace]][0].replace("./", "").strip("/")
 
         # check if path starts with namespace path
-        if path.startswith("/" + value):
+        if path.startswith("/" + namespacePath):
             # return namespace
-            return key + re.sub(r"^\\", "", path.replace(value, "").replace("/", "\\"))
+            return (namespace.rstrip("\\") + "\\" + path.replace(namespacePath, "").strip("/").replace("/", "\\")).strip("\\")
 
     return False
 
@@ -69,7 +79,7 @@ class FmCreaterPhpClassCommand(AppCommand):
 
                 try:
                     # check if is inside unit/feature tests folder
-                    if '/test/' in abspath.replace(folder, "").lower() or '/tests/' in abspath.replace(folder, "").lower():
+                    if "/test/" in abspath.replace(folder, "").lower() or '/tests/' in abspath.replace(folder, "").lower():
                         namespaces = data['autoload-dev']['psr-4']
                     else:
                         namespaces = data['autoload']['psr-4']
