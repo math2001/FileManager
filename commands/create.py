@@ -10,7 +10,7 @@ class FmCreaterCommand(AppCommand):
 
     def run(self, abspath, input_path):
         input_path = user_friendly(input_path)
-        if input_path[-1] == "/":
+        if input_path[-1] == "/" or input_path[1] == "/" or not re.search(r"\.[A-z]+$",input_path):
             return makedirs(abspath, exist_ok=True)
         if not os.path.isfile(abspath):
             makedirs(os.path.dirname(abspath), exist_ok=True)

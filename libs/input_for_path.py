@@ -241,7 +241,7 @@ class InputForPath(object):
                     os.path.join(self.create_from, computer_friendly(self.input_path))
                 )
             )
-            if self.input_path != "" and self.input_path[-1] == "/":
+            if self.input_path != "" and (self.input_path[-1] == "/" or self.input_path[0] == "/"):
                 path += os.path.sep
             if self.log_in_status_bar == "user":
                 path = user_friendly(path)
