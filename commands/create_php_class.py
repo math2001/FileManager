@@ -54,7 +54,7 @@ class FmCreaterPhpClassCommand(AppCommand):
         folders = get_window().folders()
 
         # define namespace
-        namespace = "PLACEHOLDER_NAMESPACE"
+        namespace = False
 
         # loop trough all folders
         for folder in folders:
@@ -90,10 +90,10 @@ class FmCreaterPhpClassCommand(AppCommand):
             return
 
         # define namespace
-        namespace = namespace if namespace != False else "PLACEHOLDER_NAMESPACE"
+        namespace = "\nnamespace " + namespace if namespace != False else ""
 
         # define class file content
-        classFileContent = f"<?php\n\ndeclare(strict_types=1);\n\nnamespace {namespace};\n\n{type} {className}\n{{\n}}"
+        classFileContent = f"<?php\n\ndeclare(strict_types=1);\n{namespace};\n\n{type} {className}\n{{\n}}"
 
         # create file
         with open(abspath, "w") as f:
