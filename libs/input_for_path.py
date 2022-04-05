@@ -33,6 +33,7 @@ class InputForPath(object):
     def __init__(
         self,
         caption,
+        type,
         initial_text,
         on_done,
         on_change,
@@ -53,6 +54,7 @@ class InputForPath(object):
         self.user_on_change = on_change
         self.user_on_cancel = on_cancel
         self.caption = caption
+        self.type = type
         self.initial_text = initial_text
         self.log_template = log_template
         self.browser_action = browser_action
@@ -301,7 +303,7 @@ class InputForPath(object):
             self.browser.path = computer_path
             return self.browsing_on_done()
         else:
-            self.user_on_done(computer_path, input_path)
+            self.user_on_done(computer_path, input_path, self.type)
 
     def input_on_cancel(self):
         active_view = self.window.active_view()

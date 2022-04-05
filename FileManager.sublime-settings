@@ -97,6 +97,7 @@
     // on the other ones.
 
     "show_create_command": true,
+    "show_create_php_class_command": true,
     "show_copy_command": true,
     "show_delete_command": true,
     "show_duplicate_command": true,

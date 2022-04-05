@@ -8,6 +8,37 @@
         }
     },
     {
+        "caption": "New PHP...",
+        "mnemonic": "p",
+        "children": [
+            {
+                "caption": "Class...",
+                "command": "fm_create_php_class",
+                "mnemonic": "C",
+                "args": {
+                    "type": "class",
+                    "paths": []
+                }
+            }, {
+                "caption": "Interface...",
+                "command": "fm_create_php_class",
+                "mnemonic": "I",
+                "args": {
+                    "type": "interface",
+                    "paths": []
+                }
+            }, {
+                "caption": "Trait...",
+                "command": "fm_create_php_class",
+                "mnemonic": "T",
+                "args": {
+                    "type": "trait",
+                    "paths": []
+                }
+            },
+        ]
+    },
+    {
         "caption": "Open All",
         "command": "fm_open_all",
         "mnemonic": "A",

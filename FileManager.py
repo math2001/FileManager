@@ -17,6 +17,7 @@ prefix = None
 from .libs.sublimefunctions import *
 from .commands.copy import FmCopyCommand
 from .commands.create import FmCreaterCommand, FmCreateCommand
+from .commands.create_php_class import FmCreaterPhpClassCommand, FmCreatePhpClassCommand
 from .commands.create_from_selection import FmCreateFileFromSelectionCommand
 from .commands.delete import FmDeleteCommand
 from .commands.duplicate import FmDuplicateCommand

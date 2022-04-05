@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import re
 from ..libs.input_for_path import InputForPath
 from ..libs.sublimefunctions import *
 from .appcommand import AppCommand
@@ -73,6 +74,7 @@ class FmCreateCommand(AppCommand):
 
         self.input = InputForPath(
             caption="New: ",
+            type="",
             initial_text=initial_text,
             on_done=self.on_done,
             on_change=self.on_change,
@@ -107,7 +109,7 @@ class FmCreateCommand(AppCommand):
     def is_enabled(self, paths=None):
         return paths is None or len(paths) == 1
 
-    def on_done(self, abspath, input_path):
+    def on_done(self, abspath, input_path, type=""):
         sublime.run_command(
             "fm_creater", {"abspath": abspath, "input_path": input_path}
         )

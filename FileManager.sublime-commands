@@ -4,6 +4,30 @@
         "command": "fm_create"
     },
     {
+        "caption": "File Manager: New PHP Class",
+        "command": "fm_create_php_class",
+        "args": {
+            "type": "class",
+            "paths": []
+        }
+    },
+    {
+        "caption": "File Manager: New PHP Interface",
+        "command": "fm_create_php_class",
+        "args": {
+            "type": "interface",
+            "paths": []
+        }
+    },
+    {
+        "caption": "File Manager: New PHP Trait",
+        "command": "fm_create_php_class",
+        "args": {
+            "type": "trait",
+            "paths": []
+        }
+    },
+    {
         "caption": "File Manager: Move",
         "command": "fm_move"
     },

@@ -160,6 +160,13 @@ def to_snake_case(camelCaseString):
     return snake
 
 
+def toCamelCase(snake_str):
+    components = snake_str.split('_')
+    # We capitalize the first letter of each component except the first one
+    # with the 'title' method and join them together.
+    return components[0] + ''.join(x.title() for x in components[1:])
+
+
 def StdClass(name="Unknown"):
     # add the str() function because of the unicode in Python 2
     return type(str(name).title(), (), {})
