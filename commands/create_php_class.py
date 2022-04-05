@@ -90,10 +90,10 @@ class FmCreaterPhpClassCommand(AppCommand):
             return
 
         # define namespace
-        namespace = "\nnamespace " + namespace if namespace != False else ""
+        namespace = "\nnamespace " + namespace + ";\n" if namespace != False else ""
 
         # define class file content
-        classFileContent = f"<?php\n\ndeclare(strict_types=1);\n{namespace};\n\n{type} {className}\n{{\n}}"
+        classFileContent = f"<?php\n\ndeclare(strict_types=1);\n{namespace}\n{type} {className}\n{{\n}}"
 
         # create file
         with open(abspath, "w") as f:
