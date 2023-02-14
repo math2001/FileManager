@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import os
 
+import sublime
 from .fmcommand import FmWindowCommand
 
 
@@ -16,3 +17,8 @@ class FmOpenInExplorerCommand(FmWindowCommand):
                     "open_dir",
                     {"dir": dirname, "file": basename},
                 )
+
+    def is_visible(self, visible_on_platforms=None, paths=None):
+        return super().is_visible() and (
+            visible_on_platforms is None or sublime.platform() in visible_on_platforms
+        )

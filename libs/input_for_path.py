@@ -23,7 +23,6 @@ def StdClass(name="Unknown"):
 
 
 class InputForPath(object):
-
     STATUS_KEY = "input_for_path"
 
     def __init__(
@@ -44,7 +43,6 @@ class InputForPath(object):
         no_browser_action=False,
         browser_index=None,
     ):
-
         self.user_on_done = on_done
         self.user_on_change = on_change
         self.user_on_cancel = on_cancel
@@ -102,7 +100,6 @@ class InputForPath(object):
             self.create_input()
 
     def create_input(self):
-
         self.prev_input_path = None
 
         self.input = StdClass("input")
@@ -183,7 +180,6 @@ class InputForPath(object):
             return prefix, folders
 
     def input_on_change(self, input_path):
-
         self.input_path = user_friendly(input_path)
 
         self.input_path = transform_aliases(self.window, self.input_path)
@@ -262,7 +258,6 @@ class InputForPath(object):
             if not text.endswith(tuple(completions)):
                 return reset_settings()
             if "\t" in input_path:
-
                 # there is still some completions available
                 if len(completions) - 1 > index:
                     return replace_with_completion(completions, index)

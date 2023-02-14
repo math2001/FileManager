@@ -123,7 +123,6 @@ def transform_aliases(window, string):
                 "over and over again."
             )
             if get_settings().get("open_help_on_alias_infinite_loop", True) is True:
-
                 sublime.run_command(
                     "open_url",
                     {

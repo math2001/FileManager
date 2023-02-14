@@ -25,7 +25,6 @@ def move_until(view, stop_char, increment, start):
 
 
 class FmCreateFileFromSelectionCommand(sublime_plugin.TextCommand):
-
     CONTEXT_MAX_LENGTH = 50
     MATCH_SOURCE_ATTR = re_comp(r"(src|href) *= *$")
     MATCH_JS_REQUIRE = re_comp(r"require\(\s*$")
