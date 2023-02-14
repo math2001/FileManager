@@ -4,7 +4,6 @@ import sublime_plugin
 
 
 class FmWindowCommand(sublime_plugin.WindowCommand):
-
     @property
     def settings(cls):
         try:

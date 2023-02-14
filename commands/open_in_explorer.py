@@ -13,5 +13,6 @@ class FmOpenInExplorerCommand(FmWindowCommand):
             else:
                 dirname, basename = os.path.split(path)
                 self.window.run_command(
-                    "open_dir", {"dir": dirname, "file": basename},
+                    "open_dir",
+                    {"dir": dirname, "file": basename},
                 )
