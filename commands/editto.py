@@ -35,4 +35,4 @@ class FmEditToTheLeftCommand(FmWindowCommand):
         self.window.focus_group(0)
 
     def is_enabled(self, files=None):
-        return (files is None or len(files) >= 1) and self.window.active_group() != 1
+        return (files is None or len(files) >= 1) and self.window.active_group() != 0
