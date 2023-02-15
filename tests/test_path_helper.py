@@ -48,9 +48,15 @@ class PathHelperTest(unittest.TestCase):
 
     def test_bash_expansion(self):
         tests = [
-            ("/test/case/{a,b,c}/test", ['/test/case/a/test', '/test/case/b/test', '/test/case/c/test']),
-            ("/test/case/{a,b,c}/", ['/test/case/a/', '/test/case/b/', '/test/case/c/']),
-            ("/test/case/{1..3}/", ['/test/case/1/', '/test/case/2/', '/test/case/3/']),
+            (
+                "/test/case/{a,b,c}/test",
+                ["/test/case/a/test", "/test/case/b/test", "/test/case/c/test"],
+            ),
+            (
+                "/test/case/{a,b,c}/",
+                ["/test/case/a/", "/test/case/b/", "/test/case/c/"],
+            ),
+            ("/test/case/{1..3}/", ["/test/case/1/", "/test/case/2/", "/test/case/3/"]),
         ]
 
         for base, result in tests:
