@@ -3,6 +3,7 @@ import os
 
 import sublime
 
+from ..libs import bracex
 from ..libs.input_for_path import InputForPath
 from ..libs.sublimefunctions import (
     get_template,
@@ -18,28 +19,30 @@ class FmCreaterCommand(FmWindowCommand):
     final ones if it doesn't exists. Finaly, opens the file"""
 
     def run(self, abspath, input_path):
-        input_path = user_friendly(input_path)
-        if input_path[-1] == "/":
-            return os.makedirs(abspath, exist_ok=True)
-        if not os.path.isfile(abspath):
-            os.makedirs(os.path.dirname(abspath), exist_ok=True)
-            with open(abspath, "w"):
-                pass
-            template = get_template(abspath)
-        else:
-            template = None
+        paths = bracex.expand(abspath)
 
-        settings = self.window.open_file(abspath).settings()
-        if template:
-            settings.set("fm_insert_snippet_on_load", template)
+        for path in paths:
+            if path[-1] == "/":
+                return os.makedirs(path, exist_ok=True)
+            if not os.path.isfile(path):
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                with open(path, "w"):
+                    pass
+                template = get_template(path)
+            else:
+                template = None
 
-        refresh_sidebar(settings, self.window)
+            settings = self.window.open_file(path).settings()
+            if template:
+                settings.set("fm_insert_snippet_on_load", template)
 
-        if self.settings.get("reveal_in_sidebar"):
-            settings.set("fm_reveal_in_sidebar", True)
-            sublime.set_timeout(
-                lambda: self.window.run_command("reveal_in_side_bar"), 500
-            )
+            refresh_sidebar(settings, self.window)
+
+            if self.settings.get("reveal_in_sidebar"):
+                settings.set("fm_reveal_in_sidebar", True)
+                sublime.set_timeout(
+                    lambda: self.window.run_command("reveal_in_side_bar"), 500
+                )
 
 
 class FmCreateCommand(FmWindowCommand):
