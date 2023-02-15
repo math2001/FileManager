@@ -23,7 +23,8 @@ class FmCreaterCommand(FmWindowCommand):
 
         for path in paths:
             if path[-1] == "/":
-                return os.makedirs(path, exist_ok=True)
+                os.makedirs(path, exist_ok=True)
+                continue
             if not os.path.isfile(path):
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 with open(path, "w"):
