@@ -3,16 +3,14 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.7
-    - name: Install black
-      run: pip install black
-    - name: Check formating
-      run: black --check --exclude "/(\.git(hub)?|\.mypy_cache|\.nox|\.tox|\.venv|libs/send2trash)/" .
-
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install black
+        run: pip install black
+      - name: Check formating
+        run: black --check --exclude "/(\.git(hub)?|\.mypy_cache|\.nox|\.tox|\.venv|libs/send2trash|libs/bracex)/" .
