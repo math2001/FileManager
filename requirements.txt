@@ -1,4 +1,4 @@
 mkdocs==1.2.3
 mkdocs-material==1.0.2
-Pygments==2.7.4
+Pygments==2.15.0
 pymdown-extensions==1.6.1
