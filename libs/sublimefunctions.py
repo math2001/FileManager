@@ -126,9 +126,8 @@ def transform_aliases(window, string):
                 sublime.run_command(
                     "open_url",
                     {
-                        "url": "https://github.com/math2001/ "
-                        "FileManager/wiki/Aliases "
-                        "#watch-out-for-infinite-loops"
+                        "url": "https://math2001.github.io/"
+                        "FileManager/references/aliases/"
                     },
                 )
             return string
